@@ -81,7 +81,7 @@
     
     
     self.view.backgroundColor = [UIColor colorWithRed:244/254.0 green:244/254.0 blue:244/254.0 alpha:1];
-//    self.view.backgroundColor = [UIColor colorWithRed:0/254.0 green:0/254.0 blue:244/254.0 alpha:1];
+    
     //  ------  页面切换
     
     self.navigationController.navigationBar.hidden = NO;
