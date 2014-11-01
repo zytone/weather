@@ -10,6 +10,19 @@
 #define LCScrollWidth [UIScreen mainScreen].bounds.size.width
 #define LCScrollHeight [UIScreen mainScreen].bounds.size.height
 #define margin 100
+
+/**
+ *  控制topView和bottomView的变化，Proportion是缩放比例，只需要修改Proportion就能控制整体缩放过程
+ */
+#define Proportion 0.8
+#define P_endWidth (Proportion * LCScrollWidth)
+#define P_endHeight (Proportion * LCScrollHeight)
+#define P_endY ((LCScrollHeight - P_endHeight) * 0.5)
+#define P_detalWidth LCScrollWidth * 0.01 * (1 - Proportion)
+#define P_detalHeight LCScrollHeight * 0.01 * (1 - Proportion)
+#define P_detalY P_detalHeight * 0.5
+
+
 @interface LCScrollController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *shadow;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
@@ -105,7 +118,7 @@
  */
 - (void)putPosition
 {
-    if (self.type == LCScrollTypeRight)
+    if (self.type != LCScrollTypeLeft)
     {
         self.scrollView.contentOffset = POINT(margin, 0);
         self.scrollView.contentSize = SIZE(LCScrollWidth + margin, 0);
@@ -160,7 +173,7 @@
 {
     self.topView.frame = RECT(0, 0, 320, 568);
     self.bottomView.frame = RECT(0, 0, 320, 568);
-    self.contentView.frame = RECT(-100, 75, 170, 418);
+    self.contentView.frame = RECT(-100, P_endY, P_endWidth, P_endHeight);
     //添加全屏截图
     _tableView.frame = _contentView.frame;
     _imageView.frame = _topView.bounds;
@@ -169,7 +182,7 @@
 
 - (void)animationEndPosition//动画结束位置
 {
-    self.topView.frame = RECT(270, 50, 220, 468);
+    self.topView.frame = RECT(270, P_endY, P_endWidth, P_endHeight);
     self.bottomView.frame = RECT(0, 0, 320, 568);
     self.contentView.frame = RECT(0, 0, 270, 568);
     //添加全屏截图
@@ -251,7 +264,7 @@
 {
     if (self.scrollView.isDragging) {
     float detalX = scrollView.contentOffset.x - self.startPoint.x;
-        if (self.type == LCScrollTypeRight)
+        if (self.type != LCScrollTypeLeft)
         {
             [self rightScrollView:scrollView detal:detalX];
         }
@@ -327,17 +340,17 @@
     //顶部view变化
     CGRect leftF = self.beginTF;
     leftF.origin.x = self.beginTF.origin.x - detalX * 1.7;
-    leftF.origin.y = self.beginTF.origin.y - detalX * 0.5;
-    leftF.size.width = self.beginTF.size.width + detalX;
-    leftF.size.height = self.beginTF.size.height + detalX;
+    leftF.origin.y = self.beginTF.origin.y - detalX * P_detalY;
+    leftF.size.width = self.beginTF.size.width + detalX * P_detalWidth;
+    leftF.size.height = self.beginTF.size.height + detalX * P_detalHeight;
     self.topView.frame = leftF;
     
     //内容view变化
     CGRect contentF = self.beginCF;
-    contentF.size.height = self.beginCF.size.height - detalX * 1.5;
-    contentF.size.width = self.beginCF.size.width - detalX;
+    contentF.size.height = self.beginCF.size.height - detalX * P_detalHeight;
+    contentF.size.width = self.beginCF.size.width - detalX * P_detalWidth;
     contentF.origin.x = self.beginCF.origin.x - detalX ;
-    contentF.origin.y = self.beginCF.origin.y + detalX * 0.75;
+    contentF.origin.y = self.beginCF.origin.y + detalX * P_detalY;
     self.contentView.frame = contentF;
     //添加全屏截图
      _tableView.frame = _contentView.frame;

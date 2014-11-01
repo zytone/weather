@@ -284,12 +284,16 @@ static bool canTurn = YES;
 
 }
 #pragma mark - Scroll controller delegate
+static BOOL ScrollControllanimating = NO;//控制设置返回动画播放
 -(void)scrollControllerWillDealloc:(LCScrollController *)scrollController
 {
+    if (ScrollControllanimating) return;
+    ScrollControllanimating = YES;
     [UIView animateWithDuration:1 animations:^{
         _movieImageView.alpha = 0;
     } completion:^(BOOL finished) {
         self.movieImageView.image = nil;
+        ScrollControllanimating = NO;
     }];
     _horizontalScrollView.scrollEnabled = YES;
     [_scrollController.view removeFromSuperview];
@@ -369,6 +373,7 @@ static bool HorizontalScrollViewBeginScroll = NO;
 
 -(void)weatherDetailsController:(LCWeatherDetailsController *)controller topBtnClick:(LCHeadButton)lcButton
 {
+    if (ScrollControllanimating) return;//设置返回动画没有结束就退出
     if (lcButton == LCHeadButton_Left) {
         _horizontalScrollView.scrollEnabled = NO;
         //暂停视频
