@@ -50,6 +50,10 @@
 +(id)shareManager;
 //播放
 -(void)playVoice:(NSString*)str;
+/**
+ *  结束文字识别语音播放
+ */
+-(void)stopSpeekingVoice;
 //识别
 -(void)discernBlock:(void(^)(NSString*))a;
 

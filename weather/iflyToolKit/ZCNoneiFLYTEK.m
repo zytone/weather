@@ -40,6 +40,11 @@ static ZCNoneiFLYTEK *manager=nil;
     [iFlySpeechSynthesizer startSpeaking:str];
     
 }
+//结束文字识别播放
+-(void)stopSpeekingVoice
+{
+    [iFlySpeechSynthesizer stopSpeaking];
+}
 -(void)discernBlock:(void(^)(NSString*))a{
     self.onResult=a;
     
