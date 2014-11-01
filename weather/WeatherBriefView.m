@@ -71,7 +71,7 @@ extern bool isEndFlag = false;
 
 -(void)awakeFromNib
 {
-    // 背景音乐
+    // 背景音乐   背景音乐
     NSString *path  = [[NSBundle mainBundle]pathForResource:@"渔舟唱晚.mp3" ofType:nil];
     NSURL *url = [NSURL fileURLWithPath:path];
     self.aPlayer = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:nil];
