@@ -42,7 +42,7 @@
 {
     
     _data = data;
-    // 刷新数据柔柔弱弱ß
+    // 刷新数据
     [aTableView reloadData];
 }
 
