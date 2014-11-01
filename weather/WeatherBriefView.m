@@ -12,7 +12,7 @@
 #import <AVFoundation/AVFoundation.h>
 
 @interface WeatherBriefView ()<AVAudioPlayerDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *city;
+
 
 @property (weak, nonatomic) IBOutlet UILabel *temp;
 @property (weak, nonatomic) IBOutlet UILabel *tempUnit;
@@ -47,7 +47,7 @@
 {
     
     _nowWeatherInfo = nowWeatherInfo;
-    self.city.text = nowWeatherInfo.city;
+
     self.temp.text = nowWeatherInfo.temp;
     // 设置单位的位置紧靠temp
      // 1获取temp文字的宽度
