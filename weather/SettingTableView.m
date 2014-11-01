@@ -127,7 +127,7 @@
     
     CGRect r = self.superview.frame;
     
-    settingTableView.frame = r;
+//    settingTableView.frame = r;
     
 }
 
