@@ -78,6 +78,8 @@
     
     self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:fontSize];
     
+    NSLog(@"cell:%@",self);
+    
 }
 
 

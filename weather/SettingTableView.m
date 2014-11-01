@@ -128,7 +128,8 @@
     CGRect r = self.superview.frame;
     
     settingTableView.frame = r;
-    
+//    NSLog(@"%@",r);
+    NSLog(@"table self :%@",self);
 }
 
 
