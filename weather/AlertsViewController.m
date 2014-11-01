@@ -361,8 +361,7 @@
     // 处理选择的时间日期
     [self settingDate];
     
-    // 重设本地通知时间
-    
+    // 重设本地通知时间  zyt
     NSLog(@"select date : %@",dates.date);
 }
 
