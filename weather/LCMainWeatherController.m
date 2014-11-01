@@ -392,9 +392,15 @@ static bool HorizontalScrollViewBeginScroll = NO;
         [self.view addSubview:scrollController.view];
         self.scrollController = scrollController;
         //tableview设置
-        SettingInfoViewController *settingController = [SettingInfoViewController new];
-        _settingInfoViewController = settingController;
+        
+        self.settingInfoViewController = [SettingInfoViewController new];
+        
         scrollController.tableView = [_settingInfoViewController.view.subviews lastObject];
+        
+//        [scrollController addChildViewController:settingController];
+        NSLog(@"subviews.count: %d",_settingInfoViewController.view.subviews.count);
+        
+        NSLog(@"sc_tablevie : %@",scrollController.tableView);
         
         [self addChildViewController:_settingInfoViewController];
     }
