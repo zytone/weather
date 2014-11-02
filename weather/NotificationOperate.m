@@ -232,6 +232,10 @@
         NSLog(@"date : %@",date);
         
         [notification setUserInfo:info];
+        
+        // 由于只有一个通知，所以我们可以先清掉所有的通知，再加新的通知
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        
         // 启用这个通知
         [[UIApplication sharedApplication]   scheduleLocalNotification:notification];
         // 创建了就要学会释放。如果不加这一句，通知到时间了，发现顶部通知栏提示的地方有了，然后你通过通知栏进去，然后你发现通知栏里边还有这个提示，除非你手动清除

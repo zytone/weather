@@ -68,6 +68,10 @@
 {
     [self animationBeginPosition];
     self.imageView.image = _contentImage;
+    
+    [_bottomView addSubview:_tableView];
+    _tableView.frame = RECT(0, 0, 270, 568);
+    NSLog(@"tableview : %@",_tableView);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -96,7 +100,6 @@
 -(void)setTableView:(UITableView *)tableView
 {
     _tableView = tableView;
-    [_bottomView addSubview:tableView];
 }
 
 #pragma mark - 控制位置
@@ -176,6 +179,7 @@
      _tableView.frame = _contentView.frame;
     _imageView.frame = _topView.bounds;
     _imageBtn.frame = _imageView.frame;
+    
 }
 
 //将要销毁
@@ -343,7 +347,7 @@
      _tableView.frame = _contentView.frame;
     _imageView.frame = _topView.bounds;
     _imageBtn.frame = _topView.bounds;
-    MyLog(@"%@ %@",_contentView,_tableView);
+//    MyLog(@"%@ %@",_contentView,_tableView);
     
     //阴影变化
     self.shadow.alpha =  scrollView.contentOffset.x / margin;

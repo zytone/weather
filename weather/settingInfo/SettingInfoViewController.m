@@ -69,13 +69,17 @@
     
 //    self.view.frame = CGRectMake(VIEW_X, 0, 100, 200);
     
-    SettingTableView *s = [[SettingTableView alloc] initWithFrame:CGRectMake(VIEW_X, 0, VIEW_WIDTH, VIEW_HEIGHT)];
+//    SettingTableView *s = [[SettingTableView alloc] initWithFrame:CGRectMake(VIEW_X, VIEW_Y, VIEW_WIDTH, VIEW_HEIGHT)];
+//    SettingTableView *s = [[SettingTableView alloc] initWithFrame:RECT(-100, 75, 170, 418)];
+    SettingTableView *s = [[SettingTableView alloc] init];
     s.delegate = self;
-    
+        
     [self.view addSubview:s];
 //    SettingTableView *tab =   [self.view.subviews lastObject];
 //    tab.frame = CGRectMake(0, 0, 100,100);
     
+    
+    NSLog(@"settingtableveiw : %@",self);
     
 }
 
