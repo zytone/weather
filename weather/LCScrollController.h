@@ -15,6 +15,7 @@ typedef NSInteger LCScrollType;
 @protocol LCScrollControllerDelegate;
 @interface LCScrollController : UIViewController
 @property (nonatomic , weak) UITableView *tableView;
+@property (nonatomic , weak) UIView *viewTabView;
 @property (nonatomic , weak) UIImage *contentImage;
 @property (nonatomic , weak) id<LCScrollControllerDelegate> delegate;
 
