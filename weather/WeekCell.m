@@ -49,11 +49,8 @@
     self.weather.text = fw.weather;
     
     // 图片 通过天气判断采用那张图
-//    NSArray *imageArrys = @[@"",@"",@"",@""];
-//    NSURL *url = [NSURL URLWithString:fw.weather_icon];
-//    NSData *data = [NSData dataWithContentsOfURL:url];
-//    self.weatherPic.image = [[UIImage alloc]initWithData:data];
-    self.weatherPic.image = [UIImage imageNamed:@"ww0"];
+
+    self.weatherPic.image = [UIImage imageNamed:fw.weather_icon];
     // 温度
     NSString *temp = [NSString stringWithFormat:@"%@~%@°C",fw.temp_high,fw.temp_low];
     self.temp.text = temp;//fw.temperature;

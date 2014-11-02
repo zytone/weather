@@ -9,9 +9,11 @@
 #import "WeekWeatherView.h"
 #import "WeekCell.h"
 #import "FutureWeekWeahterInfo.h"
+#import "LineChartView.h"
 @interface WeekWeatherView ()<UITableViewDataSource>
 {
     UITableView  *aTableView; // 一周天气 tableView
+    LineChartView  *lineChartView; // 折线图的view
 }
 @end
 @implementation WeekWeatherView
@@ -33,6 +35,36 @@
         aTableView.scrollEnabled = NO;      // 禁止滚动
         aTableView.dataSource = self;       // 数据源代理
         aTableView.backgroundColor = [UIColor clearColor];
+        // 横线
+//        UIView *line = [[UIView alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 250, 1)];
+//        line.backgroundColor = [UIColor whiteColor];
+//        [self addSubview:line];
+        UILabel *label = [[UILabel alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 200, 20)];
+        [label setFont:[UIFont systemFontOfSize:15]];
+        [label setTextColor:[UIColor whiteColor]];
+        label.text = @"一周每日平均温度趋势图：";
+        [self addSubview:label];
+        // 画图的view
+        lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
+        
+        NSMutableArray *pointArr = [[NSMutableArray alloc]init];
+        
+        //横轴
+        NSMutableArray *hArr = [[NSMutableArray alloc]initWithCapacity:pointArr.count];
+        [hArr addObject:@"今天"];
+        [hArr addObject:@"周二"];
+        [hArr addObject:@"周三"];
+        [hArr addObject:@"周四"];
+        [hArr addObject:@"周五"];
+        [hArr addObject:@"周六"];
+        [hArr addObject:@"周日"];
+        [lineChartView setHDesc:hArr];
+        
+        [lineChartView setArray:pointArr];
+        
+        
+        lineChartView.backgroundColor = [UIColor clearColor];
+        [self addSubview:lineChartView];
         [self addSubview:aTableView];
     }
     return self;
@@ -44,6 +76,21 @@
     _data = data;
     // 刷新数据
     [aTableView reloadData];
+    
+    // 折线图
+    
+    NSMutableArray *pointArr = [[NSMutableArray alloc]init];
+    
+    //生成随机点
+    int hInterva = 40;
+    for(int i = 0 ; i< data.count;i++)
+    {
+        FutureWeekWeahterInfo *info = data[i];
+        float average =([info.temp_high floatValue] + [info.temp_low floatValue])*0.5;
+        [pointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), average)]];
+    }
+    [lineChartView setArray:pointArr];
+
 }
 
 #pragma mark 数据源
