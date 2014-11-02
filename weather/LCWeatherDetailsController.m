@@ -61,6 +61,11 @@
     [self.view addSubview:headView];
 }
 // -------------------------------------------------
+#pragma mark -返回背景视频名称 含有后缀：.mp4
+-(NSString*)getBackGroudVedioName
+{
+    return v0_BriefV.futureWeekWeahterInfo.weather_icon2;
+}
 
 #pragma mark - 设置数据(从数据库读取)
 -(void)setAllDataByDB:(NSString *)cityNo
@@ -241,7 +246,7 @@ static int flag = 0;
     
     //v1 (一周天气预报)
     CGFloat v1W = 300;
-    CGFloat v1H = 400;
+    CGFloat v1H = 500;
     CGFloat v1X = padding;
     CGFloat v1Y = self.view.height - REFRESHHEIGHT;
     v1_weekWeatherV = [WeekWeatherView weekWeatherViewWith:RECT(v1X, v1Y, v1W, v1H)];
