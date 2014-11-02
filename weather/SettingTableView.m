@@ -55,7 +55,7 @@
     settingTableView.delegate = self;
     
 //    settingTableView.backgroundColor = [UIColor clearColor];
-    
+    // 
     [self addSubview:settingTableView];
 //    self = settingTableView;
 //    return settingTableView;
