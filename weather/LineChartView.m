@@ -28,7 +28,7 @@
 
     CGContextSetLineWidth(context, backLineWidth);//主线宽度
 
-    //2 横坐标轴
+    //2 横坐标轴 在加
     for (int i=0; i<array.count; i++) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(i*vInterval+15, 120, self.vInterval, 30)];
         [label setBackgroundColor:[UIColor clearColor]];
