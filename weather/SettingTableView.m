@@ -38,7 +38,7 @@
         NSArray *arr = @[@"拍照",@"提醒",@"生活指数"];
         
         mArr = arr;
-        self.backgroundColor = [UIColor whiteColor];
+//        self.backgroundColor = [UIColor whiteColor];
         [self creatTabelWithFrame:frame];
     }
     return self;
@@ -48,11 +48,13 @@
 {
     
     settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(VIEW_X, 0, VIEW_WIDTH, VIEW_HEIGHT) style:UITableViewStyleGrouped];
-    settingTableView = [[UITableView alloc] initWithFrame:frame];
+//    settingTableView = [[UITableView alloc] initWithFrame:frame];
     
     settingTableView.dataSource = self;
     
     settingTableView.delegate = self;
+    
+//    settingTableView.backgroundColor = [UIColor clearColor];
     
     [self addSubview:settingTableView];
 //    self = settingTableView;

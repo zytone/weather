@@ -15,11 +15,22 @@
 #define VIEW_X self.view.frame.origin.x
 #define VIEW_Y self.view.frame.origin.y
 
+// 定义存储在NSUserDefaults中的key
+#define USER_DEFAULTS [NSUserDefaults standardUserDefaults]
+#define KEY @"notification"
+#define TIME @"notificationTime"
+#define STATUS @"switchStatus"
+
 @interface AlertsViewController ()<UITableViewDataSource,NotificationTableCellTableViewCellDelegate,UITableViewDelegate>
 {
     UIDatePicker *dates;
     UIView *dateView;
     UITableView *dateTableView;
+    // 通知开关的cell
+    NotificationTableCellTableViewCell *cellSw;
+    
+    // 通知开关状态
+    BOOL aStatus;
 }
 // 接收请求的数据
 @property (nonatomic , strong) NSMutableData *requestData;
@@ -52,18 +63,12 @@
     if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
-
+    
+    
     // 显示返回按钮
 //    self.navigationController.navigationBar.hidden = NO;
     
-    
-    // 添加一个tableView
-    dateTableView = [[UITableView alloc] initWithFrame:CGRectMake(VIEW_X, -20, VIEW_WIDTH, VIEW_HEIGHT) style:UITableViewStyleGrouped];
-    dateTableView.dataSource = self;
-    dateTableView.delegate = self;
-    
-    [self.view addSubview:dateTableView];
-    
+    aStatus = NO;
     
     // 创建一个遮蔽层
     UIButton *cover = [[UIButton alloc] initWithFrame:self.view.frame];
@@ -158,7 +163,81 @@
     headTitle.textAlignment = NSTextAlignmentCenter;
     //    headTitle.font = [UIFont fontWithName:@"sonti" size:27];
     [topView addSubview:headTitle];
+    
+    
+    // 读取已经是否有存储的数据
+    [self readDataWithKey:KEY];
+    
+    
+    
+    // 添加一个tableView
+    dateTableView = [[UITableView alloc] initWithFrame:CGRectMake(VIEW_X, -20, VIEW_WIDTH, VIEW_HEIGHT) style:UITableViewStyleGrouped];
+    dateTableView.dataSource = self;
+    dateTableView.delegate = self;
+    
+    [self.view addSubview:dateTableView];
+    
+    [self.view sendSubviewToBack:dateTableView];
+    
+    
 }
+
+/**
+ *  读取useDefaults里面的数据
+ *
+ *  @param aKey 对应的key值
+ */
+- (void)readDataWithKey:(NSString *)aKey
+{
+    // 直接用一个字符串来进行接收
+    //    NSString *name = [[NSUserDefaults standardUserDefaults] stringForKey:aKey];
+    
+    NSDictionary *dic = [USER_DEFAULTS objectForKey:aKey];
+    
+    if (dic != nil) {
+        // 开关状态
+        NSNumber *num = dic[STATUS];
+        
+        aStatus = num.boolValue;
+        
+        // 获取之前设置的时间
+        NSDate *d = dic[TIME];
+        
+        // 1\设置选择器时间
+//        [self settingDate];
+        dates.date = d ;
+        
+        cellSw.switchNotification.on = aStatus;
+        // 2\设置通知
+        [self creatOrCancelNotificationWithState:aStatus];
+        
+        NSLog(@"dic : %@",dic);
+    
+    }
+    else
+    {
+        NSLog(@"这里没有存在历史记录！~");
+    }
+    
+}
+
+/**
+ *  保存设置到userdefaults中
+ *
+ */
+- (void) saveDataWithDictionary:(NSDictionary *)dic
+{
+    
+    // 设置数据
+    [USER_DEFAULTS setObject:dic forKey:KEY];
+    
+    // 更新数据，本地的
+    [USER_DEFAULTS synchronize];
+
+}
+
+
+
 
 /**
  *  设置tableView的cell
@@ -173,15 +252,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        NotificationTableCellTableViewCell *cell = [NotificationTableCellTableViewCell creatCell:tableView];
+        cellSw = [NotificationTableCellTableViewCell creatCell:tableView];
         
-        cell.delegate = self;
+        cellSw.delegate = self;
         
-        cell.switchNotification.on = NO;
+        cellSw.switchNotification.on = aStatus;
+        cellSw.switchNotification.tag = 111;
         
-        [cell.switchNotification addTarget:self action:@selector(switchChange:) forControlEvents:UIControlEventValueChanged];
+        [cellSw.switchNotification addTarget:self action:@selector(switchChange:) forControlEvents:UIControlEventValueChanged];
         
-        return cell;
+        return cellSw;
     }
     else
     {
@@ -191,6 +271,9 @@
         
         // 直接获取设置的时间
         cell.detailTextLabel.text = [self stringTransformByDate:dates.date];
+        
+        
+        
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
@@ -256,10 +339,23 @@
     int temp = aBtn.tag;
     // 点击的是完成按钮
     if (temp == 12) {
+        aStatus = YES;
+        // 改变按钮状态
+        [self creatOrCancelNotificationWithState:aStatus];
         
-        [self creatOrCancelNotificationWithState:NO];
         // 刷新tableView的数据
         [dateTableView reloadData];
+        
+//        cellSw.switchNotification.hidden = YES;
+        
+        NSLog(@"status: %d",cellSw.switchNotification.on);
+        
+        NSNumber *num = [NSNumber numberWithBool:aStatus];
+        
+        // 保存信息到userdefualts
+        NSDictionary *dic = @{TIME: dates.date, STATUS : num};
+        
+        [self saveDataWithDictionary:dic];
         
     }
     
@@ -328,6 +424,14 @@
     [self settingDate];
     
     [self creatOrCancelNotificationWithState:aSwitch.on];
+    
+    BOOL stat = aSwitch.on;
+    
+    NSNumber *num = [NSNumber numberWithBool:stat];
+    
+    // 保存信息到userdefualts
+    NSDictionary *dic = @{TIME: dates.date, STATUS : num };
+    [self saveDataWithDictionary:dic];
 }
 
 /**
