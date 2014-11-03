@@ -45,7 +45,9 @@
 - (void)loadView
 {
     [super loadView];
-    
+    if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+    }
     /**
      *  添加界面：一个输入邮箱的 文本框 和 提交按钮
      */
@@ -55,7 +57,7 @@
     
     CGFloat w = self.view.frame.size.width - ( x * 2 );
     
-    CGFloat h = 60;
+    CGFloat h = 40;
     
     // 输入文本
     emailField = [[UITextField alloc] initWithFrame:CGRectMake(x, y, w, h)];
@@ -69,7 +71,8 @@
     [self.view addSubview:emailField];
     
     // 提交按钮
-    UIButton *sumBtn = [[UIButton alloc] initWithFrame:CGRectMake(x, y + h, w, h)];
+    UIButton *sumBtn = [[UIButton alloc] initWithFrame:CGRectMake(x, y + h + 10
+                                                                  , w, h)];
     
     [sumBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
     

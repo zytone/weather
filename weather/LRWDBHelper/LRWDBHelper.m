@@ -32,11 +32,11 @@ static sqlite3 *db = nil;//用static速度快
     //获得Documents路径
     NSString *docPath = [homePath stringByAppendingPathComponent:@"Documents"];
     //文件路径
-    NSString *path = [docPath stringByAppendingPathComponent:@"Untitled.sqlite"];
+    NSString *path = [docPath stringByAppendingPathComponent:@"weather.sqlite"];
     
     if (db == nil){
         //资源包路径
-        NSString *bunlePath = [[NSBundle mainBundle] pathForResource:@"cityname.sqlite" ofType:nil];
+        NSString *bunlePath = [[NSBundle mainBundle] pathForResource:@"weather.sqlite" ofType:nil];
         //文件管理器
         NSFileManager *fm = [NSFileManager defaultManager];
         if (![fm fileExistsAtPath:path]) {//如果savePath路径的这个文件不存在

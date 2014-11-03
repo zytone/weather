@@ -12,11 +12,14 @@
 #import "../LoginViewController.h"
 #import "../AlertsViewController.h"
 #import "RootNavigationController.h"
+#import "SetViewController.h"
 
 // 视图头文件
 #import "SettingInfoTableViewCell.h"
 #import "SettingHeadTableViewCell.h"
 #import "SettingTableView.h"
+
+
 
 #define VIEW_WIDTH self.view.frame.size.width
 #define VIEW_HEIGHT self.view.frame.size.height
@@ -89,7 +92,7 @@
 {
     switch (index) {
         case 0:
-            [self pushToLogin];
+            [self userInfo];
             break;
             
         case 2:
@@ -99,6 +102,24 @@
         default:
             break;
     }
+}
+/**
+ *  点击用户图标
+ 登录后：个人设置
+ 未登录：登录界面
+ */
+-(void) userInfo
+{
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dic = [user objectForKey:@"userInfo"];
+    
+    if (dic!= nil) {    }
+        SetViewController *setView = [SetViewController new];
+        [self.navigationController pushViewController:setView animated:YES];
+
+    
+//    [self pushToLogin];
 }
 
 #pragma mark - nav切换页面
