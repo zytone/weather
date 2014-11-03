@@ -156,10 +156,11 @@ static int flag = 0;
     }
     if(flag==3)
     {
+#warning 没有调用这个方法
         if([self.delegate respondsToSelector:@selector(weatherDetailsController:headView:)])
         {
-            
             [self.delegate weatherDetailsController:self headView:_headView];
+            flag = 0;
         }
     }
 }
@@ -193,6 +194,7 @@ static int flag = 0;
         {
             
             [self.delegate weatherDetailsController:self headView:_headView];
+            flag = 0;
 
         }
     }
@@ -227,6 +229,7 @@ static int flag = 0;
         {
             
             [self.delegate weatherDetailsController:self headView:_headView];
+            flag = 0;
             
         }
     }
@@ -316,11 +319,12 @@ static int flag = 0;
 -(void)setCity_num:(NSString *)city_num
 {
      _city_num = city_num;
-    [self updateAllDataByNet:city_num];
 
     NSLog(@"city_num:%@",city_num);
     
     [self setAllDataByDB:city_num];
+    
+    [self updateAllDataByNet:city_num];
 }
 
 #pragma mark - Head view delegate
@@ -383,6 +387,9 @@ static bool canRefresh = YES;
 }
 
 #pragma mark - Weather delegate
+/**
+ *   天气分享
+ */
 -(void)weatherBriefViewShareBtnClickWithNowWeather:(NowWeatherInfo *)nowInfo FutureWeekWeahterInfo:(FutureWeekWeahterInfo *)nowFutureInfo
 {
     if ([self.delegate respondsToSelector:@selector(weatherDetailsControllerShareBtnClick:NowWeather:FutureWeekWeahterInfo:)]) {

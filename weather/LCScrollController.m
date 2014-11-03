@@ -73,6 +73,12 @@
 
     //按钮添加事件
     [_imageBtn addTarget:self action:@selector(btnClickCallDelegateDealloc) forControlEvents:UIControlEventTouchUpInside];
+    if (_type == LCScrollTypeLeft) {
+        _topView.layer.shadowColor = [UIColor blackColor].CGColor;
+        _topView.layer.shadowOffset = SIZE(-5, 0);
+        //阴影不透明度，默认是0隐藏阴影
+        _topView.layer.shadowOpacity = 0.8;
+    }
     
     MyLog(@"%@",_topView.subviews);
 }

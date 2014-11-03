@@ -23,18 +23,17 @@ static sqlite3 *db = nil;//用static速度快
     NSDocumentDirectory是沙盒中的Documents文件夹
     path 的最终结果 就是获得 Documents目录下 Untitled.sqlite 的路径， 与下面savePath的值是一模一样的
     */
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    path = [path stringByAppendingPathComponent:@"cityname.sqlite"];
+//    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    path = [path stringByAppendingPathComponent:@"cityname.sqlite"];
     
     
-    /*
     //获得沙盒路径
     NSString *homePath = NSHomeDirectory();
     //获得Documents路径
     NSString *docPath = [homePath stringByAppendingPathComponent:@"Documents"];
     //文件路径
-    NSString *savePath = [docPath stringByAppendingPathComponent:@"Untitled.sqlite"];
-    */
+    NSString *path = [docPath stringByAppendingPathComponent:@"Untitled.sqlite"];
+    
     if (db == nil){
         //资源包路径
         NSString *bunlePath = [[NSBundle mainBundle] pathForResource:@"cityname.sqlite" ofType:nil];
@@ -249,7 +248,7 @@ static sqlite3 *db = nil;//用static速度快
         }
         [sql appendFormat:@"%@ %@",newValues,conditions];
     }
-    MyLog(@"%@",sql);
+//    MyLog(@"%@",sql);
     /**
      *  修改记录
      */
