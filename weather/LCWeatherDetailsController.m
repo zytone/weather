@@ -55,7 +55,6 @@
     self.contentView = aView;
     [scrollView addSubview:aView];
     [self addViewToScrollViewContentView:aView];
-    
 
     [self.view addSubview:scrollView];
     [self.view addSubview:headView];
@@ -90,7 +89,6 @@
     // 生活指数
     NSArray *lifeItemArry = [LifeAdviceInfoItem searchLifeAdviceInfoItemsByCityId:cityNo Date:nil];
     
-    // ---
     // 判断数据是否为空
     NSLog(@"cityNo：%@",cityNo);
     NSLog(@"futurInfoArry.count:%d",futurInfoArry.count);
@@ -135,33 +133,45 @@
 }
 // 2 设置数据
 static int flag = 0;
-#pragma mark -实现代理方法 获取实时天气信息 （GetWeatherDataDelegate）
--(void)getNowWeatherData:(NSDictionary *)dic errorMessage:(NSError *)err
-{
-    flag++;
-    if (err == nil) {
-        NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
 
-        // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
-        [info insertNowWeatherInfo:info];
-        // 2 天气简要view
-        v0_BriefV.nowWeatherInfo = info;
-        // 3 风速view
-        v3_WindS.nowWeatherInfo = info;
-        
-        
-    }else
-    {
-        NSLog(@"获取实时天气信息失败!");
-    }
+#pragma mark -执行刷新代理方法
+-(void)excuteDelegateRefreshMethod
+{
     if(flag==3)
     {
-#warning 没有调用这个方法
         if([self.delegate respondsToSelector:@selector(weatherDetailsController:headView:)])
         {
             [self.delegate weatherDetailsController:self headView:_headView];
             flag = 0;
         }
+    }
+}
+
+
+#pragma mark -实现代理方法 获取实时天气信息 （GetWeatherDataDelegate）
+-(void)getNowWeatherData:(NSDictionary *)dic errorMessage:(NSError *)err
+{
+    flag++;
+    if (err == nil) {
+        if(dic[@"weatherinfo"]!=nil)
+        {
+            NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
+            // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
+            [info insertNowWeatherInfo:info];
+            // 2 天气简要view
+            v0_BriefV.nowWeatherInfo = info;
+            // 3 风速view
+            v3_WindS.nowWeatherInfo = info;
+            
+            // 4 刷新数据
+            [self excuteDelegateRefreshMethod];
+        }else
+        {
+            NSLog(@"请求实时天气信息为空");
+        }
+    }else
+    {
+        NSLog(@"获取实时天气信息失败，服务器出错!");
     }
 }
 #pragma mark -实现代理方法 获取一周天气信息
@@ -172,31 +182,33 @@ static int flag = 0;
     if(err==nil)
     {
         // 保存入数据库中（新数据覆盖旧数据）
-        NSMutableArray *datas = [NSMutableArray array];
-        for(NSDictionary *dict in dic[@"result"])
+         // 判断数据是否为空
+        if(dic[@"result"] != nil)
         {
-            FutureWeekWeahterInfo *info = [FutureWeekWeahterInfo futureWeekWeatherInfo:dict];
-            [info insertFutureWeekWeahterInfo:info];
-            [datas addObject:info];
-        }
-        //
-        v1_weekWeatherV.data = datas;
-        // wBriefV 获取今天的天气
-        v0_BriefV.futureWeekWeahterInfo = datas[0];
+            NSMutableArray *datas = [NSMutableArray array];
+            for(NSDictionary *dict in dic[@"result"])
+            {
+                FutureWeekWeahterInfo *info = [FutureWeekWeahterInfo futureWeekWeatherInfo:dict];
+                [info insertFutureWeekWeahterInfo:info];
+                [datas addObject:info];
+            }
+            v1_weekWeatherV.data = datas;
         
+            // wBriefV 获取今天的天气
+             // 判断数组是否为空
+             if(datas.count >0)
+             {
+               v0_BriefV.futureWeekWeahterInfo = datas[0];
+             }
+            //  刷新数据
+            [self excuteDelegateRefreshMethod];
+        }else
+        {
+              NSLog(@"获取一周天气信息为空");
+        }
     }else
     {
-        NSLog(@"获取一周天气信息失败！");
-    }
-    if(flag==3)
-    {
-        if([self.delegate respondsToSelector:@selector(weatherDetailsController:headView:)])
-        {
-            
-            [self.delegate weatherDetailsController:self headView:_headView];
-            flag = 0;
-
-        }
+        NSLog(@"获取一周天气信息失败，服务器出错！");
     }
 }
 #pragma mark -实现代理方法 获取生活指数信息
@@ -205,6 +217,8 @@ static int flag = 0;
     flag++;
     if(err== nil)
     {
+        if (dic[@"zs"]!=nil) {
+        
         // 1 补充数据完整，为字典dic增加一个字典cityid
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dic[@"zs"]];
         [dict addEntriesFromDictionary:[NSDictionary dictionaryWithObject:_city_num forKey:@"cityid"]];
@@ -219,21 +233,18 @@ static int flag = 0;
         // ----
         v2_lifeAdviceV.lifeAInfos = life.advsArry;
         
+        // 4 刷新数据
+        [self excuteDelegateRefreshMethod];
+        }else
+        {
+              NSLog(@"获取生活指数信息为空");
+        }
+        
     }else
     {
-        NSLog(@"获取生活建议信息失败!");
+        NSLog(@"获取生活建议信息失败，服务器出错!");
     }
-    if(flag==3)
-    {
-        if([self.delegate respondsToSelector:@selector(weatherDetailsController:headView:)])
-        {
-            
-            [self.delegate weatherDetailsController:self headView:_headView];
-            flag = 0;
-            
-        }
-    }
-    
+
 }
 // -----------------------------------------------------------
 // 实现代理方法
@@ -261,7 +272,7 @@ static int flag = 0;
     CGFloat v1W = 300;
     CGFloat v1H = 500;
     CGFloat v1X = padding;
-    CGFloat v1Y = self.view.height - REFRESHHEIGHT;
+    CGFloat v1Y = self.view.height - REFRESHHEIGHT + 10;
     v1_weekWeatherV = [WeekWeatherView weekWeatherViewWith:RECT(v1X, v1Y, v1W, v1H)];
     [contentView addSubview:v1_weekWeatherV];
     
@@ -322,7 +333,7 @@ static int flag = 0;
 
     NSLog(@"city_num:%@",city_num);
     
-    [self setAllDataByDB:city_num];
+//    [self setAllDataByDB:city_num];
     
     [self updateAllDataByNet:city_num];
 }
