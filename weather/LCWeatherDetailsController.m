@@ -92,6 +92,8 @@
     
     // ---
     // 判断数据是否为空
+    NSLog(@"cityNo：%@",cityNo);
+    NSLog(@"futurInfoArry.count:%d",futurInfoArry.count);
     if (futurInfoArry.count >0) {
         v0_BriefV.futureWeekWeahterInfo = futurInfoArry[0]; // 今天的天气放入天气简要view（由于nowInfo数据不全）
         v1_weekWeatherV.data = futurInfoArry;  // 数据放入一周天气view
@@ -142,7 +144,6 @@ static int flag = 0;
 
         // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
         [info insertNowWeatherInfo:info];
-
         // 2 天气简要view
         v0_BriefV.nowWeatherInfo = info;
         // 3 风速view
@@ -318,6 +319,7 @@ static int flag = 0;
      [self updateAllDataByNet:_city_num];
 //
     NSLog(@"city_num:%@",city_num);
+    
     [self setAllDataByDB:city_num];
 }
 
