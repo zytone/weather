@@ -185,14 +185,13 @@
     [locationControoler update];
     
     self.horizontalScrollView.scrollEnabled = NO;
-    [self.cityArray removeAllObjects];
     if (self.cityArray.count >0) {
         //设置第一个城市天气视频
-        self.playerController.movietType = arc4random_uniform(7);
         self.appearCity.topTitle = [self.cityArray [0] name];
         self.appearCity.city_num = [self.cityArray [0] city_num];
         self.disappearCity.topTitle = [self.cityArray [0] name];
         self.disappearCity.city_num = [self.cityArray [0] city_num];
+        self.playerController.movietType = _appearCity.getBackGroudVedioName;
         self.horizontalScrollView.scrollEnabled = YES;
     }
     
@@ -243,7 +242,7 @@ static bool canTurn = YES;
     } completion:^(BOOL finished) {
         
 #warning 获取天气状况，并且修改内容
-        self.playerController.movietType = arc4random_uniform(7);
+        self.playerController.movietType = _disappearCity.getBackGroudVedioName;
         [self.playerController.player.moviePlayer play];
 
         //交换城市
@@ -541,6 +540,7 @@ static bool HorizontalScrollViewBeginScroll = NO;
 #pragma mark -Location controller delegate
 -(void)locationController:(LCLocationController *)locationController result:(NSDictionary *)result
 {
+    [MBProgressHUD hideHUD];
     NSString *error = [result valueForKey:@"error"];
     NSString *city = [result valueForKey:@"city"];
     
@@ -552,7 +552,8 @@ static bool HorizontalScrollViewBeginScroll = NO;
             cityName.city_num = [LCCityName getNumByName:city];
 #warning 获取当前位置刷新内容和视频 , 提示时候显示当前城市
             self.appearCity.topTitle = city;
-            self.playerController.movietType = arc4random_uniform(7);
+            _appearCity.city_num = cityName.city_num;
+            self.playerController.movietType = _appearCity.getBackGroudVedioName;
             
             //更新城市队列
             [self updatePlistWithCity:cityName];
@@ -564,7 +565,7 @@ static bool HorizontalScrollViewBeginScroll = NO;
     }
     else//请求失败
     {
-        MyLog(@"请求失败");
+        MyLog(@"获取当前位置失败");
         [MBProgressHUD showError:@"获取当前位置失败" toView:self.view];
     }
     

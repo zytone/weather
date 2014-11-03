@@ -62,9 +62,18 @@
 }
 // -------------------------------------------------
 #pragma mark -返回背景视频名称 含有后缀：.mp4
--(NSString*)getBackGroudVedioName
+-(int)getBackGroudVedioName
 {
-    return v0_BriefV.futureWeekWeahterInfo.weather_icon2;
+    NSString *name = v0_BriefV.futureWeekWeahterInfo.weather_icon2;
+    int result = 0;
+    if ([name isEqualToString:@"clear.mp4"]) result = 0;
+    if ([name isEqualToString:@"n_rain.mp4"]) result = 1;
+    if ([name isEqualToString:@"overcast.mp4"]) result = 2;
+    if ([name isEqualToString:@"partlycloudy.mp4"]) result = 3;
+    if ([name isEqualToString:@"rain.mp4"]) result = 4;
+    if ([name isEqualToString:@"snow.mp4"]) result = 5;
+    if ([name isEqualToString:@"wind.mp4"]) result = 6;
+    return result;
 }
 
 #pragma mark - 设置数据(从数据库读取)
@@ -306,7 +315,7 @@ static int flag = 0;
 -(void)setCity_num:(NSString *)city_num
 {
      _city_num = city_num;
-//     [self updateAllDataByNet:_city_num];
+     [self updateAllDataByNet:_city_num];
 //
     NSLog(@"city_num:%@",city_num);
     [self setAllDataByDB:city_num];
