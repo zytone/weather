@@ -178,6 +178,8 @@
     locationControoler.delegate = self;
     [locationControoler update];
     
+    [self.cityArray removeAllObjects];
+    [self.cityArray addObject:[LCCityName new]];
     
     //设置第一个城市天气视频
     self.playerController.movietType = arc4random_uniform(7);
