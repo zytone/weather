@@ -15,6 +15,8 @@
 #import "RegisterViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "settingInfo/SettingInfoViewController.h"
+#import "RetrievePasswdByEmailViewController.h"
+//#import "LCMainWeatherController.h"
 
 //左右边距
 #define PADDING 15
@@ -82,6 +84,9 @@
     //    self.view.backgroundColor = [UIColor colorWithRed:244/254.0 green:244/254.0 blue:244/254.0 alpha:1];
     //    self.view.backgroundColor = [UIColor clearColor];
     
+    // 针对ios7的适配
+
+    
     // 设置View的背景 zyt
     self.view.backgroundColor = [UIColor colorWithRed:244/254.0 green:244/254.0 blue:244/254.0 alpha:1];
     
@@ -89,25 +94,15 @@
     
     self.navigationController.navigationBar.hidden = NO;
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor redColor];
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
-    self.navigationController.delegate = self;
+//    self.navigationController.delegate = self;
     
     // 下面2种都可以去掉系统的下划线
     //    self.navigationController.navigationBar.clipsToBounds = YES;
     //    [self.navigationController.navigationBar.layer setMasksToBounds:YES];
     
     [self setNavBar];
-    
-    //    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 70, 30)];
-    //
-    //    [backBtn setTitle:@"返回" forState:UIControlStateNormal]  ;
-    //    [backBtn.titleLabel setFont:[UIFont fontWithName:nil size:15]];
-    //    [backBtn setTitleColor: [UIColor blueColor] forState:UIControlStateNormal];
-    //    [backBtn setTitleColor: [UIColor grayColor] forState:UIControlStateHighlighted];
-    //
-    //    [backBtn addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:backBtn];
     
     //  ------  页面切换 end -------------
     
@@ -129,7 +124,7 @@
     CGFloat headW = headImage.size.width;
     CGFloat headH = headImage.size.height;
     CGFloat headX = (self.view.frame.size.width - headW)*0.5;
-    CGFloat headY = 66;
+    CGFloat headY = 75;
     UIImageView *headView = [[UIImageView alloc] initWithFrame:CGRectMake(headX, headY, headW, headH)];
     headView.image = headImage;
     headView.layer.masksToBounds = YES;
@@ -349,6 +344,16 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 #warning 在这里跳转至主页面
         [MBProgressHUD hideHUD];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+        
+        //将数据保存在偏好设置里面
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //保存用户名
+        [defaults setObject:self.userFiled.text forKey:@"userName"];
+        //保存图片名
+        [defaults setObject:@"head.jpeg" forKey:@"photoName"];
     });
     [self.view endEditing:YES];
     NSLog(@"%@",dict);
@@ -357,11 +362,14 @@
 -(void)forgetBtnClick:(UIButton *)btn
 {
 #warning 忘记密码跳转
+    [self pushToRetrievePasswd];
 }
+
 //注册点击
 -(void)registerBtnClick:(UIButton *)btn
 {
-#warning 忘记注册点击跳转
+#warning 注册点击跳转
+    [self pushToRegister];
 }
 /**
  *  退出键盘
@@ -371,6 +379,14 @@
     [self.view endEditing:YES];
 }
 
+/**
+ *  微博登录
+ *
+ */
+- (void) loginByWeiboPopToRootView
+{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 
 
@@ -452,6 +468,8 @@
     //获取用户信息
     [self.tencent getUserInfo];
     [self showTipMessage:@"登陆成功"];
+    
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 /**
  *  网络连接不通
@@ -615,6 +633,15 @@ int CallBack(void* para,int count ,char**value,char**key)
     RegisterViewController *reg = [[RegisterViewController alloc] init];
     
     [self.navigationController pushViewController:reg animated:YES];
+}
+/**
+ *  跳到忘记密码页面
+ */
+- (void) pushToRetrievePasswd
+{
+    RetrievePasswdByEmailViewController *re = [RetrievePasswdByEmailViewController new];
+    
+    [self.navigationController pushViewController:re animated:YES];
 }
 
 /**

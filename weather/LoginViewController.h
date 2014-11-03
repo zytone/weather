@@ -10,4 +10,6 @@
 
 @interface LoginViewController : UIViewController
 
+// 微博登录成功后的调整
+- (void) loginByWeiboPopToRootView;
 @end

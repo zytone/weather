@@ -68,6 +68,13 @@
 		562C949C1A03B66D002D7522 /* broadcasting.png in Resources */ = {isa = PBXBuildFile; fileRef = 562C949A1A03B66D002D7522 /* broadcasting.png */; };
 		563332091A07137A00C371E8 /* RetrievePasswdByEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563332081A07137A00C371E8 /* RetrievePasswdByEmailViewController.m */; };
 		5633320D1A072A4B00C371E8 /* NumCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5633320C1A072A4B00C371E8 /* NumCompareViewController.m */; };
+		56364DB91A07977300B353C3 /* bg6@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 56364DB61A07977300B353C3 /* bg6@2x.jpg */; };
+		56364DBA1A07977300B353C3 /* QQ@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56364DB71A07977300B353C3 /* QQ@2x.png */; };
+		56364DBB1A07977300B353C3 /* wb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 56364DB81A07977300B353C3 /* wb@2x.png */; };
+		56364DBD1A079A0900B353C3 /* head.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 56364DBC1A079A0900B353C3 /* head.jpeg */; };
+		56364DC51A07AEA700B353C3 /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56364DC01A07AEA700B353C3 /* SetViewController.m */; };
+		56364DC61A07AEA700B353C3 /* UpdateMailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56364DC21A07AEA700B353C3 /* UpdateMailViewController.m */; };
+		56364DC71A07AEA700B353C3 /* UpdatePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56364DC41A07AEA700B353C3 /* UpdatePasswordViewController.m */; };
 		563E7CD41A0322BF00D4A943 /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 563E7CD31A0322BF00D4A943 /* SettingTableView.m */; };
 		5640A0491A02980600F7B3E9 /* NotificationOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5640A0451A02980600F7B3E9 /* NotificationOperate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5640A04A1A02980600F7B3E9 /* NotificationTableCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5640A0471A02980600F7B3E9 /* NotificationTableCellTableViewCell.m */; };
@@ -280,6 +287,16 @@
 		563332081A07137A00C371E8 /* RetrievePasswdByEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrievePasswdByEmailViewController.m; sourceTree = "<group>"; };
 		5633320B1A072A4B00C371E8 /* NumCompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumCompareViewController.h; sourceTree = "<group>"; };
 		5633320C1A072A4B00C371E8 /* NumCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumCompareViewController.m; sourceTree = "<group>"; };
+		56364DB61A07977300B353C3 /* bg6@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg6@2x.jpg"; sourceTree = "<group>"; };
+		56364DB71A07977300B353C3 /* QQ@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QQ@2x.png"; sourceTree = "<group>"; };
+		56364DB81A07977300B353C3 /* wb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wb@2x.png"; sourceTree = "<group>"; };
+		56364DBC1A079A0900B353C3 /* head.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = head.jpeg; sourceTree = "<group>"; };
+		56364DBF1A07AEA700B353C3 /* SetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetViewController.h; sourceTree = "<group>"; };
+		56364DC01A07AEA700B353C3 /* SetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetViewController.m; sourceTree = "<group>"; };
+		56364DC11A07AEA700B353C3 /* UpdateMailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateMailViewController.h; sourceTree = "<group>"; };
+		56364DC21A07AEA700B353C3 /* UpdateMailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateMailViewController.m; sourceTree = "<group>"; };
+		56364DC31A07AEA700B353C3 /* UpdatePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdatePasswordViewController.h; sourceTree = "<group>"; };
+		56364DC41A07AEA700B353C3 /* UpdatePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdatePasswordViewController.m; sourceTree = "<group>"; };
 		563E7CD21A0322BF00D4A943 /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
 		563E7CD31A0322BF00D4A943 /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
 		5640A0441A02980600F7B3E9 /* NotificationOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationOperate.h; sourceTree = "<group>"; };
@@ -588,6 +605,19 @@
 			name = RetrievePasswd;
 			sourceTree = "<group>";
 		};
+		56364DBE1A07AE8800B353C3 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				56364DBF1A07AEA700B353C3 /* SetViewController.h */,
+				56364DC01A07AEA700B353C3 /* SetViewController.m */,
+				56364DC11A07AEA700B353C3 /* UpdateMailViewController.h */,
+				56364DC21A07AEA700B353C3 /* UpdateMailViewController.m */,
+				56364DC31A07AEA700B353C3 /* UpdatePasswordViewController.h */,
+				56364DC41A07AEA700B353C3 /* UpdatePasswordViewController.m */,
+			);
+			name = UserInfo;
+			sourceTree = "<group>";
+		};
 		564F63511A01DBA20050D3FB /* SettingInfoView */ = {
 			isa = PBXGroup;
 			children = (
@@ -660,6 +690,10 @@
 		564F69D71A038DAA00F80CE4 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				56364DBC1A079A0900B353C3 /* head.jpeg */,
+				56364DB61A07977300B353C3 /* bg6@2x.jpg */,
+				56364DB71A07977300B353C3 /* QQ@2x.png */,
+				56364DB81A07977300B353C3 /* wb@2x.png */,
 				564F69D81A038DAA00F80CE4 /* bg1.png */,
 				564F69D91A038DAA00F80CE4 /* bgshadow.png */,
 				564F69DA1A038DAA00F80CE4 /* dock-city-highlighted.png */,
@@ -907,6 +941,7 @@
 		5658832B19F72FE9007694EE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				56364DBE1A07AE8800B353C3 /* UserInfo */,
 				568BA9EF1A077FF80091531A /* JSONKit */,
 				5633320A1A07138A00C371E8 /* RetrievePasswd */,
 				71CBC5291A0728A200F79165 /* MBProgressHUD */,
@@ -915,8 +950,8 @@
 				564F69901A038BD900F80CE4 /* LCMainWeatherController.h */,
 				564F69911A038BD900F80CE4 /* LCMainWeatherController.m */,
 				564F69921A038BD900F80CE4 /* LCPlayerController.h */,
-				564F69931A038BD900F80CE4 /* LCPlayerController.m */,
 				564F69941A038BD900F80CE4 /* LCScrollController.h */,
+				564F69931A038BD900F80CE4 /* LCPlayerController.m */,
 				564F69951A038BD900F80CE4 /* LCScrollController.m */,
 				564F69961A038BD900F80CE4 /* LCScrollController.xib */,
 				564F69971A038BD900F80CE4 /* LCShareController.h */,
@@ -1115,6 +1150,7 @@
 				564F69B91A038C4700F80CE4 /* WeatherBriefView.xib in Resources */,
 				1F9E3ADA1A06638B002AF955 /* ww21.png in Resources */,
 				1F9E3AD31A06638B002AF955 /* ww15.png in Resources */,
+				56364DBD1A079A0900B353C3 /* head.jpeg in Resources */,
 				564F6A681A038DAA00F80CE4 /* share_2_normal.png in Resources */,
 				564F6ACE1A038DAA00F80CE4 /* clear.mp4 in Resources */,
 				564F6A6E1A038DAA00F80CE4 /* main_share.png in Resources */,
@@ -1159,7 +1195,9 @@
 				564F6A7C1A038DAA00F80CE4 /* share_wxgroup_normal.png in Resources */,
 				564F6AC61A038DAA00F80CE4 /* ic_fish2.png in Resources */,
 				564F6AC71A038DAA00F80CE4 /* ic_plane.png in Resources */,
+				56364DBA1A07977300B353C3 /* QQ@2x.png in Resources */,
 				564F6A7F1A038DAA00F80CE4 /* dock-city.png in Resources */,
+				56364DBB1A07977300B353C3 /* wb@2x.png in Resources */,
 				564F6A721A038DAA00F80CE4 /* share_qq_normal.png in Resources */,
 				564F6ACB1A038DAA00F80CE4 /* ic_ultraviolet_rays.png in Resources */,
 				1F9E3AE61A06638B002AF955 /* ww4.png in Resources */,
@@ -1174,6 +1212,7 @@
 				0F0893D919FE24650054217C /* WeiboSDK.bundle in Resources */,
 				564F6AC21A038DAA00F80CE4 /* buttonNegt14.png in Resources */,
 				1F9E3AEA1A06638B002AF955 /* ww8.png in Resources */,
+				56364DB91A07977300B353C3 /* bg6@2x.jpg in Resources */,
 				564F6A601A038DAA00F80CE4 /* dock-surround-highlighted.png in Resources */,
 				564F6AD31A038DAA00F80CE4 /* snow.mp4 in Resources */,
 				1F9E3AE51A06638B002AF955 /* ww31.png in Resources */,
@@ -1211,6 +1250,7 @@
 				564F69D61A038D6D00F80CE4 /* UIView+LRWLazy.m in Sources */,
 				564F69B81A038C4700F80CE4 /* WeatherBriefView.m in Sources */,
 				564F69BD1A038C4700F80CE4 /* WindSpeedView.m in Sources */,
+				56364DC71A07AEA700B353C3 /* UpdatePasswordViewController.m in Sources */,
 				564F69A21A038BD900F80CE4 /* LCShareController.m in Sources */,
 				564F69C61A038C7500F80CE4 /* ZCNoneiFLYTEK.m in Sources */,
 				5658833619F730AE007694EE /* RegisterViewController.m in Sources */,
@@ -1220,6 +1260,7 @@
 				564F69A41A038BD900F80CE4 /* LifeAdviceDetailsController.m in Sources */,
 				564F69B51A038C4700F80CE4 /* DetailSuperView.m in Sources */,
 				5658833219F73066007694EE /* LoginViewController.m in Sources */,
+				56364DC51A07AEA700B353C3 /* SetViewController.m in Sources */,
 				564F69891A038BB000F80CE4 /* FutureWeekWeahterInfo.m in Sources */,
 				71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */,
 				564F69B71A038C4700F80CE4 /* LifeAdviceView.m in Sources */,
@@ -1231,6 +1272,7 @@
 				564F699D1A038BD900F80CE4 /* LCLocationController.m in Sources */,
 				564F69BA1A038C4700F80CE4 /* WeekCell.m in Sources */,
 				568BA9F21A077FF80091531A /* JSONKit.m in Sources */,
+				56364DC61A07AEA700B353C3 /* UpdateMailViewController.m in Sources */,
 				564F698C1A038BB000F80CE4 /* LifeAdviceInfoItem.m in Sources */,
 				563332091A07137A00C371E8 /* RetrievePasswdByEmailViewController.m in Sources */,
 				564F69A01A038BD900F80CE4 /* LCScrollController.m in Sources */,

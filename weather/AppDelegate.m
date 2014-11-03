@@ -55,6 +55,15 @@
         self.wbResponse = (WBAuthorizeResponse *)response;
         if ( self.wbResponse.userID != nil ) {
             [self getUserInfo];
+        
+            
+            
+            LCMainWeatherController *main = [LCMainWeatherController new];
+            
+            RootNavigationController *rootNav = [[RootNavigationController alloc] initWithRootViewController:main];
+            
+            self.window.rootViewController = rootNav;
+            [self.window makeKeyAndVisible];
         }
     }
 }
@@ -82,29 +91,33 @@
     
     // 昵称 screen_name  图片路径 avatar_large
     NSDictionary *dict = [result objectFromJSONString];
+    NSString *error = dict[@"avatar_large"];
     
-    //创建一个URL
-    NSURL *imageUrl = [[NSURL alloc] initWithString:dict[@"avatar_large"]];
-    //获取图片的data数据
-    NSData *imageData = [NSData dataWithContentsOfURL:imageUrl];
-    //生成图片
-    UIImage *wbImage = [UIImage imageWithData:imageData];
-    //将图片的大小修改成80*80
-    wbImage = [UIImage changeSizeByOriginImage:wbImage scaleToSize:CGSizeMake(80, 80)];
-    //将图片存放在document
-    NSString *home = NSHomeDirectory();
-    NSString *document = [home stringByAppendingPathComponent:@"Documents"];
-    NSString *imgName = @"wbHeaderIcon";
-    NSString *imgType = @"png";
+    if (error != nil) {
+        //创建一个URL
+        NSURL *imageUrl = [[NSURL alloc] initWithString:dict[@"avatar_large"]];
+        //获取图片的data数据
+        NSData *imageData = [NSData dataWithContentsOfURL:imageUrl];
+        //生成图片
+        UIImage *wbImage = [UIImage imageWithData:imageData];
+        //将图片的大小修改成80*80
+        wbImage = [UIImage changeSizeByOriginImage:wbImage scaleToSize:CGSizeMake(80, 80)];
+        //将图片存放在document
+        NSString *home = NSHomeDirectory();
+        NSString *document = [home stringByAppendingPathComponent:@"Documents"];
+        NSString *imgName = @"wbHeaderIcon";
+        NSString *imgType = @"png";
+        
+        [UIImage saveImg:wbImage withImageName:imgName imgType:imgType inDirectory:document];
+        
+        //将数据保存在偏好设置里面
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //保存图片名
+        [defaults setObject:[imgName stringByAppendingFormat:@"%.@",imgType] forKey:@"photoName"];
+        //保存昵称
+        [defaults setObject:dict[@"nickname"] forKey:@"name"];
+    }
     
-    [UIImage saveImg:wbImage withImageName:imgName imgType:imgType inDirectory:document];
-    
-    //将数据保存在偏好设置里面
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    //保存图片名
-    [defaults setObject:[imgName stringByAppendingFormat:@"%.@",imgType] forKey:@"photoName"];
-    //保存昵称
-    [defaults setObject:dict[@"nickname"] forKey:@"name"];
     NSLog(@"%@",result);
 }
 
