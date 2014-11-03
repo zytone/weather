@@ -52,6 +52,9 @@
     
 	//5 绘图
     int vdistance = 16;
+    if (array.count == 0) {
+        return;
+    }
     CGPoint p1 = [[array objectAtIndex:0] CGPointValue];
     CGContextMoveToPoint(context, p1.x, 100 - (p1.y+vdistance)); // 起点
 	for (int i = 0; i<[array count]; i++)

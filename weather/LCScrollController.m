@@ -83,7 +83,8 @@
     self.imageView.image = _contentImage;
     
     [_bottomView addSubview:_tableView];
-    _tableView.frame = RECT(0, 0, 270, 568);
+    _tableView.frame = _contentView.frame;
+//    _tableView.frame = RECT(0, 0, 270, 568);
     NSLog(@"tableview : %@",_tableView);
 }
 

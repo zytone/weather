@@ -266,6 +266,10 @@ static bool canTurn = YES;
 //获得屏幕图像
 - (UIImage *)imageFromView: (UIView *) theView
 {
+//    UIGraphicsBeginImageContext(CGSizeMake(1024, MAIN_SCREEN_HITHT));//设置截屏尺寸
+//    [self.view.layer renderInContext:UIGraphicsGetCurrentContext()];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
     
     UIGraphicsBeginImageContext(theView.frame.size);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -273,6 +277,7 @@ static bool canTurn = YES;
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return theImage;
+//    return image;
 }
 
 
