@@ -39,16 +39,15 @@
         UILabel *label = [[UILabel alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 200, 20)];
         [label setFont:[UIFont systemFontOfSize:15]];
         [label setTextColor:[UIColor whiteColor]];
-        label.text = @"一周每日平均温度趋势图：";
+        label.text = @"一周每日温度趋势图：";
         [self addSubview:label];
         // 画图的view
         lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
-        
-        NSMutableArray *pointArr = [[NSMutableArray alloc]init];
-        [lineChartView setArray:pointArr];
+//        lineChartView.backgroundColor = [UIColor redColor];
+
         
         lineChartView.backgroundColor = [UIColor clearColor];
-        [self addSubview:lineChartView];
+        
         [self addSubview:aTableView];
     }
     return self;
@@ -63,19 +62,24 @@
     
     // 折线图
     
-    NSMutableArray *pointArr = [[NSMutableArray alloc]init];
-    
-    //生成随机点
+    NSMutableArray *pointArr = [NSMutableArray array];
+    // 低点
+    NSMutableArray *lowPointArr = [NSMutableArray array];
+    //点信息
     int hInterva = 40;
     for(int i = 0 ; i< data.count;i++)
     {
         FutureWeekWeahterInfo *info = data[i];
-        float average =([info.temp_high floatValue] + [info.temp_low floatValue])*0.5;
-        [pointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), average)]];
+        // 高点
+        float high =[info.temp_high floatValue];
+        [pointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), high)]];
+        // 低点
+        float low = [info.temp_low floatValue];
+        [lowPointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), low)]];
     }
     [lineChartView setArray:pointArr];
-    
-    
+    [lineChartView setArrayLow:lowPointArr];
+  
     //横轴
     NSMutableArray *hArr = [NSMutableArray array];
     for (int i = 0;i<data.count; i++) {
@@ -88,10 +92,13 @@
         NSRange r = {0,2};
         NSMutableString *oldWeekName =[NSMutableString stringWithString:info.week];
         [oldWeekName replaceCharactersInRange:r withString:@"周"];
+        
         [hArr addObject:oldWeekName];
     }
+    NSLog(@"hArr:%d",hArr.count);
     [lineChartView setHDesc:hArr];
-
+    [self addSubview:lineChartView];
+   
 }
 
 #pragma mark 数据源
