@@ -38,23 +38,27 @@
         NSArray *arr = @[@"拍照",@"提醒",@"生活指数"];
         
         mArr = arr;
-
-        [self creatTabel];
+//        self.backgroundColor = [UIColor whiteColor];
+        [self creatTabelWithFrame:frame];
     }
     return self;
 }
 
-- (void) creatTabel
+- (void) creatTabelWithFrame:(CGRect)frame
 {
     
     settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(VIEW_X, 0, VIEW_WIDTH, VIEW_HEIGHT) style:UITableViewStyleGrouped];
-    
+//    settingTableView = [[UITableView alloc] initWithFrame:frame];
     
     settingTableView.dataSource = self;
     
     settingTableView.delegate = self;
     
+//    settingTableView.backgroundColor = [UIColor clearColor];
+    
     [self addSubview:settingTableView];
+//    self = settingTableView;
+//    return settingTableView;
     
 
 }
@@ -64,6 +68,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
     return mArr.count + 1 ;
 }
 
@@ -91,7 +96,7 @@
     //    NSLog(@"%d",indexPath.row);
     
     //    return cell;
-    
+    NSLog(@"111111111---------------------1");
 }
 
 /**
@@ -127,7 +132,7 @@
     
     CGRect r = self.superview.frame;
     
-    settingTableView.frame = r;
+//    settingTableView.frame = r;
 //    NSLog(@"%@",r);
     NSLog(@"table self :%@",self);
 }

@@ -81,6 +81,10 @@
 {
     [self animationBeginPosition];
     self.imageView.image = _contentImage;
+    
+    [_bottomView addSubview:_tableView];
+    _tableView.frame = RECT(0, 0, 270, 568);
+    NSLog(@"tableview : %@",_tableView);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -109,8 +113,6 @@
 -(void)setTableView:(UITableView *)tableView
 {
     _tableView = tableView;
-    [_bottomView addSubview:tableView];
-    _tableView.frame = RECT(0, 0, 270, 568);
 }
 
 #pragma mark - 控制位置
@@ -191,7 +193,6 @@
     _imageView.frame = _topView.bounds;
     _imageBtn.frame = _imageView.frame;
     
-    NSLog(@"%@",_tableView);
 }
 
 //将要销毁

@@ -73,7 +73,7 @@
  */
 @property(nonatomic,retain)NSString *weather_icon;
 /**
- *  晚上 天气状况图片
+ *  背景mp4 名称
  */
 @property(nonatomic,retain)NSString *weather_icon2;
 

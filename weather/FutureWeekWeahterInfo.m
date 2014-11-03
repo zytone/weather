@@ -32,12 +32,36 @@
         self.wind = dict[@"wind"];
         self.winp = dict[@"winp"];
         
-        self.weather_icon = dict[@"weather_icon"];
-        self.weather_icon2 = dict[@"weather_icon2"];
+        NSString *fileName = [[dict[@"weather_icon"] lastPathComponent] stringByDeletingPathExtension];
+        self.weather_icon = [NSString stringWithFormat:@"ww%@",fileName];
+        self.weather_icon2 = [self getMp4Name:fileName];
+
     }
     return self;
 }
-
+#pragma mark - 根据图片对应背景视频 返回值是带有.mp4后缀
+-(NSString*)getMp4Name:(NSString*)fileName
+{
+    int index = [fileName intValue];
+    NSString *aVideoName;
+    if(index == 0)
+        aVideoName = @"clear.mp4";
+    else if(index == 1||index== 18)
+        aVideoName = @"overcast.mp4";
+    else if(index == 2)
+        aVideoName =@"partlycloudy.mp4";
+    else if((index >=3&&index<=5)||(index >=7&&index<=8)||index == 19||index == 21)
+        aVideoName = @"n_rain.mp4";
+    else if((index >=9&&index<=12)||(index >=22&&index<=25))
+        aVideoName = @"rain.mp4";
+    else if(index == 6||(index >=13&&index<=17)||(index >=26&&index<=28))
+        aVideoName = @"snow.mp4";
+    else if (index == 20||(index >=29&&index<=30))
+        aVideoName =@"wind.mp4";
+    else   // 没办法的事
+        aVideoName = @"clear.mp4";
+    return aVideoName;
+}
 -(void)insertFutureWeekWeahterInfo:(FutureWeekWeahterInfo *)info
 {
 

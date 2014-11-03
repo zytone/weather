@@ -389,20 +389,22 @@ static bool HorizontalScrollViewBeginScroll = NO;
         LCScrollController *scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeLeft];
         scrollController.contentImage = image;
         scrollController.delegate = self;
-        [self.view addSubview:scrollController.view];
         self.scrollController = scrollController;
         //tableview设置
         
         self.settingInfoViewController = [SettingInfoViewController new];
         
-        scrollController.tableView = [_settingInfoViewController.view.subviews lastObject];
+        scrollController.tableView = [_settingInfoViewController.view.subviews lastObject] ;
+        
+        scrollController.tableView = [scrollController.tableView.subviews lastObject];
         
 //        [scrollController addChildViewController:settingController];
-        NSLog(@"subviews.count: %d",_settingInfoViewController.view.subviews.count);
-        
-        NSLog(@"sc_tablevie : %@",scrollController.tableView);
+//        NSLog(@"subviews.count: %d",_settingInfoViewController.view.subviews.count);
+//        
+//        NSLog(@"sc_tablevie : %@",scrollController.tableView.subviews );
         
         [self addChildViewController:_settingInfoViewController];
+        [self.view addSubview:scrollController.view];
     }
 }
 
