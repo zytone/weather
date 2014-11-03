@@ -114,12 +114,15 @@
     
     NSDictionary *dic = [user objectForKey:@"userInfo"];
     
-    if (dic!= nil) {    }
+    if (dic!= nil) {
         SetViewController *setView = [SetViewController new];
         [self.navigationController pushViewController:setView animated:YES];
-
+        return;
+    }
     
-//    [self pushToLogin];
+    NSLog(@"%@",dic);
+    
+    [self pushToLogin];
 }
 
 #pragma mark - nav切换页面

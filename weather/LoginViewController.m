@@ -349,11 +349,36 @@
         
         
         //将数据保存在偏好设置里面
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        //保存用户名
-        [defaults setObject:self.userFiled.text forKey:@"userName"];
-        //保存图片名
-        [defaults setObject:@"head.jpeg" forKey:@"photoName"];
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        //保存用户名
+//        [defaults setObject:self.userFiled.text forKey:@"userName"];
+//        //保存图片名
+//        [defaults setObject:@"head.jpeg" forKey:@"photoName"];
+//        
+//        [defaults synchronize];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        // 设置保存的key
+        NSString *key = @"userInfo";
+        NSString *userKey = @"userName";
+        NSString *photoKey = @"photoName";
+        
+        // 获取输入的文本
+        NSString *name = self.userFiled.text;
+        NSString *photo = @"head.jpeg";
+        
+        NSDictionary *dic = @{userKey: name, photoKey : photo};
+        
+        // 设置数据
+        [userDefaults setObject:dic forKey:key];
+        
+        // 更新数据，本地的
+        [userDefaults synchronize];
+        
+        NSDictionary *dict = [userDefaults objectForKey:key];
+        NSLog(@"这里是！~！~%@",dict);
+        
     });
     [self.view endEditing:YES];
     NSLog(@"%@",dict);

@@ -10,7 +10,9 @@
 #import "LoginViewController.h"
 
 @interface SetViewController ()
-
+{
+    NSDictionary *_dic;
+}
 @end
 
 @implementation SetViewController
@@ -29,6 +31,9 @@
     [super viewDidLoad];
     dataTable.scrollEnabled = NO;
 //    dataTable.allowsSelection = NO;
+    
+    
+    
 }
 -(void)loadView
 {
@@ -38,11 +43,18 @@
     
 #pragma mark -测试用的plist暂时写入
     
-    NSUserDefaults *defaultsss = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     
-    [defaultsss setObject:@"1030235115@qq.com" forKey:@"username"];//测试用
+    NSDictionary *dict = [user objectForKey:@"userInfo"];
     
-    [defaultsss synchronize];//立即写入数据到plist文件中//测试用
+    _dic = dict;
+    
+    NSLog(@"userInfo : %@",_dic[@"userName"]);
+//    NSUserDefaults *defaultsss = [NSUserDefaults standardUserDefaults];
+//    
+//    [defaultsss setObject:@"1030235115@qq.com" forKey:@"username"];//测试用
+//    
+//    [defaultsss synchronize];//立即写入数据到plist文件中//测试用
     
     
 #pragma mark -各种view尺寸
@@ -54,7 +66,7 @@
     CGRect Rlogout = CGRectMake(44, 450, 320-88, 44);
     
 #pragma mark -头像图片
-    _headImg = [UIImage imageNamed:@"head.jpeg"];
+    _headImg = [UIImage imageNamed:_dic[@"photoName"]];
     
     _headBtn = [[UIButton alloc]initWithFrame:Rhead];
     
@@ -83,9 +95,9 @@
     
 
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
-    NSString *mail = [NSString stringWithFormat:@"当前登录邮箱 : %@",[defaults stringForKey:@"username"]];
+    NSString *mail = [NSString stringWithFormat:@"当前登录邮箱 : %@", _dic[@"userName"]];
     
     
     UILabel *Lmail = [[UILabel alloc]initWithFrame:RLmail];

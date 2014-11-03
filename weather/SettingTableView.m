@@ -78,7 +78,12 @@
         
         SettingHeadTableViewCell *headCell = [SettingHeadTableViewCell creatCell:tableView];
         
-        headCell.info = @[@"login_user_highlighted_os7@2x",@"zyt"];
+        
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        
+        NSDictionary *dic = [user objectForKey:@"userInfo"];
+        
+        headCell.info = @[dic[@"photoName"],dic[@"userName"]];
         
         return headCell;
     }
