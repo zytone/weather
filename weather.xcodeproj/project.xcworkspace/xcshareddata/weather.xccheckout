@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>65F9BC36-4063-4630-976C-C7C39C7B1510</string>
+	<string>0497DB46-CB74-48B7-9337-C8BE056DC7DB</string>
 	<key>IDESourceControlProjectName</key>
 	<string>weather</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>5A34D0D7-2374-4CBD-BBB5-055836A573B5</key>
+		<key>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</key>
 		<string>ssh://github.com/zytone/weather.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>weather.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>5A34D0D7-2374-4CBD-BBB5-055836A573B5</key>
+		<key>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>5A34D0D7-2374-4CBD-BBB5-055836A573B5</string>
+	<string>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>5A34D0D7-2374-4CBD-BBB5-055836A573B5</string>
+			<string>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</string>
 			<key>IDESourceControlWCCName</key>
 			<string>weather</string>
 		</dict>

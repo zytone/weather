@@ -287,7 +287,9 @@ static int flag = 0;
 {
     CGFloat headViewY = [[change valueForKey:@"new"] CGRectValue].origin.y;
     if (headViewY == 0) {
-         [self updateAllDataByNet:_city_num];
+            if (_city_num) {
+                [self updateAllDataByNet:_city_num];
+            }
         if ([self.delegate respondsToSelector:@selector(weatherDetailsController:showRefresh:)]) {
             [self.delegate weatherDetailsController:self showRefresh:self.headView];
         }

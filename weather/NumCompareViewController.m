@@ -165,9 +165,11 @@
 - (void)reSentNumToMail:(UIButton *)aBtn
 {
     // 重新生成验证码
+    NSString *nums = @"1234";
+    
     
     // 重设校对验证码
-    
+    self.num = nums;
     
     
 }
