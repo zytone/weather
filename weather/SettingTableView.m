@@ -83,6 +83,10 @@
         
         NSDictionary *dic = [user objectForKey:@"userInfo"];
         
+        if (dic == nil) {
+            dic = @{@"userName": @"未登录", @"photoName":@"head.png"};
+        }
+        
         headCell.info = @[dic[@"photoName"],dic[@"userName"]];
         
         return headCell;
