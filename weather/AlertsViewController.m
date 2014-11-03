@@ -312,7 +312,7 @@
     if (i % 2 == 1) {
         cover.hidden = NO;
         [UIView animateWithDuration:0.30 animations:^{
-            dateView.frame = CGRectMake(0, 348, 320, 568) ;
+            dateView.frame = CGRectMake(0, 278, 320, 568) ;
         }];
         i++;
         

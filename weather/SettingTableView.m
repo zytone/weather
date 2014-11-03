@@ -78,7 +78,12 @@
         
         SettingHeadTableViewCell *headCell = [SettingHeadTableViewCell creatCell:tableView];
         
-        headCell.info = @[@"ad_01",@"zyt"];
+        
+        NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+        
+        NSDictionary *dic = [user objectForKey:@"userInfo"];
+        
+        headCell.info = @[dic[@"photoName"],dic[@"userName"]];
         
         return headCell;
     }
@@ -121,7 +126,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0) {
-        return 55;
+        return 65;
     }
     return 40;
 }
@@ -136,6 +141,17 @@
 //    NSLog(@"%@",r);
     NSLog(@"table self :%@",self);
 }
+
+#pragma mark - 登录信息
+
+
+
+
+
+
+
+
+
 
 
 @end

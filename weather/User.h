@@ -16,4 +16,12 @@
 @property (nonatomic,copy) NSString* name;
 @property (nonatomic,copy) NSString* phoneNum;
 @property (nonatomic,copy) NSString* photo;
+
+
+//+ (NSString *)getNumByName:(NSString *)name;
+//+ (NSString *)getNameBynum:(NSString *)num;
++ (NSInteger )getCountByUsername:(NSString * )name;
++ (instancetype)user;
++ (instancetype)userWithDic:(NSDictionary *)dic;
+
 @end

@@ -365,7 +365,7 @@ static BOOL ScrollControllanimating = NO;//控制设置返回动画播放
 {
     if (ScrollControllanimating) return;
     ScrollControllanimating = YES;
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         _movieImageView.alpha = 0;
     } completion:^(BOOL finished) {
         self.movieImageView.image = nil;
