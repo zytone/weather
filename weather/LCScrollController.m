@@ -14,7 +14,7 @@
 /**
  *  控制topView和bottomView的变化，Proportion是缩放比例，只需要修改Proportion就能控制整体缩放过程
  */
-#define Proportion 0.8
+#define Proportion 1
 #define P_endWidth (Proportion * LCScrollWidth)
 #define P_endHeight (Proportion * LCScrollHeight)
 #define P_endY ((LCScrollHeight - P_endHeight) * 0.5)
@@ -83,8 +83,8 @@
     self.imageView.image = _contentImage;
     
     [_bottomView addSubview:_tableView];
-    _tableView.frame = _contentView.frame;
-//    _tableView.frame = RECT(0, 0, 270, 568);
+//    _tableView.frame = _contentView.frame;
+    _tableView.frame = RECT(0, 0, 270, 568);
     NSLog(@"tableview : %@",_tableView);
 }
 

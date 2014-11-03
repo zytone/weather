@@ -48,7 +48,7 @@
         UILabel *label = [UILabel new];
         label.textColor = [UIColor whiteColor];
         label.textAlignment = NSTextAlignmentCenter;
-        label.text = @"哈尔滨";
+//        label.text = @"哈尔滨";
         self.titleLabel = label;
         [self addSubview:label];
         
