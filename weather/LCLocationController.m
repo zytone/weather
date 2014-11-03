@@ -8,6 +8,7 @@
 
 #import "LCLocationController.h"
 #import <MapKit/MapKit.h>
+#import "MBProgressHUD/MBProgressHUD+MJ.h"
 
 @interface LCLocationController () <CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *locationManager;
@@ -23,6 +24,7 @@
 -(void)update
 {
     if ([CLLocationManager locationServicesEnabled]) {
+        [MBProgressHUD showMessage:@"正在获取当前位置" toView:self.view.superview];
         CLLocationManager *locationManager = [[CLLocationManager alloc]init];
         self.locationManager = locationManager;
         locationManager.delegate = self;
@@ -30,6 +32,10 @@
     }
     else
     {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD showError:@"定位服务没有开启" toView:self.view.superview];
+        });
+        
         MyLog(@"定位服务没有开启");
     }
 }

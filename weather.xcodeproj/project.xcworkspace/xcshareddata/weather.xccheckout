@@ -5,43 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-<<<<<<< HEAD
-	<string>687F26E1-6E64-4683-9B03-E77303BCFB05</string>
-=======
-<<<<<<< HEAD
-	<string>3D3F83FF-01E3-4946-A844-67CC532536DA</string>
-=======
-	<string>7EECAF0A-5766-4216-8859-479DCBEEEA1A</string>
->>>>>>> ba97508f776f25c8d271296d1a1f9eebccb22a2f
->>>>>>> 635f7ea2845f1dbaaf8c1b219e509da59d37bee0
+	<string>0497DB46-CB74-48B7-9337-C8BE056DC7DB</string>
 	<key>IDESourceControlProjectName</key>
 	<string>weather</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-<<<<<<< HEAD
-		<key>A27B1729-9237-4003-A02F-B45A2EB3A133</key>
-=======
-<<<<<<< HEAD
-		<key>2C6D0834-3486-4AD5-A1AB-665130828894</key>
-=======
-		<key>BD30EA0F-A611-4476-8058-ACD49D154152</key>
->>>>>>> ba97508f776f25c8d271296d1a1f9eebccb22a2f
->>>>>>> 635f7ea2845f1dbaaf8c1b219e509da59d37bee0
+		<key>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</key>
 		<string>ssh://github.com/zytone/weather.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>weather.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-<<<<<<< HEAD
-		<key>A27B1729-9237-4003-A02F-B45A2EB3A133</key>
-=======
-<<<<<<< HEAD
-		<key>2C6D0834-3486-4AD5-A1AB-665130828894</key>
-=======
-		<key>BD30EA0F-A611-4476-8058-ACD49D154152</key>
->>>>>>> ba97508f776f25c8d271296d1a1f9eebccb22a2f
->>>>>>> 635f7ea2845f1dbaaf8c1b219e509da59d37bee0
+		<key>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -49,30 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-<<<<<<< HEAD
-	<string>A27B1729-9237-4003-A02F-B45A2EB3A133</string>
-=======
-<<<<<<< HEAD
-	<string>2C6D0834-3486-4AD5-A1AB-665130828894</string>
-=======
-	<string>BD30EA0F-A611-4476-8058-ACD49D154152</string>
->>>>>>> ba97508f776f25c8d271296d1a1f9eebccb22a2f
->>>>>>> 635f7ea2845f1dbaaf8c1b219e509da59d37bee0
+	<string>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-<<<<<<< HEAD
-			<string>A27B1729-9237-4003-A02F-B45A2EB3A133</string>
-=======
-<<<<<<< HEAD
-			<string>2C6D0834-3486-4AD5-A1AB-665130828894</string>
-=======
-			<string>BD30EA0F-A611-4476-8058-ACD49D154152</string>
->>>>>>> ba97508f776f25c8d271296d1a1f9eebccb22a2f
->>>>>>> 635f7ea2845f1dbaaf8c1b219e509da59d37bee0
+			<string>2700D5B8-A4EC-4782-A9DE-088FBA8D17BE</string>
 			<key>IDESourceControlWCCName</key>
 			<string>weather</string>
 		</dict>
