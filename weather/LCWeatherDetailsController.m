@@ -316,8 +316,8 @@ static int flag = 0;
 -(void)setCity_num:(NSString *)city_num
 {
      _city_num = city_num;
-     [self updateAllDataByNet:_city_num];
-//
+    [self updateAllDataByNet:city_num];
+
     NSLog(@"city_num:%@",city_num);
     
     [self setAllDataByDB:city_num];
