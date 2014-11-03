@@ -66,6 +66,8 @@
 		1FEA75A81A06284C0022043F /* LineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEA75A71A06284C0022043F /* LineChartView.m */; };
 		562C949B1A03B66D002D7522 /* broadcasting_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 562C94991A03B66D002D7522 /* broadcasting_pressed.png */; };
 		562C949C1A03B66D002D7522 /* broadcasting.png in Resources */ = {isa = PBXBuildFile; fileRef = 562C949A1A03B66D002D7522 /* broadcasting.png */; };
+		563332091A07137A00C371E8 /* RetrievePasswdByEmailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 563332081A07137A00C371E8 /* RetrievePasswdByEmailViewController.m */; };
+		5633320D1A072A4B00C371E8 /* NumCompareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5633320C1A072A4B00C371E8 /* NumCompareViewController.m */; };
 		563E7CD41A0322BF00D4A943 /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 563E7CD31A0322BF00D4A943 /* SettingTableView.m */; };
 		5640A0491A02980600F7B3E9 /* NotificationOperate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5640A0451A02980600F7B3E9 /* NotificationOperate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5640A04A1A02980600F7B3E9 /* NotificationTableCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5640A0471A02980600F7B3E9 /* NotificationTableCellTableViewCell.m */; };
@@ -269,6 +271,10 @@
 		1FEA75A71A06284C0022043F /* LineChartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineChartView.m; sourceTree = "<group>"; };
 		562C94991A03B66D002D7522 /* broadcasting_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = broadcasting_pressed.png; sourceTree = "<group>"; };
 		562C949A1A03B66D002D7522 /* broadcasting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = broadcasting.png; sourceTree = "<group>"; };
+		563332071A07137A00C371E8 /* RetrievePasswdByEmailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RetrievePasswdByEmailViewController.h; sourceTree = "<group>"; };
+		563332081A07137A00C371E8 /* RetrievePasswdByEmailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RetrievePasswdByEmailViewController.m; sourceTree = "<group>"; };
+		5633320B1A072A4B00C371E8 /* NumCompareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NumCompareViewController.h; sourceTree = "<group>"; };
+		5633320C1A072A4B00C371E8 /* NumCompareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NumCompareViewController.m; sourceTree = "<group>"; };
 		563E7CD21A0322BF00D4A943 /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
 		563E7CD31A0322BF00D4A943 /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
 		5640A0441A02980600F7B3E9 /* NotificationOperate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationOperate.h; sourceTree = "<group>"; };
@@ -556,6 +562,17 @@
 			name = weather1;
 			path = weather/weather1;
 			sourceTree = SOURCE_ROOT;
+		};
+		5633320A1A07138A00C371E8 /* RetrievePasswd */ = {
+			isa = PBXGroup;
+			children = (
+				563332071A07137A00C371E8 /* RetrievePasswdByEmailViewController.h */,
+				563332081A07137A00C371E8 /* RetrievePasswdByEmailViewController.m */,
+				5633320B1A072A4B00C371E8 /* NumCompareViewController.h */,
+				5633320C1A072A4B00C371E8 /* NumCompareViewController.m */,
+			);
+			name = RetrievePasswd;
+			sourceTree = "<group>";
 		};
 		564F63511A01DBA20050D3FB /* SettingInfoView */ = {
 			isa = PBXGroup;
@@ -874,6 +891,7 @@
 		5658832B19F72FE9007694EE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5633320A1A07138A00C371E8 /* RetrievePasswd */,
 				564F698E1A038BD900F80CE4 /* LCLocationController.h */,
 				564F698F1A038BD900F80CE4 /* LCLocationController.m */,
 				564F69901A038BD900F80CE4 /* LCMainWeatherController.h */,
@@ -1144,6 +1162,7 @@
 				1FEA75A81A06284C0022043F /* LineChartView.m in Sources */,
 				563E7CD41A0322BF00D4A943 /* SettingTableView.m in Sources */,
 				564F69D11A038D4100F80CE4 /* LRWDBHelper.m in Sources */,
+				5633320D1A072A4B00C371E8 /* NumCompareViewController.m in Sources */,
 				564F69D21A038D4100F80CE4 /* NSObject+PropertyListing.m in Sources */,
 				564F69D31A038D4100F80CE4 /* ToolHelper.m in Sources */,
 				564F69C41A038C7500F80CE4 /* GetWeatherData.m in Sources */,
@@ -1169,6 +1188,7 @@
 				564F699D1A038BD900F80CE4 /* LCLocationController.m in Sources */,
 				564F69BA1A038C4700F80CE4 /* WeekCell.m in Sources */,
 				564F698C1A038BB000F80CE4 /* LifeAdviceInfoItem.m in Sources */,
+				563332091A07137A00C371E8 /* RetrievePasswdByEmailViewController.m in Sources */,
 				564F69A01A038BD900F80CE4 /* LCScrollController.m in Sources */,
 				564F698B1A038BB000F80CE4 /* LifeAdviceInfo.m in Sources */,
 				564F69B61A038C4700F80CE4 /* LCBackgroundView.m in Sources */,

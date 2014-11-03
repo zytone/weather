@@ -58,14 +58,19 @@
 // 设置cell里面的东西
 - (void)setInfo:(NSArray *)info
 {
-    self.headImg.image = [UIImage imageNamed:info[0]];
+    self.headImg.image = [UIImage imageNamed:@"head"];
     
-    self.headImg.layer.cornerRadius = 10;
+    self.headImg.layer.masksToBounds = YES;
+    
+    self.headImg.layer.cornerRadius = 25;
+    
+    self.headImg.backgroundColor = [UIColor blackColor];
     
     self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:12];
     
-    self.nameLabel.text = [NSString stringWithFormat:@"昵称：%@",info[1]];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@",info[1]];
     
+    NSLog(@"执行了这里 %@",info[0]);
 }
 
 - (void)layoutSubviews
@@ -74,11 +79,11 @@
     
     float h = self.frame.size.height;
     
-    float fontSize = 12 * (h / 45.0);
+    float fontSize = 12 * (h / 45.0) ;
     
     self.nameLabel.font = [UIFont fontWithName:@"Helvetica" size:fontSize];
     
-    NSLog(@"cell:%@",self);
+//    NSLog(@"cell:%@",self);
     
 }
 
