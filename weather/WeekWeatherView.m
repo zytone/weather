@@ -35,10 +35,7 @@
         aTableView.scrollEnabled = NO;      // 禁止滚动
         aTableView.dataSource = self;       // 数据源代理
         aTableView.backgroundColor = [UIColor clearColor];
-        // 横线
-//        UIView *line = [[UIView alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 250, 1)];
-//        line.backgroundColor = [UIColor whiteColor];
-//        [self addSubview:line];
+
         UILabel *label = [[UILabel alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 200, 20)];
         [label setFont:[UIFont systemFontOfSize:15]];
         [label setTextColor:[UIColor whiteColor]];
@@ -48,20 +45,7 @@
         lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
         
         NSMutableArray *pointArr = [[NSMutableArray alloc]init];
-        
-        //横轴
-        NSMutableArray *hArr = [[NSMutableArray alloc]initWithCapacity:pointArr.count];
-        [hArr addObject:@"今天"];
-        [hArr addObject:@"周二"];
-        [hArr addObject:@"周三"];
-        [hArr addObject:@"周四"];
-        [hArr addObject:@"周五"];
-        [hArr addObject:@"周六"];
-        [hArr addObject:@"周日"];
-        [lineChartView setHDesc:hArr];
-        
         [lineChartView setArray:pointArr];
-        
         
         lineChartView.backgroundColor = [UIColor clearColor];
         [self addSubview:lineChartView];
@@ -90,6 +74,23 @@
         [pointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), average)]];
     }
     [lineChartView setArray:pointArr];
+    
+    
+    //横轴
+    NSMutableArray *hArr = [NSMutableArray array];
+    for (int i = 0;i<data.count; i++) {
+        FutureWeekWeahterInfo *info = data[i];
+        if(i == 0)
+        {
+            [hArr addObject:@"今天"];
+            continue;
+        }
+        NSRange r = {0,2};
+        NSMutableString *oldWeekName =[NSMutableString stringWithString:info.week];
+        [oldWeekName replaceCharactersInRange:r withString:@"周"];
+        [hArr addObject:oldWeekName];
+    }
+    [lineChartView setHDesc:hArr];
 
 }
 

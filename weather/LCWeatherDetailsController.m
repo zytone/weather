@@ -62,9 +62,18 @@
 }
 // -------------------------------------------------
 #pragma mark -返回背景视频名称 含有后缀：.mp4
--(NSString*)getBackGroudVedioName
+-(int)getBackGroudVedioName
 {
-    return v0_BriefV.futureWeekWeahterInfo.weather_icon2;
+    NSString *name = v0_BriefV.futureWeekWeahterInfo.weather_icon2;
+    int result = 0;
+    if ([name isEqualToString:@"clear.mp4"]) result = 0;
+    if ([name isEqualToString:@"n_rain.mp4"]) result = 1;
+    if ([name isEqualToString:@"overcast.mp4"]) result = 2;
+    if ([name isEqualToString:@"partlycloudy.mp4"]) result = 3;
+    if ([name isEqualToString:@"rain.mp4"]) result = 4;
+    if ([name isEqualToString:@"snow.mp4"]) result = 5;
+    if ([name isEqualToString:@"wind.mp4"]) result = 6;
+    return result;
 }
 
 #pragma mark - 设置数据(从数据库读取)
@@ -83,6 +92,8 @@
     
     // ---
     // 判断数据是否为空
+    NSLog(@"cityNo：%@",cityNo);
+    NSLog(@"futurInfoArry.count:%d",futurInfoArry.count);
     if (futurInfoArry.count >0) {
         v0_BriefV.futureWeekWeahterInfo = futurInfoArry[0]; // 今天的天气放入天气简要view（由于nowInfo数据不全）
         v1_weekWeatherV.data = futurInfoArry;  // 数据放入一周天气view
@@ -133,7 +144,6 @@ static int flag = 0;
 
         // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
         [info insertNowWeatherInfo:info];
-
         // 2 天气简要view
         v0_BriefV.nowWeatherInfo = info;
         // 3 风速view
@@ -146,10 +156,11 @@ static int flag = 0;
     }
     if(flag==3)
     {
+#warning 没有调用这个方法
         if([self.delegate respondsToSelector:@selector(weatherDetailsController:headView:)])
         {
-            
             [self.delegate weatherDetailsController:self headView:_headView];
+            flag = 0;
         }
     }
 }
@@ -183,6 +194,7 @@ static int flag = 0;
         {
             
             [self.delegate weatherDetailsController:self headView:_headView];
+            flag = 0;
 
         }
     }
@@ -217,6 +229,7 @@ static int flag = 0;
         {
             
             [self.delegate weatherDetailsController:self headView:_headView];
+            flag = 0;
             
         }
     }
@@ -306,10 +319,12 @@ static int flag = 0;
 -(void)setCity_num:(NSString *)city_num
 {
      _city_num = city_num;
-//     [self updateAllDataByNet:_city_num];
-//
+
     NSLog(@"city_num:%@",city_num);
+    
     [self setAllDataByDB:city_num];
+    
+    [self updateAllDataByNet:city_num];
 }
 
 #pragma mark - Head view delegate
@@ -372,6 +387,9 @@ static bool canRefresh = YES;
 }
 
 #pragma mark - Weather delegate
+/**
+ *   天气分享
+ */
 -(void)weatherBriefViewShareBtnClickWithNowWeather:(NowWeatherInfo *)nowInfo FutureWeekWeahterInfo:(FutureWeekWeahterInfo *)nowFutureInfo
 {
     if ([self.delegate respondsToSelector:@selector(weatherDetailsControllerShareBtnClick:NowWeather:FutureWeekWeahterInfo:)]) {

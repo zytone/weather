@@ -24,7 +24,6 @@
 -(void)update
 {
     if ([CLLocationManager locationServicesEnabled]) {
-        [MBProgressHUD showMessage:@"正在获取当前位置" toView:self.view.superview];
         CLLocationManager *locationManager = [[CLLocationManager alloc]init];
         self.locationManager = locationManager;
         locationManager.delegate = self;
@@ -43,7 +42,7 @@
 #pragma mark - Location manager delegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    
+    [MBProgressHUD showMessage:@"正在获取当前位置" toView:self.view.superview];
     [self.locationManager stopUpdatingLocation];
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -61,7 +60,8 @@
             }
             
             //保存city名称
-            self.cityName = [city stringByReplacingOccurrencesOfString:@"市" withString:@""];
+            city = [city stringByReplacingOccurrencesOfString:@"市" withString:@""];
+            self.cityName = [city stringByReplacingOccurrencesOfString:@"省" withString:@""];
         }
         else if (error ==nil && [placemarks count] ==0)//这情况一般是模拟器的经纬度设置错误
         {

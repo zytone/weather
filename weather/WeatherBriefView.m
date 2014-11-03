@@ -10,8 +10,8 @@
 #import "ToolHelper.h"
 #import "ZCNoneiFLYTEK.h"
 #import <AVFoundation/AVFoundation.h>
-// 声明和初始化整个程序使用的变量
-extern bool isEndFlag = false;
+
+
 @interface WeatherBriefView ()<AVAudioPlayerDelegate>
 
 
@@ -47,7 +47,16 @@ extern bool isEndFlag = false;
 
 -(void)setNowWeatherInfo:(NowWeatherInfo *)nowWeatherInfo
 {
-    
+   
+    if (flagCityID == [nowWeatherInfo.cityid intValue]) {
+        [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting"] forState:UIControlStateNormal];
+        [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting_pressed"] forState:UIControlStateHighlighted];
+    }
+    else
+    {
+        [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
+        [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];
+    }
     _nowWeatherInfo = nowWeatherInfo;
     
     self.temp.text = nowWeatherInfo.temp;
@@ -81,9 +90,14 @@ extern bool isEndFlag = false;
     // 循环次数
     self.aPlayer.numberOfLoops = 0;
 }
-
+// 声明和初始化整个程序使用的变量
+extern bool isEndFlag = false;
+extern NSString *flagCityID = nil;
 #pragma mark  声音按钮点击事件
 - (IBAction)voiceClick:(UIButton *)sender {
+    
+    // 保存播放当前的城市id
+    flagCityID = self.nowWeatherInfo.cityid;
     // 判断只允许当前界面播放
     // isEndFlag == true 表示此view占用播放音乐资源
     if(isEndFlag == true)
@@ -91,15 +105,18 @@ extern bool isEndFlag = false;
         // sender.tag == 1 此按钮是进入播放状态
         if(sender.tag == 1)
         {
-            NSLog(@"tagL:%d",sender.tag);
-            [self.aPlayer stop];   // 停止不是重新开始
-            self.aPlayer.currentTime = 0;
-            [_speekingVoice stopSpeekingVoice];
+            // 置为 停止播放状态
+        
+            sender.tag = 0;
+            flagCityID = nil;
+            // 取消资源占用
             isEndFlag =  false;
             [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
             [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];
-            // 置为 停止播放状态
-            sender.tag = 0;
+            
+            [self.aPlayer stop];   // 停止不是重新开始
+            self.aPlayer.currentTime = 0;
+            [_speekingVoice stopSpeekingVoice];
             return;
         }else
         {
@@ -110,12 +127,18 @@ extern bool isEndFlag = false;
     sender.tag = 1;
     // 播放进行中
     isEndFlag = true;
+    
     // 设置音乐播放按钮的播放状态背景图
-    [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting"] forState:UIControlStateNormal];
-    [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting_pressed"] forState:UIControlStateHighlighted];
+    if([flagCityID isEqualToString:self.nowWeatherInfo.cityid])
+    {
+     [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting"] forState:UIControlStateNormal];
+     [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting_pressed"] forState:UIControlStateHighlighted];
+        
+    }
     // 开始播放背景音乐
     [self.aPlayer prepareToPlay];
     [self.aPlayer play];
+    
     
     // 播放天气信息
     NSMutableString *info = [NSMutableString stringWithString:@"您好,小天气为您播报，今天"];
@@ -159,6 +182,7 @@ extern bool isEndFlag = false;
     // 设回音乐播放按钮背景图
     [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
     [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];
+    flagCityID = nil;
 }
 #pragma mark 分享按钮点击事件
 - (IBAction)shareClick:(UIButton *)sender {

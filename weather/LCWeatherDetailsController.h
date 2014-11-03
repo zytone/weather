@@ -26,6 +26,12 @@
  */
 @property (nonatomic , weak) LCHeadView *headView;
 @property (nonatomic , weak) id<LCWeatherDetailsControllerDelegate> delegate;
+
+/**
+ *  获取背景视频名称.MP4
+ */
+-(int)getBackGroudVedioName;
+
 @end
 
 @protocol LCWeatherDetailsControllerDelegate <NSObject>
@@ -41,5 +47,4 @@
 //-----------
 -(void)weatherDetailsController:(LCWeatherDetailsController *)controller headView:(LCHeadView *)headView;
 //-----------
-
 @end

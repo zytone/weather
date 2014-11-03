@@ -256,8 +256,7 @@
     if (acount>0)
     {
         // 遍历找到对应nfkey和notificationtag的通知
-        for (int i=0; i<acount; i++)
-            
+        for (int i=0; i<acount; i++)   
         {
             UILocalNotification *myUILocalNotification = [narry objectAtIndex:i];
             NSDictionary *userInfo = myUILocalNotification.userInfo;
