@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 enum {
     LCScrollTypeLeft,
-//    LCScrollTypeRight
+    LCScrollTypeRight
 };
 typedef NSInteger LCScrollType;
 @protocol LCScrollControllerDelegate;

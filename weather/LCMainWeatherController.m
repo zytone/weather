@@ -15,6 +15,10 @@
 #import "LCShareController.h"
 #import "settingInfo/SettingInfoViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import <ShareSDK/ShareSDK.h>
+#import "WeiboSDK.h"
+#import "AppDelegate.h"
+#import "AGViewDelegate.h"
 /**
  *  确定纵向滑动到哪里暂停或者播放视频
  */
@@ -45,6 +49,11 @@
 #define CONTENTOFFSET POINT(5, 0)
 
 @interface LCMainWeatherController () <UIScrollViewDelegate,LCWeatherDetailsControllerDelegate,LCLocationControllerDelegate,LCScrollControllerDelegate>
+@property (nonatomic, strong) AppDelegate *appDelegate;
+//{
+//     AppDelegate * _appDelegate;
+//}
+
 /**
  *  城市数组,排列顺序就是现实顺序
  */
@@ -103,7 +112,6 @@
 {
     [super loadView];
     
-    // nav
     self.navigationController.navigationBarHidden = YES;
     
     /**  天气视频view设置  **/
@@ -117,10 +125,6 @@
     _movieImageView.frame = RECT(0, 0, SCREENWIDTH, SCREENHEIGHT);
     
     /**  视频遮盖设置  **/
-//    UIImageView *shadowImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"bg1"]];
-//    _shadowImage = shadowImage;
-//    _shadowImage.alpha = 0;
-//    _shadowImage.frame = _movieImageView.frame;
     UIView *shadow = [[UIView alloc]initWithFrame:_movieImageView.frame];
     _shadow = shadow;
     shadow.backgroundColor = [UIColor blackColor];
@@ -166,6 +170,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    /**  分享设置  **/
+    _appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    _appDelegate.viewDelegate.controller = _playerController;
+    
+    [self.view addObserver:self forKeyPath:@"subViews" options:NSKeyValueObservingOptionOld|NSKeyValueObservingOptionNew context:nil];
+    
+    
     /*  初始城市数组  */
 #warning 这里初始化读取城市信息
     if (self.cityArray.count <= 0) {
@@ -195,10 +207,9 @@
         self.horizontalScrollView.scrollEnabled = YES;
     }
     
-    
     //初始分享功能
-    LCShareController *share = [LCShareController shareWithView:self.view];
-    _shareController = share;
+//    LCShareController *share = [LCShareController shareWithView:self.view];
+//    _shareController = share;
 }
 
 /**
@@ -282,6 +293,12 @@ static bool canTurn = YES;
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
+}
+
+//获取视频图片
+- (UIImage *)imageFromMovie
+{
+    return [_playerController.player.moviePlayer thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];
 }
 #pragma mark - 城市数据改变
 //获取城市数据plist路径
@@ -442,48 +459,47 @@ static bool HorizontalScrollViewBeginScroll = NO;
     }];
 }
 
-
-
+/**
+ *  点击分享按钮触发的代理方法
+ */
 -(void)weatherDetailsControllerShareBtnClick:(LCWeatherDetailsController *)controller NowWeather:(NowWeatherInfo *)nowInfo FutureWeekWeahterInfo:(FutureWeekWeahterInfo *)nowFutureInfo
 {
-    [_shareController showShareViewWithFutureWeekWeahterInfo:nowFutureInfo NowWeatherInfo:nowInfo];
+    [self shareNowWeather:nowInfo andFutureWeekWeahterInfo:nowFutureInfo];
 }
 
 -(void)weatherDetailsController:(LCWeatherDetailsController *)controller topBtnClick:(LCHeadButton)lcButton
 {
     if (ScrollControllanimating) return;//设置返回动画没有结束就退出
+    
+    LCScrollController *scrollController;
     if (lcButton == LCHeadButton_Left) {
-        _horizontalScrollView.scrollEnabled = NO;
-        //暂停视频
-        [_playerController.player.moviePlayer pause];
-        //获取全屏截图
-        MPMoviePlayerController *player =_playerController.player.moviePlayer;
-        UIImage *movieImage = [player thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];
-        _movieImageView.image = movieImage;
-        _movieImageView.alpha = 1;
-        
-        //设置功能
-        UIImage *image = [self imageFromView:self.view];
-        LCScrollController *scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeLeft];
-        scrollController.contentImage = image;
-        scrollController.delegate = self;
-        self.scrollController = scrollController;
+        scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeLeft];
         //tableview设置
         
         self.settingInfoViewController = [SettingInfoViewController new];
-        
         scrollController.tableView = [_settingInfoViewController.view.subviews lastObject] ;
-        
         scrollController.tableView = [scrollController.tableView.subviews lastObject];
-        
-//        [scrollController addChildViewController:settingController];
-//        NSLog(@"subviews.count: %d",_settingInfoViewController.view.subviews.count);
-//        
-//        NSLog(@"sc_tablevie : %@",scrollController.tableView.subviews );
-        
         [self addChildViewController:_settingInfoViewController];
-        [self.view addSubview:scrollController.view];
+    }else
+    {
+         scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeRight];
+#warning 城市排序和添加
     }
+    _horizontalScrollView.scrollEnabled = NO;
+    //暂停视频
+    [_playerController.player.moviePlayer pause];
+    //获取全屏截图
+    UIImage *movieImage = [self imageFromMovie];
+    _movieImageView.image = movieImage;
+    _movieImageView.alpha = 1;
+    
+    //设置功能
+    UIImage *image = [self imageFromView:self.view];
+    scrollController.contentImage = image;
+    scrollController.delegate = self;
+    self.scrollController = scrollController;
+
+    [self.view addSubview:scrollController.view];
 }
 
 
@@ -505,8 +521,6 @@ static bool HorizontalScrollViewBeginScroll = NO;
     /** 阴影显示 **/
     float alpha = scrollView.contentOffset.y / ( self.view.height * 0.5  );
     alpha = alpha > 0.5 ? 0.5 : alpha;
-//    MyLog(@"%f",alpha);
-//    _shadowImage.alpha = alpha;
     _shadow.alpha = alpha;
     
     canTurn = NO;
@@ -569,6 +583,65 @@ static bool HorizontalScrollViewBeginScroll = NO;
         [MBProgressHUD showError:@"获取当前位置失败" toView:self.view];
     }
     
+}
+
+#pragma mark - 分享
+- (void)shareNowWeather:(NowWeatherInfo *)nowInfo andFutureWeekWeahterInfo:(FutureWeekWeahterInfo *)nowFutureInfo
+{
+    
+    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"background"  ofType:@"jpeg"];
+    //设置分享类型
+    NSArray *shareList = [ShareSDK getShareListWithType:
+                          ShareTypeSinaWeibo,
+                          ShareTypeWeixiTimeline,
+                          ShareTypeQQSpace,
+                          nil];
+    //定义分享设置
+    id<ISSShareOptions> shareOptions = [ShareSDK defaultShareOptionsWithTitle:@"天气分享"
+                                                              oneKeyShareList:[NSArray defaultOneKeyShareList]
+                                                               qqButtonHidden:YES
+                                                        wxSessionButtonHidden:YES
+                                                       wxTimelineButtonHidden:YES
+                                                         showKeyboardOnAppear:NO
+                                                            shareViewDelegate:_appDelegate.viewDelegate
+                                                          friendsViewDelegate:nil
+                                                        picViewerViewDelegate:nil];
+    
+    //powerByHidden:这个参数是去掉授权界面Powered by ShareSDK的标志
+    id<ISSAuthOptions> authOptions = [ShareSDK authOptionsWithAutoAuth:NO
+                                                         allowCallback:NO
+                                                         scopes:nil
+                                                         powerByHidden:YES
+                                                         followAccounts:nil authViewStyle:
+                                                        SSAuthViewStyleFullScreenPopup viewDelegate:_appDelegate.viewDelegate
+                                                        authManagerViewDelegate:nil];
+
+    //构造分享内容
+    _appDelegate.viewDelegate.image = [UIImage imageWithContentsOfFile:imagePath];
+    id<ISSContent> publishContent = [ShareSDK content:@""
+                                       defaultContent:@"默认分享内容，没内容时显示"
+                                                image:[ShareSDK imageWithPath:imagePath]
+                                                title:@"小小天气"
+                                                  url:@"http://www.sharesdk.cn"
+                                          description:@"这是一条测试信息"
+                                            mediaType:SSPublishContentMediaTypeNews];
+    
+    [ShareSDK showShareActionSheet:nil
+                         shareList:shareList
+                           content:publishContent
+                     statusBarTips:NO
+                       authOptions:authOptions
+                      shareOptions: shareOptions
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    NSLog(@"分享成功");
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    NSLog(NSLocalizedString(@"TEXT_SHARE_FAI", @"发布失败!error code == %d, error code == %@"), [error errorCode], [error errorDescription]);
+                                }
+                            }];
 }
 
 @end

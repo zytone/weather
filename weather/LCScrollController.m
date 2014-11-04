@@ -73,25 +73,27 @@
 
     //按钮添加事件
     [_imageBtn addTarget:self action:@selector(btnClickCallDelegateDealloc) forControlEvents:UIControlEventTouchUpInside];
-    if (_type == LCScrollTypeLeft) {
-        _topView.layer.shadowColor = [UIColor blackColor].CGColor;
-        _topView.layer.shadowOffset = SIZE(-5, 0);
-        //阴影不透明度，默认是0隐藏阴影
-        _topView.layer.shadowOpacity = 0.8;
-    }
+    
+    /**  设置阴影  **/
+    _topView.layer.shadowColor = [UIColor blackColor].CGColor;
+    _topView.layer.shadowOffset = SIZE(+2, 0);
+    //阴影不透明度，默认是0隐藏阴影
+    _topView.layer.shadowOpacity = 0.8;
+    if (_type == LCScrollTypeLeft) _topView.layer.shadowOffset = SIZE(-2, 0);
     
     MyLog(@"%@",_topView.subviews);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    MyLog(@"%@",NSStringFromCGSize(self.scrollView.contentSize));
     [self animationBeginPosition];
     self.imageView.image = _contentImage;
     
     [_bottomView addSubview:_tableView];
 //    _tableView.frame = _contentView.frame;
-    _tableView.frame = RECT(0, 0, 270, 568);
-    NSLog(@"tableview : %@",_tableView);
+//    _tableView.frame = RECT(0, 0, 270, 568);
+//    NSLog(@"tableview : %@",_tableView);
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -101,6 +103,7 @@
         _shadow.alpha = 0;
         [self animationEndPosition];
     }];
+    MyLog(@"\n%@\n%@\n%@\n%@",_topView,_contentView,_bottomView,NSStringFromCGPoint(_scrollView.contentOffset));
 }
 
 -(void)dealloc
@@ -181,9 +184,19 @@
  */
 - (void)animationBeginPosition//动画开始位置
 {
-    self.topView.frame = RECT(0, 0, 320, 568);
-    self.bottomView.frame = RECT(0, 0, 320, 568);
-    self.contentView.frame = RECT(-100, P_endY, P_endWidth, P_endHeight);
+    if (_type == LCScrollTypeRight)
+    {
+        _scrollView.contentOffset = POINT(margin, 0);
+        _bottomView.frame = RECT(LCScrollWidth, 0, 320, 568);
+        _contentView.frame = RECT(0, P_endY, P_endWidth, P_endHeight);
+        _topView.frame = RECT(margin, 0, 329, 568);
+    }
+    else
+    {
+        self.topView.frame = RECT(0, 0, 320, 568);
+        self.bottomView.frame = RECT(0, 0, 320, 568);
+        self.contentView.frame = RECT(- margin, P_endY, P_endWidth, P_endHeight);
+    }
     //添加全屏截图
     _tableView.frame = _contentView.frame;
     _imageView.frame = _topView.bounds;
@@ -192,9 +205,19 @@
 
 - (void)animationEndPosition//动画结束位置
 {
-    self.topView.frame = RECT(270, P_endY, P_endWidth, P_endHeight);
-    self.bottomView.frame = RECT(0, 0, 320, 568);
-    self.contentView.frame = RECT(0, 0, 270, 568);
+    if (_type == LCScrollTypeLeft) {
+        self.topView.frame = RECT(270, P_endY, P_endWidth, P_endHeight);
+        self.bottomView.frame = RECT(0, 0, 320, 568);
+        self.contentView.frame = RECT(0, 0, 270, 568);
+    }
+    else
+    {
+        self.scrollView.contentOffset = POINT(margin , 0);
+        self.topView.frame = RECT(-160 , P_endY, P_endWidth, P_endHeight);
+        self.bottomView.frame = RECT(margin + 60, 0, 320, 568);
+        self.contentView.frame = RECT(0, 0, 270, 568);
+    }
+    
     //添加全屏截图
      _tableView.frame = _contentView.frame;
     _imageView.frame = _topView.bounds;
@@ -203,10 +226,22 @@
 }
 
 //将要销毁
-- (void)willDealloc
+- (void)willDeallocLeft
 {
     //是否移动到结束位置
     BOOL isEnd = CGRectEqualToRect(_topView.frame, RECT(100, 0, 320, 568));
+    if (isEnd)
+    {
+        //通知代理我将要销毁了
+        if ([self.delegate respondsToSelector:@selector(scrollControllerWillDealloc:)]) {
+            [self.delegate scrollControllerWillDealloc:self];
+        }
+    }
+}
+- (void)willDeallocRight
+{
+    //是否移动到结束位置
+    BOOL isEnd = CGPointEqualToPoint(_scrollView.contentOffset,POINT(0, 0));
     if (isEnd)
     {
         //通知代理我将要销毁了
@@ -260,6 +295,29 @@
         }];
     }
 }
+- (void)scrollBottomAndTop
+{
+    if (_scrollView.contentOffset.x > 50) {
+        [UIView animateWithDuration:0.2 animations:^{
+            [self animationEndPosition];
+            _shadow.alpha = 0;
+        }];
+        _scrollView.contentOffset = POINT(100, 0);
+    }
+    else
+    {
+        [UIView animateWithDuration:0.2 animations:^{
+            [self animationBeginPosition];
+            _shadow.alpha = 1;
+            _scrollView.contentOffset = POINT(100, 0);
+        } completion:^(BOOL finished) {
+            //通知代理我将要销毁了
+            if ([self.delegate respondsToSelector:@selector(scrollControllerWillDealloc:)]) {
+                [self.delegate scrollControllerWillDealloc:self];
+            }
+        }];
+    }
+}
 
 #pragma mark - Scroll view delegate
 
@@ -273,6 +331,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    MyLog(@"%@",NSStringFromCGPoint(_scrollView.contentOffset));
     if (self.scrollView.isDragging) {
     float detalX = scrollView.contentOffset.x - self.startPoint.x;
         if (self.type != LCScrollTypeLeft)
@@ -288,14 +347,29 @@
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [self willDealloc];
-    [self scrollTopAndBottom];
+    if (_type == LCScrollTypeLeft) {
+        [self willDeallocLeft];
+        [self scrollTopAndBottom];
+    }
+    else
+    {
+        [self willDeallocRight];
+        [self scrollBottomAndTop];
+    }
+    
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self willDealloc];
-    [self scrollTopAndBottom];
+    if (_type == LCScrollTypeLeft) {
+        [self willDeallocLeft];
+        [self scrollTopAndBottom];
+    }
+    else
+    {
+        [self willDeallocRight];
+        [self scrollBottomAndTop];
+    }
 }
 
 
@@ -314,19 +388,20 @@
     
     //顶部view变化
     CGRect leftF = self.beginTF;
-    leftF.origin.x = self.beginTF.origin.x - detalX * 0.5;
-    leftF.origin.y = self.beginTF.origin.y + detalX * 0.5;
-    leftF.size.width = self.beginTF.size.width - detalX;
-    leftF.size.height = self.beginTF.size.height - detalX;
+    leftF.origin.x = self.beginTF.origin.x - detalX * 1.6;
+    leftF.origin.y = self.beginTF.origin.y + detalX * P_detalY;
+    leftF.size.width = self.beginTF.size.width - detalX * P_detalWidth;
+    leftF.size.height = self.beginTF.size.height - detalX * P_detalHeight;
     self.topView.frame = leftF;
     
     //内容view变化
-    CGRect contentF = self.beginCF;
-    contentF.size.height = self.beginCF.size.height + detalX * 1.5;
-    contentF.size.width = self.beginCF.size.width + detalX;
-    contentF.origin.x = self.beginCF.origin.x - detalX ;
-    contentF.origin.y = self.beginCF.origin.y - detalX * 0.75;
-    self.contentView.frame = contentF;
+    CGRect bottomF = self.beginBF;
+    bottomF.size.height = self.beginBF.size.height + detalX * P_detalHeight;
+    bottomF.size.width = self.beginBF.size.width + detalX;
+    bottomF.origin.x = self.beginBF.origin.x - detalX ;
+    bottomF.origin.y = self.beginBF.origin.y - detalX * P_detalY;
+    self.bottomView.frame = bottomF;
+   
     //添加全屏截图
      _tableView.frame = _contentView.frame;
     _imageView.frame = _topView.bounds;
