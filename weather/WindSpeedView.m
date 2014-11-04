@@ -75,18 +75,20 @@
 -(void)setNowWeatherInfo:(NowWeatherInfo *)nowWeatherInfo
 {
     _nowWeatherInfo = nowWeatherInfo;
-   
-    WDLabel.text = nowWeatherInfo.WD;
-    WSLabel.text = nowWeatherInfo.WS;
-    
-    // 由于nowWeatherInfo.WS数据格式为：2级 所以要去掉 “级”
-    NSMutableString *strWS =  [NSMutableString stringWithString:nowWeatherInfo.WS];
-    NSRange r = {strWS.length-1,1};
-    [strWS replaceCharactersInRange:r withString:@""];
-    
-    // 经过测试0.2 可以相当 1级风
-    CGFloat floatWS = 0.2 - ([strWS floatValue]+5)/100.0;
-    [self revole:floatWS];
+   if(_nowWeatherInfo!=nil)
+   {
+        WDLabel.text = nowWeatherInfo.WD;
+        WSLabel.text = nowWeatherInfo.WS;
+        
+        // 由于nowWeatherInfo.WS数据格式为：2级 所以要去掉 “级”
+        NSMutableString *strWS =  [NSMutableString stringWithString:nowWeatherInfo.WS];
+        NSRange r = {strWS.length-1,1};
+        [strWS replaceCharactersInRange:r withString:@""];
+        
+        // 经过测试0.2 可以相当 1级风
+        CGFloat floatWS = 0.2 - ([strWS floatValue]+5)/100.0;
+        [self revole:floatWS];
+   }
 }
 #pragma mark 风车动画
 -(void)revole:(CGFloat)floatWS

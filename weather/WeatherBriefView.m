@@ -137,15 +137,10 @@
         self.SDLabel.hidden = YES;
         self.WD.hidden = YES;
         self.WS.hidden = YES;
+        tipErrorLabel.hidden = NO;
         
         // 错误提示信息
-        tipErrorLabel = [[UILabel alloc]initWithFrame:RECT(10, 10, 200, 50)];
-        tipErrorLabel.hidden = NO;
-        [tipErrorLabel setFont:[UIFont systemFontOfSize:13]];
-        tipErrorLabel.text = @"抱歉，天气信息不可用";
-        tipErrorLabel.textColor = [UIColor whiteColor];
-        [tipErrorLabel setBackgroundColor:[UIColor clearColor]];
-        [self.grayView addSubview:tipErrorLabel];
+        
     }
 }
 #pragma mark - 初始化 背景音乐播放器
@@ -160,6 +155,16 @@
     self.aPlayer.volume = 0.4;
     // 循环次数
     self.aPlayer.numberOfLoops = 0;
+    
+    
+    // 错误提示
+    tipErrorLabel = [[UILabel alloc]initWithFrame:RECT(10, 10, 200, 50)];
+    tipErrorLabel.hidden = YES;
+    [tipErrorLabel setFont:[UIFont systemFontOfSize:13]];
+    tipErrorLabel.text = @"抱歉，天气信息不可用";
+    tipErrorLabel.textColor = [UIColor whiteColor];
+    [tipErrorLabel setBackgroundColor:[UIColor clearColor]];
+    [self.grayView addSubview:tipErrorLabel];
 }
 
 // 声明和初始化整个程序使用的变量
