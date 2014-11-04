@@ -230,9 +230,8 @@ static int flag = 0;
             v1_weekWeatherV.data =nil;
             v0_BriefV.futureWeekWeahterInfo = nil;
             // 提示 数据请求失败
-            UILabel *label = [[UILabel alloc]initWithFrame:RECT(30, 20, 100, 50)];
-            
-              NSLog(@"获取一周天气信息为空");
+           
+            NSLog(@"获取一周天气信息为空");
         }
     }else
     {

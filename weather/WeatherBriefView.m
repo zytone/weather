@@ -13,6 +13,9 @@
 
 
 @interface WeatherBriefView ()<AVAudioPlayerDelegate>
+{
+    UILabel *tipErrorLabel;
+}
 
 
 @property (weak, nonatomic) IBOutlet UILabel *temp;
@@ -61,6 +64,11 @@
         self.weatherLabel.text = _futureWeekWeahterInfo.weather;
         self.weatherImage.image = [UIImage imageNamed:_futureWeekWeahterInfo.weather_icon];
         self.dateLabel.text = _futureWeekWeahterInfo.days;
+    }else
+    {
+        self.weatherLabel.text = @"";
+        self.weatherImage.image = nil;
+        self.dateLabel.text = @"";
     }
 }
 
@@ -69,6 +77,19 @@
     _nowWeatherInfo = nowWeatherInfo;
     if(_nowWeatherInfo !=nil)
     {
+        // 预防网络数据刷新后。。  // 考虑清空 （暂定）
+        self.shareBtn.hidden = NO;
+        self.voice.hidden = NO;
+        self.weatherImage.hidden = NO;
+        self.weatherLabel.hidden = NO;
+        self.dateLabel.hidden = NO;
+        self.tempUnit.hidden = NO;
+        self.SD.hidden = NO;
+        self.SDLabel.hidden = NO;
+        self.WD.hidden = NO;
+        self.WS.hidden = NO;
+        tipErrorLabel.hidden = YES;
+        
         if (flagCityID == [nowWeatherInfo.cityid intValue]) {
             [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting"] forState:UIControlStateNormal];
             [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting_pressed"] forState:UIControlStateHighlighted];
@@ -108,15 +129,26 @@
         // 隐藏分享和语音按钮
         self.shareBtn.hidden = YES;
         self.voice.hidden = YES;
-        UILabel *label = [[UILabel alloc]initWithFrame:RECT(10, 10, 200, 50)];
-        [label setFont:[UIFont systemFontOfSize:13]];
-        label.text = @"抱歉，天气信息不可用";
-        label.textColor = [UIColor whiteColor];
-        [label setBackgroundColor:[UIColor clearColor]];
-        [self.grayView addSubview:label];
+        self.weatherImage.hidden = YES;
+        self.weatherLabel.hidden = YES;
+        self.dateLabel.hidden = YES;
+        self.tempUnit.hidden = YES;
+        self.SD.hidden = YES;
+        self.SDLabel.hidden = YES;
+        self.WD.hidden = YES;
+        self.WS.hidden = YES;
+        
+        // 错误提示信息
+        tipErrorLabel = [[UILabel alloc]initWithFrame:RECT(10, 10, 200, 50)];
+        tipErrorLabel.hidden = NO;
+        [tipErrorLabel setFont:[UIFont systemFontOfSize:13]];
+        tipErrorLabel.text = @"抱歉，天气信息不可用";
+        tipErrorLabel.textColor = [UIColor whiteColor];
+        [tipErrorLabel setBackgroundColor:[UIColor clearColor]];
+        [self.grayView addSubview:tipErrorLabel];
     }
 }
-
+#pragma mark - 初始化 背景音乐播放器
 -(void)awakeFromNib
 {
     // 背景音乐
@@ -129,9 +161,11 @@
     // 循环次数
     self.aPlayer.numberOfLoops = 0;
 }
+
 // 声明和初始化整个程序使用的变量
-extern bool isEndFlag = false;
-extern NSString *flagCityID = nil;
+extern bool isEndFlag = false;      // 标识是否当前view是否在播放音乐
+extern NSString *flagCityID = nil;  // 标识是否播放当前的城市天气信息，以控制另个重用的view得播放音乐按钮状态
+
 #pragma mark  声音按钮点击事件
 - (IBAction)voiceClick:(UIButton *)sender {
     
@@ -180,7 +214,7 @@ extern NSString *flagCityID = nil;
     
     
     // 播放天气信息
-    NSMutableString *info = [NSMutableString stringWithString:@"您好,小天气为您播报，今天"];
+    NSMutableString *info = [NSMutableString stringWithString:@"，，，，，您好,小天气为您播报，今天"];
     
     NSString *time =self.nowWeatherInfo.time;
     NSArray *timeArry = [time componentsSeparatedByString:@":"];
@@ -212,15 +246,14 @@ extern NSString *flagCityID = nil;
     
     [info appendFormat:@",湿度，%@，%@，风力,%@,",infoF2.SD,infoF2.WD,infoF2.WS];
     
-    
-    
     _speekingVoice = [ZCNoneiFLYTEK shareManager];
-    // 延迟2 秒播放
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [_speekingVoice playVoice:info];
-    });
+ 
+    // 开始播放语音
+    [_speekingVoice playVoice:info];
+
     
 }
+
 #pragma mark 播放结束后执行的方法
 -(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
 {
@@ -228,12 +261,13 @@ extern NSString *flagCityID = nil;
     isEndFlag = false;
     // 音乐播放按钮
     [self viewWithTag:1].tag = 0;
-    NSLog(@"asfsdf");
+    
     // 设回音乐播放按钮背景图
     [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
     [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];
     flagCityID = nil;
 }
+
 #pragma mark 分享按钮点击事件
 - (IBAction)shareClick:(UIButton *)sender {
     
