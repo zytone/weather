@@ -37,7 +37,7 @@
 
     //2 横坐标轴 在加
     for (int i=0; i<_array.count; i++) {
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(i*_vInterval+15, 120, self.vInterval, 30)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(i*_vInterval+19, 120, self.vInterval, 30)];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextColor:[UIColor whiteColor]];
         label.numberOfLines = 1;

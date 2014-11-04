@@ -17,11 +17,15 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *temp;
 @property (weak, nonatomic) IBOutlet UILabel *tempUnit;
+@property (weak, nonatomic) IBOutlet UILabel *SDLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *SD;
 @property (weak, nonatomic) IBOutlet UILabel *WD;
 @property (weak, nonatomic) IBOutlet UILabel *WS;
 @property (weak, nonatomic) IBOutlet UILabel *time;
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherImage;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
 // 音频播放
 @property(nonatomic,retain)AVAudioPlayer *aPlayer;
@@ -36,6 +40,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *voice;
 - (IBAction)voiceClick:(UIButton *)sender;
 
+// 最下面的view
+@property (weak, nonatomic) IBOutlet UIView *grayView;
+
+
 @end
 @implementation WeatherBriefView
 @synthesize nowWeatherInfo = _nowWeatherInfo;
@@ -45,37 +53,68 @@
     return [[[NSBundle mainBundle]loadNibNamed:@"WeatherBriefView" owner:nil options:nil]lastObject];
 }
 
+-(void)setFutureWeekWeahterInfo:(FutureWeekWeahterInfo *)futureWeekWeahterInfo
+{
+    _futureWeekWeahterInfo = futureWeekWeahterInfo;
+    if(_futureWeekWeahterInfo != nil)
+    {
+        self.weatherLabel.text = _futureWeekWeahterInfo.weather;
+        self.weatherImage.image = [UIImage imageNamed:_futureWeekWeahterInfo.weather_icon];
+        self.dateLabel.text = _futureWeekWeahterInfo.days;
+    }
+}
+
 -(void)setNowWeatherInfo:(NowWeatherInfo *)nowWeatherInfo
 {
-   
-    if (flagCityID == [nowWeatherInfo.cityid intValue]) {
-        [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting"] forState:UIControlStateNormal];
-        [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting_pressed"] forState:UIControlStateHighlighted];
-    }
-    else
-    {
-        [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
-        [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];
-    }
     _nowWeatherInfo = nowWeatherInfo;
-    
-    self.temp.text = nowWeatherInfo.temp;
-    // 设置单位的位置紧靠temp
-    // 1获取temp文字的宽度
-    ToolHelper *tool = [ToolHelper toolHepler]; //工具类
-    
-    CGSize titleSize = [tool sizeWithText:self.temp.text font:self.temp.font maxSize:CGSizeMake(MAXFLOAT, 30)];
-    
-    // 2定位单位标签
-    CGRect rect = self.tempUnit.frame;
-    rect.origin.x =  titleSize.width + CGRectGetMinX(self.temp.frame);
-    self.tempUnit.frame = rect;
-    
-    self.SD.text = nowWeatherInfo.SD;
-    self.WD.text = nowWeatherInfo.WD;
-    self.WS.text = nowWeatherInfo.WS;
-    
-    self.time.text = nowWeatherInfo.time;
+    if(_nowWeatherInfo !=nil)
+    {
+        if (flagCityID == [nowWeatherInfo.cityid intValue]) {
+            [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting"] forState:UIControlStateNormal];
+            [self.voice setBackgroundImage:[UIImage imageNamed:@"broadcasting_pressed"] forState:UIControlStateHighlighted];
+        }
+        else
+        {
+            [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
+            [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];
+        }
+        self.temp.text = nowWeatherInfo.temp;
+        // 设置单位的位置紧靠temp
+        // 1获取temp文字的宽度
+        ToolHelper *tool = [ToolHelper toolHepler]; //工具类
+        
+        CGSize titleSize = [tool sizeWithText:self.temp.text font:self.temp.font maxSize:CGSizeMake(MAXFLOAT, 30)];
+        
+        // 2定位单位标签
+        
+        CGRect rect = self.tempUnit.frame;
+        rect.origin.x =  titleSize.width + CGRectGetMinX(self.temp.frame);
+        self.tempUnit.frame = rect;
+        self.tempUnit.text = @"°C";
+        self.SD.text = nowWeatherInfo.SD;
+        self.SDLabel.text = @"湿度";
+        self.WD.text = nowWeatherInfo.WD;
+        self.WS.text = nowWeatherInfo.WS;
+        
+        if(nowWeatherInfo.time != nil)
+        {
+            NSMutableString *time = [NSMutableString stringWithString:@"今日 "];
+            [time appendString:nowWeatherInfo.time];
+            [time appendString:@" 发布"];
+            self.time.text = time;
+        }
+    }else
+    {
+        // 隐藏分享和语音按钮
+        self.shareBtn.hidden = YES;
+        self.voice.hidden = YES;
+        UILabel *label = [[UILabel alloc]initWithFrame:RECT(10, 10, 200, 50)];
+        [label setFont:[UIFont systemFontOfSize:13]];
+        label.text = @"抱歉，天气信息不可用";
+        label.textColor = [UIColor whiteColor];
+        [label setBackgroundColor:[UIColor clearColor]];
+        [self.grayView addSubview:label];
+    }
 }
 
 -(void)awakeFromNib
@@ -161,8 +200,18 @@ extern NSString *flagCityID = nil;
     }
     FutureWeekWeahterInfo *infoF = self.futureWeekWeahterInfo;
     NowWeatherInfo *infoF2 = self.nowWeatherInfo;
+
+    [info appendFormat:@"%@发布,%@,",infoF2.time,infoF2.city];
+    if(infoF !=nil)
+    {
+      [info appendFormat:@"今天白天到夜间，%@，温度，%@到%@摄氏度，",infoF.weather,infoF.temp_low,infoF.temp_high];
+    }else
+    {
+        [info appendFormat:@"温度，%@摄氏度",infoF2.temp];
+    }
     
-    [info appendFormat:@"%@发布,%@,今天白天到夜间，%@，温度，%@到%@摄氏度，湿度，%@，%@，风力,%@,",infoF2.time,infoF2.city,infoF.weather,infoF.temp_low,infoF.temp_high,infoF2.SD,infoF2.WD,infoF2.WS];
+    [info appendFormat:@",湿度，%@，%@，风力,%@,",infoF2.SD,infoF2.WD,infoF2.WS];
+    
     
     
     _speekingVoice = [ZCNoneiFLYTEK shareManager];
@@ -179,6 +228,7 @@ extern NSString *flagCityID = nil;
     isEndFlag = false;
     // 音乐播放按钮
     [self viewWithTag:1].tag = 0;
+    NSLog(@"asfsdf");
     // 设回音乐播放按钮背景图
     [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice"] forState:UIControlStateNormal];
     [self.voice setBackgroundImage:[UIImage imageNamed:@"main_voice_pressed"] forState:UIControlStateHighlighted];

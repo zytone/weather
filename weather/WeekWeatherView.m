@@ -41,12 +41,8 @@
         [label setTextColor:[UIColor whiteColor]];
         label.text = @"一周每日温度趋势图：";
         [self addSubview:label];
-        // 画图的view
-        lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
-//        lineChartView.backgroundColor = [UIColor redColor];
-
+        // 画图
         
-        lineChartView.backgroundColor = [UIColor clearColor];
         
         [self addSubview:aTableView];
     }
@@ -57,11 +53,16 @@
 {
     
     _data = data;
-    // 刷新数据
-    [aTableView reloadData];
     
+     UIView *linView = [self viewWithTag:100000];
+     [linView removeFromSuperview];
+     linView = nil;
+    
+    // 画图的view
     // 折线图
-    
+    lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
+    lineChartView.tag = 100000;
+    lineChartView.backgroundColor = [UIColor clearColor];
     NSMutableArray *pointArr = [NSMutableArray array];
     // 低点
     NSMutableArray *lowPointArr = [NSMutableArray array];
@@ -77,7 +78,9 @@
         float low = [info.temp_low floatValue];
         [lowPointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), low)]];
     }
+    // 高点
     [lineChartView setArray:pointArr];
+    // 低点
     [lineChartView setArrayLow:lowPointArr];
   
     //横轴
@@ -95,9 +98,13 @@
         
         [hArr addObject:oldWeekName];
     }
-    NSLog(@"hArr:%d",hArr.count);
+    
     [lineChartView setHDesc:hArr];
+    // 加入view中
     [self addSubview:lineChartView];
+    
+    // tableView刷新数据
+    [aTableView reloadData];
    
 }
 
