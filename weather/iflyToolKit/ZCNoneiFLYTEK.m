@@ -38,12 +38,15 @@ static ZCNoneiFLYTEK *manager=nil;
     [iFlySpeechSynthesizer setParameter:@"sample_rate" value:@"16000"];//音频采样率,目前支持的采样率有 16000 和 8000;
     
     [iFlySpeechSynthesizer startSpeaking:str];
+//    NSLog(@"开始 ===============");
     
 }
 //结束文字识别播放
 -(void)stopSpeekingVoice
 {
+//    NSLog(@"结束 ===============");
     [iFlySpeechSynthesizer stopSpeaking];
+
 }
 -(void)discernBlock:(void(^)(NSString*))a{
     self.onResult=a;
