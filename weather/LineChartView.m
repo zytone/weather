@@ -1,6 +1,8 @@
 
 #import "LineChartView.h"
-
+#define CHANGE 8  // 幅度改变
+#define VFont 12 //横轴的字体大小
+#define CHANGEHIGTH 110 //整附图位置调整
 @implementation LineChartView
 
 @synthesize array = _array;
@@ -40,12 +42,12 @@
 
     //2 横坐标轴 在加
     for (int i=0; i<_array.count; i++) {
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(i*_vInterval+19, 120, self.vInterval, 30)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(i*_vInterval+25, 130, self.vInterval, 30)];
         [label setBackgroundColor:[UIColor clearColor]];
         [label setTextColor:[UIColor whiteColor]];
         label.numberOfLines = 1;
         label.adjustsFontSizeToFitWidth = YES;
-        [label setFont:[UIFont systemFontOfSize:15]];
+        [label setFont:[UIFont systemFontOfSize:VFont]];
         [label setText:[_hDesc objectAtIndex:i]];
         [self addSubview:label];
     }
@@ -66,14 +68,14 @@
         return;
     }
     CGPoint p1 = [[_array objectAtIndex:0] CGPointValue];
-    CGContextMoveToPoint(context, p1.x, 100 - (p1.y+vdistance)); // 起点
+    CGContextMoveToPoint(context, p1.x, CHANGEHIGTH - (p1.y*vdistance/CHANGE)); // 起点
 	for (int i = 0; i<[_array count]; i++)
 	{
         p1 = [[_array objectAtIndex:i] CGPointValue];
         
-        CGPoint goPoint = CGPointMake(p1.x, 100- (p1.y+vdistance));
+        CGPoint goPoint = CGPointMake(p1.x, CHANGEHIGTH- (p1.y*vdistance/CHANGE));
 		CGContextAddLineToPoint(context, goPoint.x, goPoint.y);;
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(goPoint.x-10, goPoint.y - 25, 100, 20)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(goPoint.x-10, goPoint.y - 20, 100, 20)];
         [label setTextColor:[UIColor whiteColor]];
         [label setFont:[UIFont systemFontOfSize:11]];
         label.text = [NSString stringWithFormat:@"%.0f",p1.y];
@@ -103,14 +105,14 @@
     }
     
     CGPoint p2 = [[_array objectAtIndex:0] CGPointValue];
-    CGContextMoveToPoint(context, p2.x, 100 - (p2.y+vdistance - 16 )); // 起点
+    CGContextMoveToPoint(context, p2.x, CHANGEHIGTH+15 - (p2.y*vdistance /CHANGE )); // 起点
 	for (int i = 0; i<[_arrayLow count]; i++)
 	{
         p2 = [[_arrayLow objectAtIndex:i] CGPointValue];
         
-        CGPoint goPoint = CGPointMake(p2.x, 100- (p2.y+vdistance -10));
+        CGPoint goPoint = CGPointMake(p2.x, CHANGEHIGTH- (p2.y*vdistance /CHANGE));
 		CGContextAddLineToPoint(context, goPoint.x, goPoint.y);;
-        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(goPoint.x-10, goPoint.y + 10, 100, 20)];
+        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(goPoint.x-10, goPoint.y, 100, 20)];
         [label setTextColor:[UIColor whiteColor]];
         [label setFont:[UIFont systemFontOfSize:11]];
         label.text = [NSString stringWithFormat:@"%.0f",p2.y];
