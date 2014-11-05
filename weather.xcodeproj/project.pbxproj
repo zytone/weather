@@ -232,6 +232,8 @@
 		7160FA711A07DE3500A433F0 /* AGViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7160FA701A07DE3500A433F0 /* AGViewDelegate.m */; };
 		7160FA731A07E0A100A433F0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA721A07E0A100A433F0 /* MessageUI.framework */; };
 		7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */; };
+		71C7965E1A09E9EC0043D034 /* banner-activity-close.png in Resources */ = {isa = PBXBuildFile; fileRef = 71C7965D1A09E9EC0043D034 /* banner-activity-close.png */; };
+		71C796601A09EA020043D034 /* right_drawer_head_unlogin_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 71C7965F1A09EA020043D034 /* right_drawer_head_unlogin_press.png */; };
 		71CBC52F1A0728A200F79165 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */; };
 		71CBC5301A0728A200F79165 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */; };
 		71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52E1A0728A200F79165 /* MBProgressHUD.m */; };
@@ -538,6 +540,8 @@
 		7160FA721A07E0A100A433F0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCItyTableViewController.h; sourceTree = "<group>"; };
 		7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCItyTableViewController.m; sourceTree = "<group>"; };
+		71C7965D1A09E9EC0043D034 /* banner-activity-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner-activity-close.png"; sourceTree = "<group>"; };
+		71C7965F1A09EA020043D034 /* right_drawer_head_unlogin_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_drawer_head_unlogin_press.png; sourceTree = "<group>"; };
 		71CBC52A1A0728A200F79165 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
@@ -616,6 +620,8 @@
 		0F1736A119F9D67700AB6662 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				71C7965F1A09EA020043D034 /* right_drawer_head_unlogin_press.png */,
+				71C7965D1A09E9EC0043D034 /* banner-activity-close.png */,
 				5644CC3E1A00D2480086297E /* 112.jpg */,
 				0F0FC3EB19FF87FF00B77CA1 /* search.png */,
 				0F0FC3E519FF79F100B77CA1 /* background.jpg */,
@@ -1293,6 +1299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				564F6A711A038DAA00F80CE4 /* main_voice_pressed.png in Resources */,
+				71C7965E1A09E9EC0043D034 /* banner-activity-close.png in Resources */,
 				1F9E3AE01A06638B002AF955 /* ww27.png in Resources */,
 				1F9E3ACD1A06638B002AF955 /* ww1.png in Resources */,
 				564F6AD41A038DAA00F80CE4 /* wind.mp4 in Resources */,
@@ -1302,6 +1309,7 @@
 				1F9E3AEB1A06638B002AF955 /* ww9.png in Resources */,
 				562C949C1A03B66D002D7522 /* broadcasting.png in Resources */,
 				564F6A5C1A038DAA00F80CE4 /* dock-city-highlighted.png in Resources */,
+				71C796601A09EA020043D034 /* right_drawer_head_unlogin_press.png in Resources */,
 				564F6AC31A038DAA00F80CE4 /* buttonNormal.png in Resources */,
 				564F6A671A038DAA00F80CE4 /* share_1_pressed.png in Resources */,
 				564F6A5F1A038DAA00F80CE4 /* dock-more.png in Resources */,
