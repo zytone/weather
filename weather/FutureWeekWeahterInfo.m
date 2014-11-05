@@ -62,6 +62,13 @@
         aVideoName = @"clear.mp4";
     return aVideoName;
 }
+
++(void)deletDataByCityName:(NSString*)cityId
+{
+    FutureWeekWeahterInfo *now = [FutureWeekWeahterInfo new];
+    now.cityid = cityId;
+    [LRWDBHelper deleteDataFromTable:@"week_weather" byExample:now];
+}
 -(void)insertFutureWeekWeahterInfo:(FutureWeekWeahterInfo *)info
 {
 

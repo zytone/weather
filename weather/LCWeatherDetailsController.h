@@ -31,6 +31,8 @@
  *  获取背景视频名称.MP4
  */
 -(int)getBackGroudVedioName;
+- (void)getDataByCityNum:(NSString *)city_num  data:(void (^)(FutureWeekWeahterInfo *weekInfo,NowWeatherInfo *nowInfo))datas;
+
 
 @end
 
@@ -46,5 +48,6 @@
 
 //-----------
 -(void)weatherDetailsController:(LCWeatherDetailsController *)controller headView:(LCHeadView *)headView;
+
 //-----------
 @end

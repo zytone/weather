@@ -50,4 +50,5 @@
 // 根据cityid 查出最新的一条信息（由于请求的数据的time没有年月日，可通过id获取最新数据）
 +(NowWeatherInfo *) searchLatestWeatherInfoByCityId:(NSString*)cityid;
 
++(void)deletDataByCityName:(NSString*)cityId;
 @end

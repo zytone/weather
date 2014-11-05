@@ -23,24 +23,13 @@
 #pragma mark - 画图
 - (void)drawRect:(CGRect)rect
 {
-    [self drawV];
-    [self drawHighLine];
-    [self drawLowLine];
+    [self drawV];    // 画横轴
+    [self drawHighLine];  // 画高点
+    [self drawLowLine];   // 画低点
 }
 #pragma mark - 画横轴
 -(void)drawV
 {
-    [self setClearsContextBeforeDrawing: YES];
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    // 设置透明
-//    CGContextSetAlpha(context,0.0);
-    
-    //1 画背景线条
-    CGFloat backLineWidth = 0.5f;
-
-    CGContextSetLineWidth(context, backLineWidth);//主线宽度
-
-    //2 横坐标轴 在加
     for (int i=0; i<_array.count; i++) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(i*_vInterval+25, 130, self.vInterval, 30)];
         [label setBackgroundColor:[UIColor clearColor]];
@@ -51,16 +40,14 @@
         [label setText:[_hDesc objectAtIndex:i]];
         [self addSubview:label];
     }
-    CGContextStrokePath(context);
 }
 #pragma mark - 画高点
 -(void)drawHighLine
 {
+     [self setClearsContextBeforeDrawing: YES];
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context, [UIColor colorWithRed:227.0f/255.0f green:70.0f/255.0f blue:100.0f/255.0f alpha:1.0].CGColor);
-    // 设置透明
-//    CGContextSetAlpha(context,0.0);
     //5 绘图
     int vdistance = 16;
     // 高点
@@ -94,8 +81,6 @@
     
      [self setClearsContextBeforeDrawing: YES];
     CGContextRef context = UIGraphicsGetCurrentContext();
-    // 设置透明
-//    CGContextSetAlpha(context,0.0);
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context,  [UIColor colorWithRed:24.0f/255.0f green:116.0f/255.0f blue:205.0f/255.0f alpha:1.0].CGColor);
     //5 绘图
