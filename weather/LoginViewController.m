@@ -16,6 +16,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "settingInfo/SettingInfoViewController.h"
 #import "RetrievePasswdByEmailViewController.h"
+#import "LRWDBHelper/LRWDBHelper.h"
 //#import "LCMainWeatherController.h"
 
 //左右边距
@@ -319,8 +320,8 @@
         (currentText.tag == 1) ? (leftView.image = [UIImage imageNamed:@"login_user_os7@2x"]): (leftView.image = [UIImage imageNamed:@"login_key_os7@2x"]) ;
     }];
 #warning 暂时固定用户名、密码
-    self.userFiled.text = @"admin";
-    self.passwordFiled.text = @"123";
+//    self.userFiled.text = @"admin";
+//    self.passwordFiled.text = @"123";
     
     // 添加退出登录也的按钮
     UIButton *quitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -376,7 +377,19 @@
         
         // 获取输入的文本
         NSString *name = self.userFiled.text;
-        NSString *photo = @"head.jpeg";
+        
+        
+#warning 登录这里设置了默认头像
+        
+        User *userInfo = [[User alloc] init];
+        userInfo.userName = name;
+        
+        NSDictionary *dicUser = [[LRWDBHelper findDataFromTable:@"user" byExample:userInfo] lastObject];
+        
+//        NSDictionary *dicUser = [arr lastObject];
+
+        
+        NSString *photo = dicUser[@"photo"];
         
         NSDictionary *dic = @{userKey: name, photoKey : photo};
         
@@ -672,6 +685,8 @@ int CallBack(void* para,int count ,char**value,char**key)
 {
     RegisterViewController *reg = [[RegisterViewController alloc] init];
     
+    reg.title = @"注册";
+    
     [self.navigationController pushViewController:reg animated:YES];
 }
 /**
@@ -680,6 +695,8 @@ int CallBack(void* para,int count ,char**value,char**key)
 - (void) pushToRetrievePasswd
 {
     RetrievePasswdByEmailViewController *re = [RetrievePasswdByEmailViewController new];
+    
+    re.title = @"找回密码";
     
     [self.navigationController pushViewController:re animated:YES];
 }

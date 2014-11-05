@@ -18,11 +18,16 @@
 
 #import "RetrievePasswdByEmailViewController.h"
 #import "User.h"
+#import "SentMail.h"
+#import "MBProgressHUD+MJ.h"
+#import "NumCompareViewController.h"
 
-@interface RetrievePasswdByEmailViewController ()
+@interface RetrievePasswdByEmailViewController () <SKPSMTPMessageDelegate>
 {
     UITextField *emailField;
 }
+
+
 @end
 
 @implementation RetrievePasswdByEmailViewController
@@ -107,7 +112,38 @@
     if ([self confirmationBySqliteWithEmail:emailField.text] == YES) {
         // 1、发送验证码  4位
         
+        NSString *titleText = [NSString stringWithCString:"天气账号管理" encoding:NSUTF8StringEncoding];
+        
+        NSString *mail = emailField.text;
+        
+        // 4位数随机码
+        int randomNum = (arc4random() % 9000) + 1000;
+        NSString *randomCode = [NSString stringWithFormat:@"%d",randomNum];
+        
+        NSString *content = [NSString stringWithFormat:@"验证码是：%@",randomCode];
+        
+        SKPSMTPMessage *sendMail = [SentMail sentMailWithTitle:titleText toMail:mail withContent:content ];
+        
+        sendMail.delegate = self;
+        
+        [sendMail send];
+
         // 2、跳转页面
+        [MBProgressHUD showMessage:@"正在发送..."];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideHUD];
+            
+            NumCompareViewController *numC = [NumCompareViewController new];
+            
+            numC.randomNum = randomCode;
+            
+            numC.mail = mail;
+            
+            [self.navigationController pushViewController:numC animated:YES];
+            
+        });
+        
         
         
     }
@@ -142,6 +178,18 @@
     return b;
 }
 
+#pragma mark -邮件发送成功的代理方法
+- (void)messageSent:(SKPSMTPMessage *)message
+{
+    NSLog(@"发送成功!!!");
+    
+}
+
+#pragma mark -邮件发送失败的代理方法
+- (void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error
+{
+    NSLog(@"发送失败,错误：%@",error);
+}
 
 /**
  *  视图即将出现的时候，修改nav bar的东西

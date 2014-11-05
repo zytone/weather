@@ -16,7 +16,7 @@
 {
     User *user = [User new];
     
-    user.username = nil;
+    user.userName = nil;
     user.passwd = nil;
     user.name = nil;
     user.phoneNum = nil;
@@ -36,7 +36,7 @@
 + (NSInteger )getCountByUsername:(NSString * )name
 {
     User *user = [User new];
-    user.username = name;
+    user.userName = name;
     
     NSArray *arry  = [LRWDBHelper findDataFromTable:@"user" byExample:user];
     

@@ -9,6 +9,8 @@
 #import "RegisterViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "User.h"
+#import "LoginViewController.h"
+#import "MBProgressHUD+MJ.h"
 @interface RegisterViewController ()
 
 
@@ -30,10 +32,6 @@
     
     [super loadView];
     
-//    // 针对ios7的适配
-//    if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
-//        self.edgesForExtendedLayout = UIRectEdgeNone;
-//    }
 
     self.navigationController.navigationBarHidden = NO;
     
@@ -434,11 +432,26 @@
         //录入 _username _password _name的text
         User *user  =[[User alloc] init];
         
-        user.username = _username.text;
+        user.userName = _username.text;
         user.passwd = _password.text;
+        
+#warning 注册时，默认头像
+        user.photo = @"right_drawer_head_default.png";
+        
         //        user.name = _name.text;
         [LRWDBHelper addDataToTable:@"User" example:user];
         NSLog(@"%@",[LRWDBHelper findDataFromTable:@"User" byExample:nil]);
+        
+        [MBProgressHUD showMessage:@"正在注册..."];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//            LoginViewController *login = [LoginViewController new];
+            [MBProgressHUD hideHUD];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        });
+        
     }
     
     

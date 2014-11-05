@@ -7,15 +7,17 @@
 //
 
 #import "SentMail.h"
-#import "SKPSMTPMessage.h"
-#import "NSData+Base64Additions.h"
-
-@interface SentMail () <SKPSMTPMessageDelegate>
-
-@end
 
 @implementation SentMail
-
+/**
+ *  创建一个发送邮件的对象
+ *
+ *  @param titleText 邮件的标题
+ *  @param mail      目的邮件地址
+ *  @param content   邮件的内容
+ *
+ *  @return 返回一个创建好的邮件对象
+ */
 +(SKPSMTPMessage *) sentMailWithTitle:(NSString *)titleText toMail:(NSString *)mail withContent:(NSString *)content
 {
     
@@ -43,28 +45,4 @@
     
     return send;
 }
-#pragma mark -Alter
--(void)Alter:(id)sender
-{
-    // delegate
-    
-    // 4位数随机码
-//    int randomNum = (arc4random() % 9000) + 1000;
-//    _randomCode = [NSString stringWithFormat:@"%d",randomNum];
-//    NSString *randomDesc = [NSString stringWithFormat:@"验证码是：%@",_randomCode];
-//    [testSend send];
-}
-#pragma mark -邮件发送成功的代理方法
-- (void)messageSent:(SKPSMTPMessage *)message
-{
-    NSLog(@"发送成功!!!");
-    
-}
-
-#pragma mark -邮件发送失败的代理方法
-- (void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error
-{
-    NSLog(@"发送失败,错误：%@",error);
-}
-
 @end

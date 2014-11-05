@@ -13,6 +13,8 @@
 #import "../AlertsViewController.h"
 #import "RootNavigationController.h"
 #import "SetViewController.h"
+#import "AboutUsViewController.h"
+#import "HelpViewController.h"
 
 // 视图头文件
 #import "SettingInfoTableViewCell.h"
@@ -79,6 +81,8 @@
     _dic = [user objectForKey:@"userInfo"];
     
     
+    NSLog(@"user:%@",_dic);
+    
     settingTableView = [[SettingTableView alloc] init];
     settingTableView.delegate = self;
     
@@ -98,6 +102,20 @@
                 
             case 2:
                 [self pushToNotificationVC];
+                break;
+                
+            default:
+                break;
+        }
+    }
+    else if (indexPath.section == 1) {
+        switch (indexPath.row) {
+            case 2:
+                [self pushToAbout];
+                break;
+                
+            case 1:
+                [self pushToHelp];
                 break;
                 
             default:
@@ -188,7 +206,24 @@
     NSArray *mSet = settingTableView.subviews;
     
     NSLog(@"执行了这里，reloadData  %d",mSet.count  );
-
 }
+
+- (void) pushToAbout
+{
+    AboutUsViewController *about = [AboutUsViewController new];
+    
+    about.title = @"关于我们";
+    
+    [self.navigationController pushViewController:about animated:YES];
+}
+
+-(void) pushToHelp
+{
+    HelpViewController *help = [HelpViewController new];
+    help.title = @"帮助";
+    
+    [self.navigationController pushViewController:help animated:YES];
+}
+
 
 @end

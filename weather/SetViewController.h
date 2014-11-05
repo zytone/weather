@@ -31,6 +31,8 @@
 
 @property(nonatomic,strong) UIButton *logout;
 
+@property(nonatomic,strong) UIColor *CBg;
+
 //@property(nonatomic,strong) UILabel *userNameShow;
 
 

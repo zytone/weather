@@ -10,6 +10,8 @@
 #import "SKPSMTPMessage.h"
 #import "NSData+Base64Additions.h"
 
-@interface SentMail : NSObject <SKPSMTPMessageDelegate>
+@interface SentMail : NSObject
+
++(SKPSMTPMessage *) sentMailWithTitle:(NSString *)titleText toMail:(NSString *)mail withContent:(NSString *)content;
 
 @end
