@@ -28,10 +28,13 @@
 
 @interface SettingInfoViewController () <UITableViewDataSource,UITableViewDelegate,UINavigationControllerDelegate,SettingTableDelegate>
 {
-    UITableView *settingTableView;
+    SettingTableView *settingTableView;
     
     // 存放每一个行的主要内容
     NSArray *mArr;
+    
+    // 存放用户信息
+    NSDictionary *_dic;
 }
 @end
 
@@ -64,43 +67,42 @@
 {
     [super loadView];
     
-    self.navigationController.navigationBar.hidden = YES;
+//    self.navigationController.navigationBar.hidden = YES;
     
     NSArray *arr = @[@"拍照",@"提醒",@"生活指数"];
     
     mArr = arr;
     
-//    self.view.frame = CGRectMake(VIEW_X, 0, 100, 200);
     
-//    SettingTableView *s = [[SettingTableView alloc] initWithFrame:CGRectMake(VIEW_X, VIEW_Y, VIEW_WIDTH, VIEW_HEIGHT)];
-//    SettingTableView *s = [[SettingTableView alloc] initWithFrame:RECT(-100, 75, 170, 418)];
-    SettingTableView *s = [[SettingTableView alloc] init];
-    s.delegate = self;
-        
-    [self.view addSubview:s];
-//    SettingTableView *tab =   [self.view.subviews lastObject];
-//    tab.frame = CGRectMake(0, 0, 100,100);
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    
+    _dic = [user objectForKey:@"userInfo"];
     
     
-    NSLog(@"settingtableveiw : %@",self);
+    settingTableView = [[SettingTableView alloc] init];
+    settingTableView.delegate = self;
+    
+    [self.view addSubview:settingTableView];
     
 }
 
 
 
-- (void)settingTableCellDidClickWithIndex:(NSInteger)index
+- (void)settingTableCellDidClickWithIndex:(NSIndexPath *)indexPath
 {
-    switch (index) {
-        case 0:
-            [self userInfo];
-            break;
-            
-        case 2:
-            [self pushToNotificationVC];
-            break;
-            
-        default:
-            break;
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+                [self userInfo];
+                break;
+                
+            case 2:
+                [self pushToNotificationVC];
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 /**
@@ -120,7 +122,7 @@
         return;
     }
     
-    NSLog(@"%@",dic);
+//    NSLog(@"%@",dic);
     
     [self pushToLogin];
 }
@@ -178,6 +180,15 @@
     [super viewWillAppear:animated];
 }
 
+- (void) userChange : (id)sender
+{
+    
+    [[settingTableView.subviews lastObject] reloadData];
+    
+    NSArray *mSet = settingTableView.subviews;
+    
+    NSLog(@"执行了这里，reloadData  %d",mSet.count  );
 
+}
 
 @end

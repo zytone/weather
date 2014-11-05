@@ -19,6 +19,7 @@
 #import "WeiboSDK.h"
 #import "AppDelegate.h"
 #import "AGViewDelegate.h"
+#import "LCCItyTableViewController.h"
 /**
  *  确定纵向滑动到哪里暂停或者播放视频
  */
@@ -210,6 +211,8 @@
     //初始分享功能
 //    LCShareController *share = [LCShareController shareWithView:self.view];
 //    _shareController = share;
+    
+    /** 城市数组修改 **/
 }
 
 /**
@@ -300,6 +303,13 @@ static bool canTurn = YES;
 {
     return [_playerController.player.moviePlayer thumbnailImageAtTime:1.0 timeOption:MPMovieTimeOptionNearestKeyFrame];
 }
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self savePlist];
+    cityIndex = 0;
+}
+
 #pragma mark - 城市数据改变
 //获取城市数据plist路径
 - (NSString *)cityArraySavePath
@@ -391,6 +401,20 @@ static BOOL ScrollControllanimating = NO;//控制设置返回动画播放
     _horizontalScrollView.scrollEnabled = YES;
     [_scrollController.view removeFromSuperview];
     self.scrollController = nil;
+    
+    if (scrollController.type == LCScrollTypeLeft) {//设置退出
+        
+    }
+    else //修改城市退出
+    {
+        cityIndex = 0;
+        if (_cityArray.count > 0) {
+            _appearCity.city_num = [_cityArray[0] city_num];
+            _appearCity.topTitle = [_cityArray[0] name];
+        }
+        _playerController.movietType = _appearCity.getBackGroudVedioName;
+        [self savePlist];
+    }
 }
 
 -(void)scrollControllerDidDealloc:(LCScrollController *)scrollController
@@ -483,7 +507,10 @@ static bool HorizontalScrollViewBeginScroll = NO;
     }else
     {
          scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeRight];
-#warning 城市排序和添加
+        LCCItyTableViewController *cityTableController = [LCCItyTableViewController new];
+        cityTableController.cityArray = _cityArray;
+        scrollController.tableView = [cityTableController.view.subviews firstObject];
+        [self addChildViewController:cityTableController];
     }
     _horizontalScrollView.scrollEnabled = NO;
     //暂停视频

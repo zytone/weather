@@ -225,6 +225,7 @@
 		7160FA6E1A07DDC500A433F0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA6D1A07DDC500A433F0 /* libsqlite3.dylib */; };
 		7160FA711A07DE3500A433F0 /* AGViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7160FA701A07DE3500A433F0 /* AGViewDelegate.m */; };
 		7160FA731A07E0A100A433F0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA721A07E0A100A433F0 /* MessageUI.framework */; };
+		7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */; };
 		71CBC52F1A0728A200F79165 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */; };
 		71CBC5301A0728A200F79165 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */; };
 		71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52E1A0728A200F79165 /* MBProgressHUD.m */; };
@@ -518,6 +519,8 @@
 		7160FA6F1A07DE3500A433F0 /* AGViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGViewDelegate.h; sourceTree = "<group>"; };
 		7160FA701A07DE3500A433F0 /* AGViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGViewDelegate.m; sourceTree = "<group>"; };
 		7160FA721A07E0A100A433F0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCItyTableViewController.h; sourceTree = "<group>"; };
+		7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCItyTableViewController.m; sourceTree = "<group>"; };
 		71CBC52A1A0728A200F79165 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 		0F1736A119F9D67700AB6662 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				56B164451A093D9A0022A398 /* right_drawer_head_unlogin_press.png */,
+				56B164431A0938210022A398 /* banner-activity-close.png */,
 				5644CC3E1A00D2480086297E /* 112.jpg */,
 				0F0FC3EB19FF87FF00B77CA1 /* search.png */,
 				0F0FC3E519FF79F100B77CA1 /* background.jpg */,
@@ -688,8 +693,8 @@
 				564F63441A01DB830050D3FB /* SettingHeadTableViewCell.h */,
 				564F63451A01DB830050D3FB /* SettingHeadTableViewCell.m */,
 				564F63471A01DB9A0050D3FB /* SettingHeadTableViewCell.xib */,
-				564F63491A01DB9A0050D3FB /* SettingInfoTableViewCell.m */,
 				564F63481A01DB9A0050D3FB /* SettingInfoTableViewCell.h */,
+				564F63491A01DB9A0050D3FB /* SettingInfoTableViewCell.m */,
 				564F634A1A01DB9A0050D3FB /* SettingInfoTableViewCell.xib */,
 				563E7CD21A0322BF00D4A943 /* SettingTableView.h */,
 				563E7CD31A0322BF00D4A943 /* SettingTableView.m */,
@@ -1013,6 +1018,8 @@
 		5658832B19F72FE9007694EE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */,
+				7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */,
 				56364DBE1A07AE8800B353C3 /* UserInfo */,
 				568BA9EF1A077FF80091531A /* JSONKit */,
 				5633320A1A07138A00C371E8 /* RetrievePasswd */,
@@ -1309,6 +1316,7 @@
 				1F9E3ADA1A06638B002AF955 /* ww21.png in Resources */,
 				1F9E3AD31A06638B002AF955 /* ww15.png in Resources */,
 				56364DBD1A079A0900B353C3 /* head.jpeg in Resources */,
+				56B164461A093D9A0022A398 /* right_drawer_head_unlogin_press.png in Resources */,
 				564F6A681A038DAA00F80CE4 /* share_2_normal.png in Resources */,
 				564F6ACE1A038DAA00F80CE4 /* clear.mp4 in Resources */,
 				564F6A6E1A038DAA00F80CE4 /* main_share.png in Resources */,
@@ -1353,6 +1361,7 @@
 				0F0FC3EC19FF87FF00B77CA1 /* search.png in Resources */,
 				564F6A7C1A038DAA00F80CE4 /* share_wxgroup_normal.png in Resources */,
 				564F6AC61A038DAA00F80CE4 /* ic_fish2.png in Resources */,
+				56B164441A0938210022A398 /* banner-activity-close.png in Resources */,
 				564F6AC71A038DAA00F80CE4 /* ic_plane.png in Resources */,
 				56364DBA1A07977300B353C3 /* QQ@2x.png in Resources */,
 				7127CFA41A08CDC80057A2F8 /* ShareSDKLocalizable.strings in Resources */,
@@ -1428,6 +1437,7 @@
 				564F69B71A038C4700F80CE4 /* LifeAdviceView.m in Sources */,
 				564F698D1A038BB000F80CE4 /* NowWeatherInfo.m in Sources */,
 				0F1D833F19FF24F4005208BF /* AddCityViewController.m in Sources */,
+				7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */,
 				564F699E1A038BD900F80CE4 /* LCMainWeatherController.m in Sources */,
 				5640A04A1A02980600F7B3E9 /* NotificationTableCellTableViewCell.m in Sources */,
 				5640A0491A02980600F7B3E9 /* NotificationOperate.m in Sources */,

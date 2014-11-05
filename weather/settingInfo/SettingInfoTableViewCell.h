@@ -12,6 +12,8 @@
 
 @property (nonatomic , strong) NSString *labelInfo;
 
+@property (strong, nonatomic) IBOutlet UILabel *rightLabel;
+
 + (instancetype) creatCell:(UITableView *)tableView;
 
 @end

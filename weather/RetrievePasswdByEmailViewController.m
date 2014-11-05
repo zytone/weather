@@ -47,7 +47,11 @@
     [super loadView];
     if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     }
+    
+    self.navigationController.navigationBarHidden = NO;
+    
     /**
      *  添加界面：一个输入邮箱的 文本框 和 提交按钮
      */

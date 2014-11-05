@@ -8,6 +8,15 @@
 
 #import "UpdatePasswordViewController.h"
 
+@interface UpdatePasswordViewController ()
+{
+    NSDictionary *_dic;
+}
+
+
+
+@end
+
 @implementation UpdatePasswordViewController
 
 -(void)loadView
@@ -32,11 +41,18 @@
     
 #pragma mark -测试用的plist暂时写入
     
-    NSUserDefaults *defaultsss = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *defaultsss = [NSUserDefaults standardUserDefaults];
+//    
+//    [defaultsss setObject:@"1030235115@qq.com" forKey:@"userName"];//测试用
+//    
+//    [defaultsss synchronize];//立即写入数据到plist文件中//测试用
     
-    [defaultsss setObject:@"1030235115@qq.com" forKey:@"userName"];//测试用
     
-    [defaultsss synchronize];//立即写入数据到plist文件中//测试用
+    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dict = [user objectForKey:@"userInfo"];
+    
+    _dic = dict;
     
     
     
@@ -54,7 +70,7 @@
 #pragma mark -显示当前邮箱
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *mail = [NSString stringWithFormat:@"绑定邮箱 : %@",[defaults stringForKey:@"userName"]];
+    NSString *mail = [NSString stringWithFormat:@"绑定邮箱 : %@",_dic[@"userName"]];
     UILabel *username = [[UILabel alloc]initWithFrame:RusernameLabel];
     
     username.text = mail;
@@ -63,7 +79,7 @@
 #pragma mark -当前登录邮箱
     
     _user = [[User alloc] init];
-    _user.username = [defaults  stringForKey:@"userName"];
+    _user.username = _dic[@"userName"];
     
     
     _curPassword = [[UITextField alloc]initWithFrame:RcurPassword];
@@ -187,7 +203,7 @@
                 
                 _alterUser = [[User alloc]init];
                 //旧信息
-                _alterUser.username = [defaults  stringForKey:@"userName"];
+                _alterUser.username = _dic[@"userName"];
                 _alterUser.passwd =  _curPassword.text;
                 
                 //通过finddata方法，返回一个条件查询后返回的数组，由于账号密码对应的只有一个，将最后的数据转换为字典

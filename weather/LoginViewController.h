@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LoginViewController : UIViewController
+@interface LoginViewController : UIViewController 
 
 // 微博登录成功后的调整
 - (void) loginByWeiboPopToRootView;

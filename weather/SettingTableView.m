@@ -23,6 +23,12 @@
     
     // 存放每一个行的主要内容
     NSArray *mArr;
+    
+    // 组的标题
+    NSArray *sArr;
+    
+    // 版本
+    NSString *updateTime;
 }
 
 
@@ -35,10 +41,16 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        NSArray *arr = @[@"拍照",@"提醒",@"生活指数"];
+        NSArray *arr1 = @[@"拍照",@"提醒",@"生活指数"];
         
-        mArr = arr;
-//        self.backgroundColor = [UIColor whiteColor];
+        NSArray *arr2 = @[@"检查更新",@"帮助",@"关于我们"];
+        
+        sArr = @[@"个人设置",@"应用相关"];
+        
+        mArr = @[arr1,arr2];
+        
+        updateTime = @"1.0.0";
+        
         [self creatTabelWithFrame:frame];
     }
     return self;
@@ -48,33 +60,47 @@
 {
     
     settingTableView = [[UITableView alloc] initWithFrame:CGRectMake(VIEW_X, 0, VIEW_WIDTH, VIEW_HEIGHT) style:UITableViewStyleGrouped];
-//    settingTableView = [[UITableView alloc] initWithFrame:frame];
+    
+    
+    settingTableView.backgroundColor = [UIColor colorWithRed:60/254.0 green:60/254.0 blue:60/254.0 alpha:1];
+
     
     settingTableView.dataSource = self;
     
     settingTableView.delegate = self;
     
-//    settingTableView.backgroundColor = [UIColor clearColor];
+    //
+    settingTableView.sectionFooterHeight = 0;
     
+    // 接收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userChange:) name:@"userChange" object:nil];
+
     [self addSubview:settingTableView];
-//    self = settingTableView;
-//    return settingTableView;
     
 
 }
 
 
 #pragma mark - setting的数据源
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return mArr.count;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
-    return mArr.count + 1 ;
+    NSArray *arr = mArr[section];
+    if (section == 0) {
+        return arr.count + 1;
+    }
+    return arr.count ;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    NSArray *arr = mArr[indexPath.section];
+    
+    if (indexPath.row == 0 && indexPath.section == 0) {
         
         SettingHeadTableViewCell *headCell = [SettingHeadTableViewCell creatCell:tableView];
         
@@ -84,28 +110,37 @@
         NSDictionary *dic = [user objectForKey:@"userInfo"];
         
         if (dic == nil) {
-            dic = @{@"userName": @"未登录", @"photoName":@"head.png"};
+            dic = @{@"userName": @"未登录", @"photoName":@"right_drawer_head_unlogin_press.png"};
         }
         
         headCell.info = @[dic[@"photoName"],dic[@"userName"]];
+        
+        
+        headCell.backgroundColor = [UIColor colorWithRed:60/254.0 green:60/254.0 blue:60/254.0 alpha:1];
         
         return headCell;
     }
     else{
         SettingInfoTableViewCell *cell = [SettingInfoTableViewCell creatCell:tableView];
         
-        cell.labelInfo = mArr[indexPath.row - 1 ];
+        int index = indexPath.row;
         
-        if (indexPath.row == 2 || indexPath.row == 3) {
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        if (indexPath.section == 0) {
+            index --;
         }
         
+        cell.labelInfo = arr[index];
+        // 版本
+        if (indexPath.section == 1 && indexPath.row == 0) {
+            cell.rightLabel.text = updateTime;
+        }
+        
+        cell.backgroundColor = [UIColor colorWithRed:60/254.0 green:60/254.0 blue:60/254.0 alpha:1];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        
+        NSLog(@"%d",indexPath.row);
         return cell;
     }
-    //    NSLog(@"%d",indexPath.row);
-    
-    //    return cell;
-    NSLog(@"111111111---------------------1");
 }
 
 /**
@@ -117,9 +152,7 @@
     // 点击cell行时，背景颜色一闪而过
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
     
-    NSLog(@"indexPath.row : %d",indexPath.row);
-    
-    [self.delegate settingTableCellDidClickWithIndex:indexPath.row];
+    [self.delegate settingTableCellDidClickWithIndex:indexPath];
 }
 
 /**
@@ -129,22 +162,63 @@
  */
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.row == 0 && indexPath.section == 0 ) {
         return 65;
     }
     return 40;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return @"个人设置";
+            break;
+            
+        case 1:
+            return @"应用相关";
+            break;
+            
+        default:
+            return @"";
+            break;
+    }
+}
+
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, VIEW_WIDTH, 40)];
+//    
+//    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
+//    lab.text = sArr[section];
+//    
+//    [view addSubview:lab];
+//    
+//    return view;
+//}
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    CGRect r = self.superview.frame;
-    
-//    settingTableView.frame = r;
-//    NSLog(@"%@",r);
-    NSLog(@"table self :%@",self);
 }
+
+
+- (void) userChange : (id)sender
+{
+    
+    [settingTableView  reloadData];
+    
+//    NSArray *mSet = settingTableView.subviews;
+    
+    NSLog(@"执行了tableview里面，reloadData  %@",settingTableView  );
+    
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 
 #pragma mark - 登录信息
 
