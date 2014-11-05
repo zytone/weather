@@ -7,8 +7,10 @@
 //  验证码校对
 
 #import "NumCompareViewController.h"
+#import "SentMail.h"
+#import "ReSetPasswdViewController.h"
 
-@interface NumCompareViewController ()
+@interface NumCompareViewController () <SKPSMTPMessageDelegate>
 {
     UITextField *numfield;
     
@@ -35,6 +37,11 @@
 {
     [super loadView];
     
+    if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        
+    }
+
     /**
      *  添加界面：一个输入邮箱的 文本框 和 提交按钮
      */
@@ -44,7 +51,7 @@
     
     CGFloat w = self.view.frame.size.width - ( x * 2 );
     
-    CGFloat h = 60;
+    CGFloat h = 40;
     
     // 输入文本
     numfield = [[UITextField alloc] initWithFrame:CGRectMake(x, y, w, h)];
@@ -59,14 +66,14 @@
     
     // 重新发送
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(x, y+h, w/2 - 15, h)];
-    lab.text = @"为接收到？重新发送：";
+    lab.text = @"重新发送：";
     
     [self.view addSubview:lab];
     
     // 按钮
     reSentBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    reSentBtn.frame = CGRectMake(x + (w/2), y+h, w/2, h );
+    reSentBtn.frame = CGRectMake(x + (w/2), y+h + 15, w/2, h );
     
     [reSentBtn setTitle:@"60 秒后重新发送" forState:UIControlStateNormal];
     
@@ -80,7 +87,7 @@
     [self.view addSubview:reSentBtn];
     
     // 提交按钮
-    UIButton *sumBtn = [[UIButton alloc] initWithFrame:CGRectMake(x, (y + h) * 2, w, h)];
+    UIButton *sumBtn = [[UIButton alloc] initWithFrame:CGRectMake(x, (y + h + 5) * 2, w, h)];
     
     [sumBtn setTitle:@"提交" forState:UIControlStateNormal];
     
@@ -113,10 +120,18 @@
  */
 - (void)compareNum: (UIButton *)aBtn
 {
-    if ([self.num isEqualToString:numfield.text] == YES) {
+    if ([self.randomNum isEqualToString:numfield.text] == YES) {
+        
         NSLog(@"输入的验证码正确");
         
         // 跳转到下一个设置密码的界面
+        ReSetPasswdViewController *resetPasswd = [ReSetPasswdViewController new];
+        
+        resetPasswd.title = @"新密码";
+        
+        resetPasswd.mail = self.mail;
+        
+        [self.navigationController pushViewController:resetPasswd animated:YES];
         
     }
     else
@@ -165,13 +180,41 @@
 - (void)reSentNumToMail:(UIButton *)aBtn
 {
     // 重新生成验证码
-    NSString *nums = @"1234";
+    // 1、发送验证码  4位
     
+    NSString *titleText = [NSString stringWithCString:"天气账号管理" encoding:NSUTF8StringEncoding];
+    
+//    NSString *mail = emailField.text;
+    
+    // 4位数随机码
+    int randomNum = (arc4random() % 9000) + 1000;
+    NSString *randomCode = [NSString stringWithFormat:@"%d",randomNum];
+    
+    NSString *content = [NSString stringWithFormat:@"验证码是：%@",randomCode];
+    
+    SKPSMTPMessage *sendMail = [SentMail sentMailWithTitle:titleText toMail:self.mail withContent:content ];
+    
+    sendMail.delegate = self;
+    
+    [sendMail send];
     
     // 重设校对验证码
-    self.num = nums;
+    self.randomNum = randomCode;
     
     
+}
+
+#pragma mark -邮件发送成功的代理方法
+- (void)messageSent:(SKPSMTPMessage *)message
+{
+    NSLog(@"发送成功!!!");
+    
+}
+
+#pragma mark -邮件发送失败的代理方法
+- (void)messageFailed:(SKPSMTPMessage *)message error:(NSError *)error
+{
+    NSLog(@"发送失败,错误：%@",error);
 }
 
 
