@@ -8,8 +8,10 @@
 
 #import "LCCItyTableViewController.h"
 #import "LCCityName.h"
+#import "LCCityCell.h"
+#import "AddCityViewController.h"
 
-@interface LCCItyTableViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface LCCItyTableViewController ()<UITableViewDelegate,UITableViewDataSource,AddCityViewControllerDelegate>
 @property (nonatomic , weak) UIView *headView;
 @end
 
@@ -19,7 +21,7 @@
 {
     if(self =[super init])
     {
-        UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 270, 568) style:UITableViewStyleGrouped];
+        LCCityTableView *tableView = [[LCCityTableView alloc]initWithFrame:CGRectMake(0, 0, 270, 568) style:UITableViewStyleGrouped];
         self.tableView = tableView;
     }
     return self;
@@ -36,19 +38,21 @@
     _tableView.allowsSelection = NO;
     _tableView.backgroundColor = [UIColor grayColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    [_tableView setEditing:YES];
+    //    [_tableView setEditing:YES];
     /**  headView  **/
     UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 60)];
-    headView.backgroundColor = [UIColor blackColor];
+    headView.backgroundColor = [UIColor grayColor];
     _tableView.tableHeaderView = headView;
     
     UIFont *font = [UIFont systemFontOfSize:13];
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftBtn.frame = CGRectMake(10, 0, 60, 60);
+    leftBtn.frame = CGRectMake(30, 15, 30, 30);
     [leftBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
-    [leftBtn setTitle:@"修改" forState:UIControlStateNormal];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"person-titlebar-edit"] forState:UIControlStateNormal];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"person-titlebar-edit-pressed"] forState:UIControlStateHighlighted];
+    
     [leftBtn.titleLabel setFont:font];
-//    [headView addSubview:leftBtn];
+    [headView addSubview:leftBtn];
     
     UIButton *rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     rightBtn.frame = CGRectMake(200, 0, 60, 60);
@@ -60,7 +64,7 @@
     UILabel *lable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 150, 60)];
     lable.textColor = [UIColor whiteColor];
     lable.textAlignment = NSTextAlignmentCenter;
-//    lable.center = headView.center;
+    lable.center = headView.center;
     lable.text = @"城市队列";
     [headView addSubview:lable];
     
@@ -93,17 +97,57 @@
 #pragma mark - My button action
 - (void)edit:(UIButton *)sender
 {
+    static BOOL firstClick = YES;
     [_tableView setEditing:!_tableView.isEditing animated:YES];
     
-    if (_tableView.isEditing)
-        [sender setTitle:@"取消" forState:UIControlStateNormal];
+    if (firstClick)
+    {
+        [sender setBackgroundImage:[UIImage imageNamed:@"city-button-done"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"city-button-done-highlight"] forState:UIControlStateHighlighted];
+        firstClick = NO;
+    }
     else
-        [sender setTitle:@"修改" forState:UIControlStateNormal];
+    {
+        
+        [_tableView setEditing:NO animated:YES];
+        [sender setBackgroundImage:[UIImage imageNamed:@"person-titlebar-edit"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"person-titlebar-edit-pressed"] forState:UIControlStateHighlighted];
+        firstClick = YES;
+    }
 }
 
 - (void)add:(id)sender
-
 {
+    AddCityViewController *addCity = [[AddCityViewController alloc] init];
+    [self addChildViewController:addCity];
+    [self.navigationController pushViewController:addCity animated:YES];
+    addCity.delegate = self;
+}
+
+#pragma mark - Add city delegate
+-(void)AddCityViewController:(AddCityViewController *)controller ReloadCityData:(NSString *)city
+{
+    LCCityName *newCity = [LCCityName new];
+    newCity.name = city;
+    newCity.city_num = [LCCityName getNumByName:city];
+    
+    
+    /**  城市队列处理  **/
+    LCCityName *repeatCity = nil;
+    for (LCCityName *oldCity in self.cityArray) {
+        MyLog(@"%@  %@",oldCity.name,newCity.name);
+        if ([oldCity.name isEqualToString:newCity.name]) {//存在相同城市
+            repeatCity = oldCity;
+        }
+    }
+    if (repeatCity!=nil) [self.cityArray removeObject:repeatCity];
+    [self.cityArray insertObject:newCity atIndex:0];
+    
+    [self.tableView reloadData];
+    [self.navigationController popViewControllerAnimated:YES];
+    if ([self.delegate respondsToSelector:@selector(cityTableViewControllerDidAddCity:)]) {
+        [self.delegate cityTableViewControllerDidAddCity:self];
+    }
     
 }
 
@@ -111,15 +155,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ID = @"city";
-    //获得cell
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-    }
-    //设置cell数据
-    cell.textLabel.text = [_cityArray[indexPath.row] name];
-    cell.backgroundColor = [UIColor grayColor];
+    LCCityCell *cell = [LCCityCell cityCellWithTableView:tableView];
+    cell.titleLable.text = [_cityArray[indexPath.row] name];
     return cell;
 }
 
@@ -137,6 +174,8 @@
 }
 
 #pragma mark - Table view delegate
+
+
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {

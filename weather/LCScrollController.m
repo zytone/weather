@@ -7,6 +7,7 @@
 //
 
 #import "LCScrollController.h"
+#import "LCCItyTableViewController.h"
 #define LCScrollWidth [UIScreen mainScreen].bounds.size.width
 #define LCScrollHeight [UIScreen mainScreen].bounds.size.height
 #define margin 100
@@ -23,7 +24,7 @@
 #define P_detalY P_detalHeight * 0.5
 
 
-@interface LCScrollController () <UIScrollViewDelegate>
+@interface LCScrollController () <UIScrollViewDelegate,LCCItyTableViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIView *shadow;
 @property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (weak, nonatomic) IBOutlet UIView *topView;
@@ -122,6 +123,17 @@
 -(void)setTableView:(UITableView *)tableView
 {
     _tableView = tableView;
+}
+
+#pragma mark - cityTableView delegate
+-(void)cityTableViewControllerDidAddCity:(LCCItyTableViewController *)cityController
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        [self animationBeginPosition];
+    } completion:^(BOOL finished) {
+        self.scrollView.contentOffset = POINT(0, 0);
+        [self willDeallocRight];
+    }];
 }
 
 #pragma mark - 控制位置

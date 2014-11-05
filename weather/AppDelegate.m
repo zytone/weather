@@ -22,7 +22,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WXApi.h"
-
+#import "AddCityViewController.h"
 
 #import "LCScrollController.h"
 #import "settingInfo/SettingInfoViewController.h"
@@ -142,8 +142,7 @@
     
     self.window.rootViewController = rootNav;
     
-    
-    
+//    self.window.rootViewController = [AddCityViewController new];
 
 //    self.window.rootViewController = [LoginViewController new];
 //    self.window.rootViewController = [RegisterViewController new];
