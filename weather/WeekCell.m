@@ -52,7 +52,7 @@
 
     self.weatherPic.image = [UIImage imageNamed:fw.weather_icon];
     // 温度
-    NSString *temp = [NSString stringWithFormat:@"%@~%@°C",fw.temp_high,fw.temp_low];
+    NSString *temp = [NSString stringWithFormat:@"%@~%@°C",fw.temp_low,fw.temp_high];
     self.temp.text = temp;//fw.temperature;
    
 }

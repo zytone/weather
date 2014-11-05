@@ -117,10 +117,19 @@
     // 判断数据是否为空
     NSLog(@"数据库中取出cityNo：%@",cityNo);
     if (_futureWeekWeathreInfos.count >0) {
+        FutureWeekWeahterInfo *info = _futureWeekWeathreInfos[0];
+        if([info.cityid isEqualToString:_city_num])
+        {
+            NSLog(@"FutureWeekWeatherL:%@",info.citynm);
         v0_BriefV.futureWeekWeahterInfo = _futureWeekWeathreInfos[0]; // 今天的天气放入天气简要view（由于nowInfo数据不全）
         v1_weekWeatherV.data = _futureWeekWeathreInfos;  // 数据放入一周天气view
-        
         _todayWeatherInfo = _futureWeekWeathreInfos[0];
+//       for(FutureWeekWeahterInfo *item in v1_weekWeatherV.data)
+//       {
+//           NSLog(@"城市%@ 温度：%@",item.citynm,item.temperature);
+//       }
+        }
+        
     }else
     {
         // 置空
@@ -130,6 +139,7 @@
     }
     if(_nowInfo!=nil)
     {
+        NSLog(@"nowInfo城市名称：%@",_nowInfo.city);
         v3_WindS.nowWeatherInfo = _nowInfo;     // 数据放入风速view
          v0_BriefV.nowWeatherInfo = _nowInfo;    // 数据放入天气简要view
 //        isScroll =true;
@@ -251,6 +261,7 @@ static int flag = 0;
 -(void)getWeekWeatherData:(NSDictionary *)dic errorMessage:(NSError *)err
 {
     // 字典转模型
+    NSLog(@"获取一周天气信息cityNO：%@",_city_num);
     flag++;
     if(err==nil)
     {
@@ -328,26 +339,39 @@ static int flag = 0;
     NSLog(@"网络数据cityNo：%@",_city_num);
     // 所有数据不为空 才进行设置数据
     
-    if(_nowInfo_ForNet)
+    if(_nowInfo_ForNet&&[_nowInfo_ForNet.cityid isEqualToString:_city_num])
     {
         v0_BriefV.nowWeatherInfo = _nowInfo_ForNet;
         v3_WindS.nowWeatherInfo = _nowInfo_ForNet;
         // 插入数据库
         [_nowInfo insertNowWeatherInfo:_nowInfo_ForNet];
     }
-    if(_todayWeatherInfo_ForNet)
+    if(_todayWeatherInfo_ForNet&&[_todayWeatherInfo_ForNet.cityid isEqualToString:_city_num])
     {
         v0_BriefV.futureWeekWeahterInfo = _todayWeatherInfo_ForNet;
     }
     if(_futureWeekWeathreInfos_ForNet)
     {
-        // 天气预报 view
-        v1_weekWeatherV.data = _futureWeekWeathreInfos_ForNet;
-         // 插入数据库
-        // 一周天气信息
-        for(FutureWeekWeahterInfo *item in _futureWeekWeathreInfos_ForNet)
+        // 排序
+       
+        
+        FutureWeekWeahterInfo *info = _futureWeekWeathreInfos_ForNet[0];
+        if([info.cityid isEqualToString:_city_num])
         {
-            [item insertFutureWeekWeahterInfo:item];
+            // 排序 
+            NSMutableArray *result = [NSMutableArray arrayWithArray:_futureWeekWeathreInfos_ForNet];
+            NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"days" ascending:YES];//其中，price为数组中的对象的属性，这个针对数组中存放对象比较更简洁方便
+            NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+            [result sortUsingDescriptors:sortDescriptors];
+            
+            // 天气预报 view
+            v1_weekWeatherV.data = result;
+             // 插入数据库
+            // 一周天气信息
+            for(FutureWeekWeahterInfo *item in _futureWeekWeathreInfos_ForNet)
+            {
+                [item insertFutureWeekWeahterInfo:item];
+            }
         }
     }
     if(_lifeAdvices_ForNet)

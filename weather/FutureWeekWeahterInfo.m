@@ -112,6 +112,12 @@
             [f setValuesForKeysWithDictionary:dic];
             [result addObject:f];
         }
+        
+        // 排序
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"days" ascending:YES];//其中，price为数组中的对象的属性，这个针对数组中存放对象比较更简洁方便
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+        [result sortUsingDescriptors:sortDescriptors];
+      
     }
     return result;
 }

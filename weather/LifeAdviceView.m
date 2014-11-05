@@ -105,7 +105,7 @@
 #pragma mark 设置数据
 -(void)setLifeAInfos:(NSArray *)lifeAInfos
 {
-    _lifeAInfos = nil;
+    _lifeAInfos = lifeAInfos;
     if(_lifeAInfos !=nil)
     {
         // 恢复被隐藏的生活建议按钮
