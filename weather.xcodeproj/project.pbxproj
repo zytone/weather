@@ -225,6 +225,7 @@
 		7160FA6E1A07DDC500A433F0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA6D1A07DDC500A433F0 /* libsqlite3.dylib */; };
 		7160FA711A07DE3500A433F0 /* AGViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7160FA701A07DE3500A433F0 /* AGViewDelegate.m */; };
 		7160FA731A07E0A100A433F0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA721A07E0A100A433F0 /* MessageUI.framework */; };
+		7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */; };
 		71CBC52F1A0728A200F79165 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */; };
 		71CBC5301A0728A200F79165 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */; };
 		71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52E1A0728A200F79165 /* MBProgressHUD.m */; };
@@ -518,6 +519,8 @@
 		7160FA6F1A07DE3500A433F0 /* AGViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGViewDelegate.h; sourceTree = "<group>"; };
 		7160FA701A07DE3500A433F0 /* AGViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGViewDelegate.m; sourceTree = "<group>"; };
 		7160FA721A07E0A100A433F0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCItyTableViewController.h; sourceTree = "<group>"; };
+		7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCItyTableViewController.m; sourceTree = "<group>"; };
 		71CBC52A1A0728A200F79165 /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
 		71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
@@ -1013,6 +1016,8 @@
 		5658832B19F72FE9007694EE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */,
+				7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */,
 				56364DBE1A07AE8800B353C3 /* UserInfo */,
 				568BA9EF1A077FF80091531A /* JSONKit */,
 				5633320A1A07138A00C371E8 /* RetrievePasswd */,
@@ -1428,6 +1433,7 @@
 				564F69B71A038C4700F80CE4 /* LifeAdviceView.m in Sources */,
 				564F698D1A038BB000F80CE4 /* NowWeatherInfo.m in Sources */,
 				0F1D833F19FF24F4005208BF /* AddCityViewController.m in Sources */,
+				7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */,
 				564F699E1A038BD900F80CE4 /* LCMainWeatherController.m in Sources */,
 				5640A04A1A02980600F7B3E9 /* NotificationTableCellTableViewCell.m in Sources */,
 				5640A0491A02980600F7B3E9 /* NotificationOperate.m in Sources */,

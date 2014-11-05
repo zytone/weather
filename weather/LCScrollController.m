@@ -35,7 +35,6 @@
 @property (nonatomic, strong) UIButton *imageBtn;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (nonatomic, assign) CGPoint startPoint;
-@property (nonatomic, assign) LCScrollType type;
 @property (nonatomic, assign) CGRect beginBF;
 @property (nonatomic, assign) CGRect beginTF;
 @property (nonatomic, assign) CGRect beginCF;
