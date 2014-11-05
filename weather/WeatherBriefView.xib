@@ -32,13 +32,13 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view alpha="0.10000000000000001" contentMode="scaleToFill" id="b3B-Be-0Yh">
-                    <rect key="frame" x="3" y="410" width="314" height="114"/>
+                <view alpha="0.059999999999999998" contentMode="scaleToFill" id="b3B-Be-0Yh">
+                    <rect key="frame" x="10" y="410" width="300" height="114"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="srT-SI-yo9">
-                    <rect key="frame" x="3" y="410" width="314" height="114"/>
+                    <rect key="frame" x="10" y="410" width="300" height="114"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3No-aJ-3ER" userLabel="湿度 - Label">
@@ -129,6 +129,7 @@
                 <outlet property="SDLabel" destination="3No-aJ-3ER" id="sz9-Kg-IUk"/>
                 <outlet property="WD" destination="6nt-YO-xTy" id="rZc-uI-ffY"/>
                 <outlet property="WS" destination="u7X-eg-9We" id="0mp-TE-5lb"/>
+                <outlet property="bottomGrayView" destination="b3B-Be-0Yh" id="c2x-LI-erE"/>
                 <outlet property="dateLabel" destination="2va-u7-fuL" id="Fsj-Qz-GMD"/>
                 <outlet property="grayView" destination="srT-SI-yo9" id="itp-aw-w5I"/>
                 <outlet property="shareBtn" destination="ffN-bt-vws" id="qco-SZ-flw"/>

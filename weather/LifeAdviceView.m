@@ -9,7 +9,7 @@
 #import "LifeAdviceView.h"
 #import "LifeAdviceInfoItem.h"
 #import "LifeAdviceDetailsController.h"
-#define ADVICESCOUNT 6
+#define ADVICESCOUNT 6  // 生活建议的个数
 
 @interface LifeAdviceView ()<UIAlertViewDelegate>
 {
@@ -108,14 +108,13 @@
     _lifeAInfos = nil;
     if(_lifeAInfos !=nil)
     {
-        
-        //
+        // 恢复被隐藏的生活建议按钮
         for(int i = 0; i <lifeAInfos.count;i++)
         {
             UIButton *btn = (UIButton *)[self viewWithTag:i +  1500];
              btn.hidden = NO;
-//            [self viewWithTag:i+ 200].hidden = NO;
         }
+        // 隐藏报错信息
         errorLalel1.hidden = YES;
         
         // 为了避免图片顺序混乱
@@ -139,12 +138,13 @@
         }
     }else
     {
-        // 隐藏按钮
+        // 隐藏各个生活建议按钮
         for(int i = 0; i <lifeAInfos.count;i++)
         {
             UIButton *btn = (UIButton *)[self viewWithTag:i +  1500];
             btn.hidden = YES;
         }
+        // 显示报错信息
         errorLalel1.hidden = NO;
     }
 }

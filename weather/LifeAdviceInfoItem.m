@@ -9,6 +9,13 @@
 #import "LifeAdviceInfoItem.h"
 #import "LRWDBHelper.h"
 @implementation LifeAdviceInfoItem
++ (void)deleteDataByName:(NSString *)name
+{
+    LifeAdviceInfoItem *life = [LifeAdviceInfoItem new];
+    life.cityid = name;
+    [LRWDBHelper deleteDataFromTable:@"life_advice" byExample:life];
+}
+
 -(void)insertLifeAdviceInfoItem:(LifeAdviceInfoItem *)info
 {
     LifeAdviceInfoItem *old = [LifeAdviceInfoItem new];

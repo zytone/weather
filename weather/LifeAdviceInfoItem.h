@@ -28,4 +28,5 @@
 -(void)insertLifeAdviceInfoItem:(LifeAdviceInfoItem*)info;
 //根据cityid 和date 日期查这个城市的所有生活指数
 +(NSArray *)searchLifeAdviceInfoItemsByCityId:(NSString*)cityid Date:(NSString*)date;
++(void)deleteDataByName:(NSString *) name;
 @end

@@ -31,6 +31,13 @@
     return self;
 }
 
++(void)deletDataByCityName:(NSString*)cityId
+{
+    NowWeatherInfo *now = [NowWeatherInfo new];
+    now.cityid = cityId;
+    [LRWDBHelper deleteDataFromTable:@"now_weather" byExample:now];
+}
+
 -(void)insertNowWeatherInfo:(NowWeatherInfo *)info
 {
     NowWeatherInfo *old = [NowWeatherInfo new];

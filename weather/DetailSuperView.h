@@ -15,4 +15,5 @@
 @interface DetailSuperView : UIView
 // 标题
 @property(nonatomic,retain)UILabel *titleLabel;
+@property(nonatomic,retain)UIView *whiteLine;
 @end
