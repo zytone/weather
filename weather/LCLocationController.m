@@ -23,6 +23,7 @@
 
 -(void)update
 {
+    [MBProgressHUD showMessage:@"正在获取当前位置" toView:self.view.superview];
     if ([CLLocationManager locationServicesEnabled]) {
         CLLocationManager *locationManager = [[CLLocationManager alloc]init];
         self.locationManager = locationManager;
@@ -42,7 +43,7 @@
 #pragma mark - Location manager delegate
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    [MBProgressHUD showMessage:@"正在获取当前位置" toView:self.view.superview];
+    
     [self.locationManager stopUpdatingLocation];
     CLLocation *currentLocation = [locations lastObject];
     CLGeocoder *geocoder = [[CLGeocoder alloc]init];
@@ -74,7 +75,7 @@
         
         //调用代理方法
         if ([self.delegate respondsToSelector:@selector(locationController:result:)]) {
-
+            [MBProgressHUD hideHUD];
             NSDictionary *dic = [[NSDictionary alloc]initWithObjectsAndKeys:
                                  self.cityName , @"city" ,
                                  error , @"error",

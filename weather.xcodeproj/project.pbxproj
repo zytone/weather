@@ -231,6 +231,16 @@
 		7160FA6E1A07DDC500A433F0 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA6D1A07DDC500A433F0 /* libsqlite3.dylib */; };
 		7160FA711A07DE3500A433F0 /* AGViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 7160FA701A07DE3500A433F0 /* AGViewDelegate.m */; };
 		7160FA731A07E0A100A433F0 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7160FA721A07E0A100A433F0 /* MessageUI.framework */; };
+		71660E721A0A0A9A00161AC5 /* person-titlebar-edit-pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E701A0A0A9A00161AC5 /* person-titlebar-edit-pressed.png */; };
+		71660E731A0A0A9A00161AC5 /* person-titlebar-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E711A0A0A9A00161AC5 /* person-titlebar-edit.png */; };
+		71660E7A1A0A0AC300161AC5 /* LCCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71660E761A0A0AC300161AC5 /* LCCityCell.m */; };
+		71660E7B1A0A0AC300161AC5 /* LCCityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71660E771A0A0AC300161AC5 /* LCCityCell.xib */; };
+		71660E7C1A0A0AC300161AC5 /* LCCityTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 71660E791A0A0AC300161AC5 /* LCCityTableView.m */; };
+		71660E811A0A0D2800161AC5 /* city-button-done-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E7D1A0A0D2800161AC5 /* city-button-done-highlight.png */; };
+		71660E821A0A0D2800161AC5 /* city-button-done.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E7E1A0A0D2800161AC5 /* city-button-done.png */; };
+		71660E831A0A0D2800161AC5 /* city-button-edit-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E7F1A0A0D2800161AC5 /* city-button-edit-highlight.png */; };
+		71660E841A0A0D2800161AC5 /* city-button-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E801A0A0D2800161AC5 /* city-button-edit.png */; };
+		71660E861A0A0E6600161AC5 /* Btnframe.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71660E851A0A0E6600161AC5 /* Btnframe.plist */; };
 		7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */; };
 		71C7965E1A09E9EC0043D034 /* banner-activity-close.png in Resources */ = {isa = PBXBuildFile; fileRef = 71C7965D1A09E9EC0043D034 /* banner-activity-close.png */; };
 		71C796601A09EA020043D034 /* right_drawer_head_unlogin_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 71C7965F1A09EA020043D034 /* right_drawer_head_unlogin_press.png */; };
@@ -538,6 +548,18 @@
 		7160FA6F1A07DE3500A433F0 /* AGViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGViewDelegate.h; sourceTree = "<group>"; };
 		7160FA701A07DE3500A433F0 /* AGViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGViewDelegate.m; sourceTree = "<group>"; };
 		7160FA721A07E0A100A433F0 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		71660E701A0A0A9A00161AC5 /* person-titlebar-edit-pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person-titlebar-edit-pressed.png"; sourceTree = "<group>"; };
+		71660E711A0A0A9A00161AC5 /* person-titlebar-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "person-titlebar-edit.png"; sourceTree = "<group>"; };
+		71660E751A0A0AC300161AC5 /* LCCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCityCell.h; sourceTree = "<group>"; };
+		71660E761A0A0AC300161AC5 /* LCCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCityCell.m; sourceTree = "<group>"; };
+		71660E771A0A0AC300161AC5 /* LCCityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LCCityCell.xib; sourceTree = "<group>"; };
+		71660E781A0A0AC300161AC5 /* LCCityTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCityTableView.h; sourceTree = "<group>"; };
+		71660E791A0A0AC300161AC5 /* LCCityTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCityTableView.m; sourceTree = "<group>"; };
+		71660E7D1A0A0D2800161AC5 /* city-button-done-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city-button-done-highlight.png"; sourceTree = "<group>"; };
+		71660E7E1A0A0D2800161AC5 /* city-button-done.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city-button-done.png"; sourceTree = "<group>"; };
+		71660E7F1A0A0D2800161AC5 /* city-button-edit-highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city-button-edit-highlight.png"; sourceTree = "<group>"; };
+		71660E801A0A0D2800161AC5 /* city-button-edit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "city-button-edit.png"; sourceTree = "<group>"; };
+		71660E851A0A0E6600161AC5 /* Btnframe.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Btnframe.plist; sourceTree = "<group>"; };
 		7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCCItyTableViewController.h; sourceTree = "<group>"; };
 		7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCCItyTableViewController.m; sourceTree = "<group>"; };
 		71C7965D1A09E9EC0043D034 /* banner-activity-close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner-activity-close.png"; sourceTree = "<group>"; };
@@ -782,6 +804,11 @@
 		564F69D71A038DAA00F80CE4 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				71660E7D1A0A0D2800161AC5 /* city-button-done-highlight.png */,
+				71660E7E1A0A0D2800161AC5 /* city-button-done.png */,
+				71660E7F1A0A0D2800161AC5 /* city-button-edit-highlight.png */,
+				71660E801A0A0D2800161AC5 /* city-button-edit.png */,
+				71660E6F1A0A0A8D00161AC5 /* city */,
 				71E046D11A08771400C7E03E /* fenxiangdaohanglan.png */,
 				56364DBC1A079A0900B353C3 /* head.jpeg */,
 				56364DB61A07977300B353C3 /* bg6@2x.jpg */,
@@ -961,6 +988,7 @@
 		5658830119F72F99007694EE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				71660E851A0A0E6600161AC5 /* Btnframe.plist */,
 				564F69D71A038DAA00F80CE4 /* icon */,
 				564F69E81A038DAA00F80CE4 /* icon1 */,
 				564F6A501A038DAA00F80CE4 /* mp3 */,
@@ -1009,6 +1037,7 @@
 		5658832A19F72FDF007694EE /* view */ = {
 			isa = PBXGroup;
 			children = (
+				71660E741A0A0AB500161AC5 /* CityTable */,
 				7160FA6F1A07DE3500A433F0 /* AGViewDelegate.h */,
 				7160FA701A07DE3500A433F0 /* AGViewDelegate.m */,
 				1FEA75A61A06284C0022043F /* LineChartView.h */,
@@ -1210,6 +1239,27 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		71660E6F1A0A0A8D00161AC5 /* city */ = {
+			isa = PBXGroup;
+			children = (
+				71660E701A0A0A9A00161AC5 /* person-titlebar-edit-pressed.png */,
+				71660E711A0A0A9A00161AC5 /* person-titlebar-edit.png */,
+			);
+			name = city;
+			sourceTree = "<group>";
+		};
+		71660E741A0A0AB500161AC5 /* CityTable */ = {
+			isa = PBXGroup;
+			children = (
+				71660E751A0A0AC300161AC5 /* LCCityCell.h */,
+				71660E761A0A0AC300161AC5 /* LCCityCell.m */,
+				71660E771A0A0AC300161AC5 /* LCCityCell.xib */,
+				71660E781A0A0AC300161AC5 /* LCCityTableView.h */,
+				71660E791A0A0AC300161AC5 /* LCCityTableView.m */,
+			);
+			name = CityTable;
+			sourceTree = "<group>";
+		};
 		71CBC5291A0728A200F79165 /* MBProgressHUD */ = {
 			isa = PBXGroup;
 			children = (
@@ -1327,6 +1377,7 @@
 				1F9E3AD01A06638B002AF955 /* ww12.png in Resources */,
 				564F6A701A038DAA00F80CE4 /* main_voice.png in Resources */,
 				564F6A771A038DAA00F80CE4 /* share_sms_pressed.png in Resources */,
+				71660E731A0A0A9A00161AC5 /* person-titlebar-edit.png in Resources */,
 				0F1736B719F9E6F900AB6662 /* login_key_os7@2x.png in Resources */,
 				1F9E3ADB1A06638B002AF955 /* ww22.png in Resources */,
 				1F9E3ACC1A06638B002AF955 /* ww0.png in Resources */,
@@ -1340,12 +1391,14 @@
 				564F6A5A1A038DAA00F80CE4 /* bg1.png in Resources */,
 				564F6A5E1A038DAA00F80CE4 /* dock-more-highlighted.png in Resources */,
 				0F2B6D0E19F8FA7C0010CAB4 /* weather.sqlite in Resources */,
+				71660E811A0A0D2800161AC5 /* city-button-done-highlight.png in Resources */,
 				564F6A6B1A038DAA00F80CE4 /* bigpole@2x.png in Resources */,
 				564F6A7B1A038DAA00F80CE4 /* share_wxfriend_pressed.png in Resources */,
 				1F9E3AD41A06638B002AF955 /* ww16.png in Resources */,
 				564F6A5B1A038DAA00F80CE4 /* bgshadow.png in Resources */,
 				564F6A651A038DAA00F80CE4 /* share_0_pressed.png in Resources */,
 				0FF49A8819FA3102005B7DAC /* sinaLogo.png in Resources */,
+				71660E721A0A0A9A00161AC5 /* person-titlebar-edit-pressed.png in Resources */,
 				564F6AC91A038DAA00F80CE4 /* ic_shirt.png in Resources */,
 				564F6A791A038DAA00F80CE4 /* share_tencent_pressed.png in Resources */,
 				564F6AD11A038DAA00F80CE4 /* partlycloudy.mp4 in Resources */,
@@ -1353,9 +1406,11 @@
 				564F634F1A01DB9A0050D3FB /* SettingInfoTableViewCell.xib in Resources */,
 				0F0FC3E419FF78A900B77CA1 /* background.jpeg in Resources */,
 				0F1736A719F9E32A00AB6662 /* head.png in Resources */,
+				71660E7B1A0A0AC300161AC5 /* LCCityCell.xib in Resources */,
 				564F69A11A038BD900F80CE4 /* LCScrollController.xib in Resources */,
 				1F9E3AD11A06638B002AF955 /* ww13.png in Resources */,
 				564F69B91A038C4700F80CE4 /* WeatherBriefView.xib in Resources */,
+				71660E841A0A0D2800161AC5 /* city-button-edit.png in Resources */,
 				1F9E3ADA1A06638B002AF955 /* ww21.png in Resources */,
 				1F9E3AD31A06638B002AF955 /* ww15.png in Resources */,
 				56364DBD1A079A0900B353C3 /* head.jpeg in Resources */,
@@ -1378,6 +1433,7 @@
 				1F9E3AD71A06638B002AF955 /* ww19.png in Resources */,
 				564F6ABF1A038DAA00F80CE4 /* buttonHighlight.png in Resources */,
 				564F6AD01A038DAA00F80CE4 /* overcast.mp4 in Resources */,
+				71660E821A0A0D2800161AC5 /* city-button-done.png in Resources */,
 				1F9E3AE31A06638B002AF955 /* ww3.png in Resources */,
 				564F6A741A038DAA00F80CE4 /* share_sina_normal.png in Resources */,
 				564F634D1A01DB9A0050D3FB /* SettingHeadTableViewCell.xib in Resources */,
@@ -1393,6 +1449,7 @@
 				564F6A7D1A038DAA00F80CE4 /* share_wxgroup_pressed.png in Resources */,
 				564F6A691A038DAA00F80CE4 /* share_2_pressed.png in Resources */,
 				0F0FC3E619FF79F100B77CA1 /* background.jpg in Resources */,
+				71660E831A0A0D2800161AC5 /* city-button-edit-highlight.png in Resources */,
 				564F6A801A038DAA00F80CE4 /* ic_windmill.png in Resources */,
 				7127CFAD1A08CDC80057A2F8 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				1F9E3AE11A06638B002AF955 /* ww28.png in Resources */,
@@ -1418,6 +1475,7 @@
 				564F69BB1A038C4700F80CE4 /* WeekCell.xib in Resources */,
 				1F9E3ACE1A06638B002AF955 /* ww10.png in Resources */,
 				564F6AC01A038DAA00F80CE4 /* buttonNegt12.png in Resources */,
+				71660E861A0A0E6600161AC5 /* Btnframe.plist in Resources */,
 				0F1736C119FA013700AB6662 /* login_user_highlighted_os7@2x.png in Resources */,
 				564F6AC51A038DAA00F80CE4 /* ic_fish1.png in Resources */,
 				0F0893D919FE24650054217C /* WeiboSDK.bundle in Resources */,
@@ -1454,6 +1512,7 @@
 				1FEA75A81A06284C0022043F /* LineChartView.m in Sources */,
 				563E7CD41A0322BF00D4A943 /* SettingTableView.m in Sources */,
 				564F69D11A038D4100F80CE4 /* LRWDBHelper.m in Sources */,
+				71660E7C1A0A0AC300161AC5 /* LCCityTableView.m in Sources */,
 				5633320D1A072A4B00C371E8 /* NumCompareViewController.m in Sources */,
 				564F69D21A038D4100F80CE4 /* NSObject+PropertyListing.m in Sources */,
 				564F69D31A038D4100F80CE4 /* ToolHelper.m in Sources */,
@@ -1494,6 +1553,7 @@
 				564F69A01A038BD900F80CE4 /* LCScrollController.m in Sources */,
 				564F698B1A038BB000F80CE4 /* LifeAdviceInfo.m in Sources */,
 				564F69B61A038C4700F80CE4 /* LCBackgroundView.m in Sources */,
+				71660E7A1A0A0AC300161AC5 /* LCCityCell.m in Sources */,
 				564F698A1A038BB000F80CE4 /* LCCityName.m in Sources */,
 				5658830B19F72F99007694EE /* AppDelegate.m in Sources */,
 				564F63461A01DB830050D3FB /* SettingHeadTableViewCell.m in Sources */,

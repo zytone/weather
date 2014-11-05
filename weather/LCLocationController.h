@@ -7,13 +7,13 @@
 //  获取当前位置
 
 #import <UIKit/UIKit.h>
+
 typedef void (^LCLocationResult)(NSString *cityName, NSError *error);
 @protocol LCLocationControllerDelegate;
 
 @interface LCLocationController : UIViewController
 @property (nonatomic , weak) id<LCLocationControllerDelegate> delegate;
 @property (nonatomic, copy) NSString *cityName;
-
 - (void)update;
 @end
 

@@ -49,7 +49,7 @@
  */
 #define CONTENTOFFSET POINT(5, 0)
 
-@interface LCMainWeatherController () <UIScrollViewDelegate,LCWeatherDetailsControllerDelegate,LCLocationControllerDelegate,LCScrollControllerDelegate>
+@interface LCMainWeatherController () <UIScrollViewDelegate,LCWeatherDetailsControllerDelegate,LCLocationControllerDelegate,LCScrollControllerDelegate,LCCItyTableViewControllerDelegate>
 @property (nonatomic, strong) AppDelegate *appDelegate;
 //{
 //     AppDelegate * _appDelegate;
@@ -98,7 +98,7 @@
 /**
  *  设置scrollView,添加设置内容
  */
-@property (nonatomic, strong) LCScrollController *scrollController;
+@property (nonatomic, strong) LCScrollController<LCCItyTableViewControllerDelegate> *scrollController;
 /**
  *  控制分享功能
  */
@@ -195,7 +195,9 @@
     LCLocationController *locationControoler = [[LCLocationController alloc]init];
     self.locationControoler = locationControoler;
     locationControoler.delegate = self;
-    [locationControoler update];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [locationControoler update];
+    });
     
     self.horizontalScrollView.scrollEnabled = NO;
     if (self.cityArray.count >0) {
@@ -248,7 +250,6 @@ static bool canTurn = YES;
     [self.playerController.player.moviePlayer pause];
     self.disappearCity.view.alpha = 1;
 
-    
     //内容翻转
     [UIView transitionWithView:self.appearCity.view duration:0.8 options:UIViewAnimationOption animations:^{
         self.disappearCity.view.frame = APPEARCITYFRAME;
@@ -309,7 +310,6 @@ static bool canTurn = YES;
     [self savePlist];
     cityIndex = 0;
 }
-
 #pragma mark - 城市数据改变
 //获取城市数据plist路径
 - (NSString *)cityArraySavePath
@@ -412,6 +412,10 @@ static BOOL ScrollControllanimating = NO;//控制设置返回动画播放
             _appearCity.city_num = [_cityArray[0] city_num];
             _appearCity.topTitle = [_cityArray[0] name];
         }
+        else
+        {
+            _appearCity.topTitle = @"";
+        }
         _playerController.movietType = _appearCity.getBackGroudVedioName;
         [self savePlist];
     }
@@ -506,9 +510,10 @@ static bool HorizontalScrollViewBeginScroll = NO;
         [self addChildViewController:_settingInfoViewController];
     }else
     {
-         scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeRight];
+        scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeRight];
         LCCItyTableViewController *cityTableController = [LCCItyTableViewController new];
         cityTableController.cityArray = _cityArray;
+        cityTableController.delegate = (id<LCCItyTableViewControllerDelegate>)scrollController;
         scrollController.tableView = [cityTableController.view.subviews firstObject];
         [self addChildViewController:cityTableController];
     }
@@ -581,34 +586,39 @@ static bool HorizontalScrollViewBeginScroll = NO;
 #pragma mark -Location controller delegate
 -(void)locationController:(LCLocationController *)locationController result:(NSDictionary *)result
 {
-    [MBProgressHUD hideHUD];
-    NSString *error = [result valueForKey:@"error"];
-    NSString *city = [result valueForKey:@"city"];
-    
-    if (error == nil  && city != nil) {//请求成功
-        if (![city isEqualToString:@""])
-        {
-            LCCityName *cityName = [LCCityName city];
-            cityName.name = city;
-            cityName.city_num = [LCCityName getNumByName:city];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUD];
+        NSString *error = [result valueForKey:@"error"];
+        NSString *city = [result valueForKey:@"city"];
+        
+        if (error == nil  && city != nil) {//请求成功
+            if (![city isEqualToString:@""])
+            {
+                LCCityName *cityName = [LCCityName city];
+                cityName.name = city;
+                cityName.city_num = [LCCityName getNumByName:city];
 #warning 获取当前位置刷新内容和视频 , 提示时候显示当前城市
-            self.appearCity.topTitle = city;
-            _appearCity.city_num = cityName.city_num;
-            self.playerController.movietType = _appearCity.getBackGroudVedioName;
+                self.appearCity.topTitle = city;
+                _appearCity.city_num = cityName.city_num;
+                self.playerController.movietType = _appearCity.getBackGroudVedioName;
+                
+                //更新城市队列
+                [self updatePlistWithCity:cityName];
+                [self savePlist];
+                
+                cityIndex = 0;
+            }
             
-            //更新城市队列
-            [self updatePlistWithCity:cityName];
-            [self savePlist];
-            
-            cityIndex = 0;
         }
-            
-    }
-    else//请求失败
-    {
-        MyLog(@"获取当前位置失败");
-        [MBProgressHUD showError:@"获取当前位置失败" toView:self.view];
-    }
+        else//请求失败
+        {
+            MyLog(@"获取当前位置失败");
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.25 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD showError:@"获取当前位置失败" toView:self.view];
+            });
+        }
+    });
+
     
 }
 

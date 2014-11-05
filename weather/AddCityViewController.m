@@ -147,6 +147,7 @@
         [temp setTitle:self.firstTierCitysName[i] forState:UIControlStateNormal];
         [temp setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         [temp addTarget:self action:@selector(firstTierCitysBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        temp.alpha = 0;
         [self.container addSubview:temp];
         [self.firstTierCitys addObject:temp];
     }
@@ -181,9 +182,10 @@
         rect.origin.y > source.origin.y ? (y = padding) : (y = -padding);
 
          UIButton *temp = self.firstTierCitys[index];
-        
+        temp.alpha = 0;
         [UIView animateWithDuration:0.25 animations:^{
             temp.frame = rect;
+            temp.alpha = 1;
             [temp setTitleColor:color forState:UIControlStateNormal];
             
         } completion:^(BOOL finished) {
@@ -347,7 +349,7 @@
         //判断代理是否实现了代理方法
         if ([self.delegate respondsToSelector:@selector(AddCityViewController:ReloadCityData:)]) {
             NSIndexPath *indexpath = [self.searchResult indexPathForSelectedRow];
-            [self.delegate AddCityViewController:self ReloadCityData:self.citys[indexpath.row]];
+            [self.delegate AddCityViewController:self ReloadCityData:self.firstTierCitys[indexpath.row]];
         }
         return;
     }
