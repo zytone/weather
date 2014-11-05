@@ -39,9 +39,19 @@
 {
     [super loadView];
     
+    
+    
     self.navigationController.navigationBarHidden = NO;
     
-#pragma mark -测试用的plist暂时写入
+    
+#pragma mark -颜色
+    
+     UIColor *CBg = [[UIColor alloc] initWithRed:248.0/255 green:248.0/255 blue:249.0/255 alpha:1];
+#pragma mark -背景颜色
+    
+    self.view.backgroundColor = CBg;
+    
+#pragma mark -plist
     
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     
@@ -58,11 +68,14 @@
     
     
 #pragma mark -各种view尺寸
-    
-    CGRect Rhead =  CGRectMake((self.view.frame.size.width-80)/2, 66, 80, 80);
-//    CGRect RuserNameShow = CGRectMake(22 , 200, 320-44, 44);
+    //头像
+    CGRect Rhead =  CGRectMake((self.view.frame.size.width-80)/2, 75, 80, 80);
+    //邮箱名
+    CGRect RVmail = CGRectMake(0, 180, 320, 44);
+    CGRect RLmail = CGRectMake(22, 0, 320, 44);
+    //选项
     CGRect Rtable =  CGRectMake(0, 240, 320, 88);
-    CGRect RLmail = CGRectMake(22, 180, 320, 44);
+    //切换用户按钮
     CGRect Rlogout = CGRectMake(44, 450, 320-88, 44);
     
 #pragma mark -头像图片
@@ -79,6 +92,17 @@
     
     [self.view addSubview:_headBtn];
     
+#pragma mark -头像圆环层
+    UIImage *layerImg = [UIImage ImageWithColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.5] frame:CGRectMake(0, 0, _headImg.size.width +15, _headImg.size.width +15)];
+    layerImg  = [layerImg blurredImageWithRadius:1000 iterations:1 tintColor:[UIColor whiteColor]];
+    UIImageView *layerView = [[UIImageView alloc] initWithImage:layerImg];
+    layerView.center = _headBtn.center;
+    layerView.layer.masksToBounds = YES;
+    layerView.layer.cornerRadius = layerImg.size.width*0.5;
+    [self.view addSubview:layerView];
+    [self.view sendSubviewToBack:layerView];
+
+    
     
 #pragma mark -table
     dataTable = [[UITableView alloc]initWithFrame:Rtable];
@@ -89,25 +113,37 @@
     
     [self.view addSubview:dataTable];
     
+    dataArry =[[NSMutableArray alloc]initWithObjects:@"修改绑定邮箱",@"修改密码", nil];
+    
+    
    
     
     
     
 
+#pragma mark -显示邮箱的label
+    
     
 //    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    
+    UIView *Vmail = [[UIView alloc]initWithFrame:RVmail];
     
     NSString *mail = [NSString stringWithFormat:@"当前登录邮箱 : %@", _dic[@"userName"]];
     
     
     UILabel *Lmail = [[UILabel alloc]initWithFrame:RLmail];
     Lmail.text = mail;
-    [self.view addSubview:Lmail];
     
+    //颜色
+    Lmail.backgroundColor = [UIColor whiteColor];
+    Vmail.backgroundColor = [UIColor whiteColor];
     
+    [self.view addSubview:Vmail];
+    [Vmail addSubview:Lmail];
     
-    dataArry =[[NSMutableArray alloc]initWithObjects:@"修改绑定邮箱",@"修改密码", nil];
+
     
+   
     
 
     

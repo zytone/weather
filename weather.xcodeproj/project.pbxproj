@@ -183,6 +183,15 @@
 		564F6AE01A038E3400F80CE4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564F6ADF1A038E3400F80CE4 /* MapKit.framework */; };
 		564F6AE21A038E3F00F80CE4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564F6AE11A038E3F00F80CE4 /* MediaPlayer.framework */; };
 		564F6AE51A03912300F80CE4 /* LCHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 564F6AE41A03912300F80CE4 /* LCHeadView.m */; };
+		56516DD31A0A0A6B000F5F01 /* SentMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 56516DD21A0A0A6B000F5F01 /* SentMail.m */; };
+		565419111A0A47710089E9CF /* ReSetPasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419101A0A47710089E9CF /* ReSetPasswdViewController.m */; };
+		5654191D1A0A5CC30089E9CF /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419141A0A5CC30089E9CF /* AboutUsViewController.m */; };
+		5654191E1A0A5CC30089E9CF /* DynamicBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419161A0A5CC30089E9CF /* DynamicBackgroundViewController.m */; };
+		5654191F1A0A5CC30089E9CF /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419181A0A5CC30089E9CF /* HelpViewController.m */; };
+		565419201A0A5CC30089E9CF /* VoiceBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5654191A1A0A5CC30089E9CF /* VoiceBroadcastViewController.m */; };
+		565419211A0A5CC30089E9CF /* WeatherClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5654191C1A0A5CC30089E9CF /* WeatherClockViewController.m */; };
+		565419231A0A5CE90089E9CF /* TeaCulture.png in Resources */ = {isa = PBXBuildFile; fileRef = 565419221A0A5CE90089E9CF /* TeaCulture.png */; };
+		565419251A0A6C2F0089E9CF /* right_drawer_head_default.png in Resources */ = {isa = PBXBuildFile; fileRef = 565419241A0A6C2F0089E9CF /* right_drawer_head_default.png */; };
 		565882FB19F72F99007694EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 565882FA19F72F99007694EE /* Foundation.framework */; };
 		565882FD19F72F99007694EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 565882FC19F72F99007694EE /* CoreGraphics.framework */; };
 		565882FF19F72F99007694EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 565882FE19F72F99007694EE /* UIKit.framework */; };
@@ -478,6 +487,22 @@
 		564F6AE11A038E3F00F80CE4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		564F6AE31A03912300F80CE4 /* LCHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCHeadView.h; sourceTree = "<group>"; };
 		564F6AE41A03912300F80CE4 /* LCHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCHeadView.m; sourceTree = "<group>"; };
+		56516DD11A0A0A6B000F5F01 /* SentMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentMail.h; sourceTree = "<group>"; };
+		56516DD21A0A0A6B000F5F01 /* SentMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentMail.m; sourceTree = "<group>"; };
+		5654190F1A0A47710089E9CF /* ReSetPasswdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReSetPasswdViewController.h; sourceTree = "<group>"; };
+		565419101A0A47710089E9CF /* ReSetPasswdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReSetPasswdViewController.m; sourceTree = "<group>"; };
+		565419131A0A5CC30089E9CF /* AboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsViewController.h; sourceTree = "<group>"; };
+		565419141A0A5CC30089E9CF /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
+		565419151A0A5CC30089E9CF /* DynamicBackgroundViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBackgroundViewController.h; sourceTree = "<group>"; };
+		565419161A0A5CC30089E9CF /* DynamicBackgroundViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicBackgroundViewController.m; sourceTree = "<group>"; };
+		565419171A0A5CC30089E9CF /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		565419181A0A5CC30089E9CF /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		565419191A0A5CC30089E9CF /* VoiceBroadcastViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoiceBroadcastViewController.h; sourceTree = "<group>"; };
+		5654191A1A0A5CC30089E9CF /* VoiceBroadcastViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoiceBroadcastViewController.m; sourceTree = "<group>"; };
+		5654191B1A0A5CC30089E9CF /* WeatherClockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherClockViewController.h; sourceTree = "<group>"; };
+		5654191C1A0A5CC30089E9CF /* WeatherClockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherClockViewController.m; sourceTree = "<group>"; };
+		565419221A0A5CE90089E9CF /* TeaCulture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TeaCulture.png; sourceTree = "<group>"; };
+		565419241A0A6C2F0089E9CF /* right_drawer_head_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right_drawer_head_default.png; sourceTree = "<group>"; };
 		565882F719F72F99007694EE /* weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		565882FA19F72F99007694EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		565882FC19F72F99007694EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -642,6 +667,8 @@
 		0F1736A119F9D67700AB6662 /* image */ = {
 			isa = PBXGroup;
 			children = (
+				565419241A0A6C2F0089E9CF /* right_drawer_head_default.png */,
+				565419221A0A5CE90089E9CF /* TeaCulture.png */,
 				71C7965F1A09EA020043D034 /* right_drawer_head_unlogin_press.png */,
 				71C7965D1A09E9EC0043D034 /* banner-activity-close.png */,
 				5644CC3E1A00D2480086297E /* 112.jpg */,
@@ -714,6 +741,8 @@
 				563332081A07137A00C371E8 /* RetrievePasswdByEmailViewController.m */,
 				5633320B1A072A4B00C371E8 /* NumCompareViewController.h */,
 				5633320C1A072A4B00C371E8 /* NumCompareViewController.m */,
+				5654190F1A0A47710089E9CF /* ReSetPasswdViewController.h */,
+				565419101A0A47710089E9CF /* ReSetPasswdViewController.m */,
 			);
 			name = RetrievePasswd;
 			sourceTree = "<group>";
@@ -768,6 +797,8 @@
 				5640A0451A02980600F7B3E9 /* NotificationOperate.m */,
 				564F69BE1A038C7500F80CE4 /* GetWeatherData.h */,
 				564F69BF1A038C7500F80CE4 /* GetWeatherData.m */,
+				56516DD11A0A0A6B000F5F01 /* SentMail.h */,
+				56516DD21A0A0A6B000F5F01 /* SentMail.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -917,6 +948,23 @@
 				564F6A591A038DAA00F80CE4 /* wind.mp4 */,
 			);
 			path = mp4;
+			sourceTree = "<group>";
+		};
+		565419121A0A5C8A0089E9CF /* HelpAndAbout */ = {
+			isa = PBXGroup;
+			children = (
+				565419131A0A5CC30089E9CF /* AboutUsViewController.h */,
+				565419141A0A5CC30089E9CF /* AboutUsViewController.m */,
+				565419151A0A5CC30089E9CF /* DynamicBackgroundViewController.h */,
+				565419161A0A5CC30089E9CF /* DynamicBackgroundViewController.m */,
+				565419171A0A5CC30089E9CF /* HelpViewController.h */,
+				565419181A0A5CC30089E9CF /* HelpViewController.m */,
+				565419191A0A5CC30089E9CF /* VoiceBroadcastViewController.h */,
+				5654191A1A0A5CC30089E9CF /* VoiceBroadcastViewController.m */,
+				5654191B1A0A5CC30089E9CF /* WeatherClockViewController.h */,
+				5654191C1A0A5CC30089E9CF /* WeatherClockViewController.m */,
+			);
+			name = HelpAndAbout;
 			sourceTree = "<group>";
 		};
 		565882EE19F72F99007694EE = {
@@ -1071,6 +1119,7 @@
 		5658832B19F72FE9007694EE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				565419121A0A5C8A0089E9CF /* HelpAndAbout */,
 				7189AF7B1A093ADE007955FF /* LCCItyTableViewController.h */,
 				7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */,
 				56364DBE1A07AE8800B353C3 /* UserInfo */,
@@ -1359,6 +1408,7 @@
 				1F9E3AEB1A06638B002AF955 /* ww9.png in Resources */,
 				562C949C1A03B66D002D7522 /* broadcasting.png in Resources */,
 				564F6A5C1A038DAA00F80CE4 /* dock-city-highlighted.png in Resources */,
+				565419251A0A6C2F0089E9CF /* right_drawer_head_default.png in Resources */,
 				71C796601A09EA020043D034 /* right_drawer_head_unlogin_press.png in Resources */,
 				564F6AC31A038DAA00F80CE4 /* buttonNormal.png in Resources */,
 				564F6A671A038DAA00F80CE4 /* share_1_pressed.png in Resources */,
@@ -1445,6 +1495,7 @@
 				564F6A751A038DAA00F80CE4 /* share_sina_pressed.png in Resources */,
 				5640A04B1A02980600F7B3E9 /* NotificationTableCellTableViewCell.xib in Resources */,
 				1F9E3AE41A06638B002AF955 /* ww30.png in Resources */,
+				565419231A0A5CE90089E9CF /* TeaCulture.png in Resources */,
 				564F6A5D1A038DAA00F80CE4 /* dock-city.png in Resources */,
 				564F6A7D1A038DAA00F80CE4 /* share_wxgroup_pressed.png in Resources */,
 				564F6A691A038DAA00F80CE4 /* share_2_pressed.png in Resources */,
@@ -1507,6 +1558,7 @@
 			files = (
 				564F634E1A01DB9A0050D3FB /* SettingInfoTableViewCell.m in Sources */,
 				0F26EB8E19F8E6660041314D /* User.m in Sources */,
+				56516DD31A0A0A6B000F5F01 /* SentMail.m in Sources */,
 				568BA9EE1A077FA90091531A /* UIImage+BlurImage.m in Sources */,
 				7160FA711A07DE3500A433F0 /* AGViewDelegate.m in Sources */,
 				1FEA75A81A06284C0022043F /* LineChartView.m in Sources */,
@@ -1538,8 +1590,10 @@
 				564F69891A038BB000F80CE4 /* FutureWeekWeahterInfo.m in Sources */,
 				71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */,
 				564F69B71A038C4700F80CE4 /* LifeAdviceView.m in Sources */,
+				565419111A0A47710089E9CF /* ReSetPasswdViewController.m in Sources */,
 				564F698D1A038BB000F80CE4 /* NowWeatherInfo.m in Sources */,
 				0F1D833F19FF24F4005208BF /* AddCityViewController.m in Sources */,
+				565419211A0A5CC30089E9CF /* WeatherClockViewController.m in Sources */,
 				7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */,
 				564F699E1A038BD900F80CE4 /* LCMainWeatherController.m in Sources */,
 				5640A04A1A02980600F7B3E9 /* NotificationTableCellTableViewCell.m in Sources */,
@@ -1558,9 +1612,11 @@
 				5658830B19F72F99007694EE /* AppDelegate.m in Sources */,
 				564F63461A01DB830050D3FB /* SettingHeadTableViewCell.m in Sources */,
 				5658830719F72F99007694EE /* main.m in Sources */,
+				5654191F1A0A5CC30089E9CF /* HelpViewController.m in Sources */,
 				564F63501A01DB9A0050D3FB /* SettingInfoViewController.m in Sources */,
 				56DE1CCC1A09C4C700F29C55 /* NSData+Base64Additions.m in Sources */,
 				5658832F19F7304D007694EE /* RootViewController.m in Sources */,
+				565419201A0A5CC30089E9CF /* VoiceBroadcastViewController.m in Sources */,
 				5658833C19F7312C007694EE /* AlertsViewController.m in Sources */,
 				564F6AE51A03912300F80CE4 /* LCHeadView.m in Sources */,
 				5658833919F730F4007694EE /* FindPasswdViewController.m in Sources */,

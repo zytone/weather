@@ -11,7 +11,10 @@
 
 @interface NumCompareViewController : UIViewController
 
-// nav 传过来的值
-@property (nonatomic , strong)NSString *num;
+// nav 传过来的值  验证码
+@property (nonatomic , copy)NSString *randomNum;
+
+//  用户邮箱
+@property (nonatomic, copy)NSString *mail;
 
 @end
