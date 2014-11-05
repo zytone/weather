@@ -29,6 +29,10 @@
     FutureWeekWeahterInfo *_weatherInfo;
     NowWeatherInfo *_nowInfo;
     
+    //
+    FutureWeekWeahterInfo *_weatherInfo_forNet;
+    NowWeatherInfo *_nowInfo_forNet;
+    
     // ----------------
 }
 @property (nonatomic , weak) UIView *contentView;
@@ -158,7 +162,8 @@
 #pragma mark - 刷新数据(从网络请求)
 -(void)updateAllDataByNet:(NSString *)cityNo
 {
-    
+    _weatherInfo_forNet = nil;
+    _nowInfo_forNet = nil;
     NSLog(@"网络请求cityNO:%@",cityNo);
     //--------- 网络请求数据 ---------
     // 记录下城市id，以便补全网络上请求 生活指数数据的城市id属性
@@ -208,7 +213,10 @@ static int flag = 0;
             // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
             [info insertNowWeatherInfo:info];
             // 2 天气简要view
-            v0_BriefV.nowWeatherInfo = info;
+             _nowInfo = info;
+            _nowInfo_forNet = info;
+//            v0_BriefV.nowWeatherInfo = info;
+            [self setFirstWeatherAndNowWeatherToView];
             // 3 风速view
             v3_WindS.nowWeatherInfo = info;
             
@@ -218,7 +226,7 @@ static int flag = 0;
 //            [self excuteDelegateRefreshMethod];
             
             // ---
-            _nowInfo = info;
+            
         }else
         {
             v0_BriefV.nowWeatherInfo = nil;
@@ -282,8 +290,11 @@ static int flag = 0;
               // 判断数组是否为空
              if(datas.count >0)
              {
-               v0_BriefV.futureWeekWeahterInfo = datas[0];
                  _weatherInfo = datas[0];
+                 
+                 _weatherInfo_forNet = datas[0];
+                 //v0_BriefV.futureWeekWeahterInfo = datas[0];
+                 [self setFirstWeatherAndNowWeatherToView];
              }
 //            //  收回 下拉刷新数据view（如果请求结束收回标题）
 //            [self excuteDelegateRefreshMethod];
@@ -307,6 +318,17 @@ static int flag = 0;
 
     
 }
+// 技巧方法
+-(void)setFirstWeatherAndNowWeatherToView
+{
+    if(_nowInfo_forNet&&_weatherInfo_forNet)
+    {
+        v0_BriefV.nowWeatherInfo = _nowInfo_forNet;
+        v0_BriefV.futureWeekWeahterInfo = _weatherInfo_forNet;
+        NSLog(@"00000000000000000");
+    }
+}
+
 #pragma mark -实现代理方法 获取生活指数信息
 -(void)getLifeAdviceData:(NSDictionary *)dic errorMessage:(NSError *)err
 {
