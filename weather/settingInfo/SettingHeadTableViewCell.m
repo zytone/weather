@@ -58,7 +58,8 @@
 // 设置cell里面的东西
 - (void)setInfo:(NSArray *)info
 {
-    self.headImg.image = [UIImage imageNamed:@"head"];
+    NSString *imgName = info[0];
+    self.headImg.image = [UIImage imageNamed:imgName];
     
     self.headImg.layer.masksToBounds = YES;
     

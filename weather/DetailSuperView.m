@@ -22,10 +22,17 @@
         [self addSubview:_titleLabel];
         
         // 白色行线
-        UIView *whiteLine = [[UIView alloc]initWithFrame:RECT(10, 45, frame.size.width-20, 1)];
-        whiteLine.backgroundColor = [UIColor whiteColor];
-        [self addSubview:whiteLine];
+        _whiteLine = [[UIView alloc]initWithFrame:RECT(10, 45, frame.size.width-20, 1)];
+        _whiteLine.backgroundColor = [UIColor whiteColor];
+        [self addSubview:_whiteLine];
         
+        CALayer *layer = [CALayer layer];
+        layer.cornerRadius = 10;
+        layer.masksToBounds = YES;
+        layer.frame = self.bounds;
+        layer.backgroundColor = [UIColor blackColor].CGColor;
+        layer.opacity = 0.03;
+        [self.layer addSublayer:layer];
         
     }
     return self;
@@ -40,15 +47,15 @@
 }
 */
 #pragma mark view中的阴影设置
--(void)layoutSubviews
-{
-    [super layoutSubviews];
-    CALayer *layer = [CALayer layer];
-    layer.cornerRadius = 10;
-    layer.masksToBounds = YES;
-    layer.frame = self.bounds;
-    layer.backgroundColor = [UIColor blackColor].CGColor;
-    layer.opacity = 0.03;
-    [self.layer addSublayer:layer];
-}
+//-(void)layoutSubviews
+//{
+//    [super layoutSubviews];
+//    CALayer *layer = [CALayer layer];
+//    layer.cornerRadius = 10;
+//    layer.masksToBounds = YES;
+//    layer.frame = self.bounds;
+//    layer.backgroundColor = [UIColor blackColor].CGColor;
+//    layer.opacity = 0.03;
+//    [self.layer addSublayer:layer];
+//}
 @end

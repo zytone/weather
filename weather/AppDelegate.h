@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "WeiboSDK.h"
-
+@class AGViewDelegate;
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WeiboSDKDelegate,WBHttpRequestDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -16,4 +16,8 @@
  *  接收到的微博HTTP反馈,微博客户端处理完第三方应用的认证申请后向第三方应用回送的处理结果
  */
 @property (nonatomic,strong) WBAuthorizeResponse *wbResponse;
+/**
+ *  用来修改分享导航栏风格
+ */
+@property (nonatomic,readonly)AGViewDelegate *viewDelegate;
 @end

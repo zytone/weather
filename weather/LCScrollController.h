@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 enum {
     LCScrollTypeLeft,
-//    LCScrollTypeRight
+    LCScrollTypeRight
 };
 typedef NSInteger LCScrollType;
 @protocol LCScrollControllerDelegate;
@@ -18,6 +18,7 @@ typedef NSInteger LCScrollType;
 @property (nonatomic , weak) UIView *viewTabView;
 @property (nonatomic , weak) UIImage *contentImage;
 @property (nonatomic , weak) id<LCScrollControllerDelegate> delegate;
+@property (nonatomic, assign) LCScrollType type;
 
 - (instancetype)initWithTypes:(LCScrollType)type;
 + (instancetype)scrollWithTypes:(LCScrollType)type;

@@ -5,6 +5,7 @@
 //  Created by lrw on 14-10-21.
 //  Copyright (c) 2014年 LRW. All rights reserved.
 //
+#define CONTENTHEIGHT 3 * self.view.height
 
 #import "LCWeatherDetailsController.h"
 #import "LCBackgroundView.h"
@@ -24,6 +25,10 @@
     WeekWeatherView *v1_weekWeatherV;// 2 一周天气 view
     LifeAdviceView *v2_lifeAdviceV;  // 3 生活建议 view
     WindSpeedView *v3_WindS;         // 4 风速 view
+    
+    FutureWeekWeahterInfo *_weatherInfo;
+    NowWeatherInfo *_nowInfo;
+    
     // ----------------
 }
 @property (nonatomic , weak) UIView *contentView;
@@ -42,7 +47,7 @@
     self.headView = headView;
     
     /**  上下滚动scrollView设置  **/
-    float contentH = 3 * self.view.height;
+    float contentH = CONTENTHEIGHT;
     UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:
                                 RECT(0, REFRESHHEIGHT, self.view.width, self.view.height - REFRESHHEIGHT)];
     self.scrollView = scrollView;
@@ -59,6 +64,13 @@
     [self.view addSubview:scrollView];
     [self.view addSubview:headView];
 }
+
+-(void)getDataByCityNum:(NSString *)city_num data:(void (^)(FutureWeekWeahterInfo *, NowWeatherInfo *))datas
+{
+    
+    datas(_weatherInfo,_nowInfo);
+}
+
 // -------------------------------------------------
 #pragma mark -返回背景视频名称 含有后缀：.mp4
 -(int)getBackGroudVedioName
@@ -78,6 +90,11 @@
 #pragma mark - 设置数据(从数据库读取)
 -(void)setAllDataByDB:(NSString *)cityNo
 {
+    bool flag = false; // 标示是否为可以上下滚动
+    // 上下是否滚动
+//    self.scrollView.contentOffset = CGPointZero;
+//    self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
+
     // --------  数据库取出 --------
     // 即时天气
     NowWeatherInfo *nowInfo =[NowWeatherInfo searchLatestWeatherInfoByCityId:cityNo];
@@ -87,12 +104,15 @@
     
     // 生活指数
     NSArray *lifeItemArry = [LifeAdviceInfoItem searchLifeAdviceInfoItemsByCityId:cityNo Date:nil];
+
     
     // 判断数据是否为空
     NSLog(@"数据库中取出cityNo：%@",cityNo);
     if (futurInfoArry.count >0) {
         v0_BriefV.futureWeekWeahterInfo = futurInfoArry[0]; // 今天的天气放入天气简要view（由于nowInfo数据不全）
         v1_weekWeatherV.data = futurInfoArry;  // 数据放入一周天气view
+        
+        _weatherInfo = futurInfoArry[0];
     }else
     {
         // 置空
@@ -104,7 +124,9 @@
     {
         v3_WindS.nowWeatherInfo = nowInfo;     // 数据放入风速view
          v0_BriefV.nowWeatherInfo = nowInfo;    // 数据放入天气简要view
+        flag =true;
         
+        _nowInfo = nowInfo;
     }else
     {
         // 置空
@@ -122,6 +144,16 @@
         NSLog(@"数据库取出生活LifeAdviceInfoItem为空");
     }
     
+    // 上下是否滚动
+    if (flag ==false) {
+        self.scrollView.contentOffset = CGPointZero;
+        self.scrollView.contentSize = SIZE(0, self.view.height - 43);
+    }
+    else
+    {
+        self.scrollView.contentOffset = CGPointZero;
+        self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
+    }
 }
 #pragma mark - 刷新数据(从网络请求)
 -(void)updateAllDataByNet:(NSString *)cityNo
@@ -145,9 +177,10 @@
     NSString *path3  =[NSString stringWithFormat:@"http://www.weather.com.cn/data/zs/%@.html",cityNo];
     GetWeatherData *getLifedata = [GetWeatherData getWeatherData:path3 Type:LIFEADVICE];
     getLifedata.delegate = self;
+    
 }
 
-// 2 设置数据
+// 2 设置数据 获取数据标识
 static int flag = 0;
 
 #pragma mark - 网络数据请求结束 执行刷新标题的代理方法
@@ -162,16 +195,16 @@ static int flag = 0;
         }
     }
 }
-
-
 #pragma mark -实现代理方法 获取实时天气信息 （GetWeatherDataDelegate）
 -(void)getNowWeatherData:(NSDictionary *)dic errorMessage:(NSError *)err
 {
     flag++;
+    bool flag =false;
+    NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
     if (err == nil) {
         if(dic[@"weatherinfo"]!=nil)
         {
-            NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
+//            NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
             // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
             [info insertNowWeatherInfo:info];
             // 2 天气简要view
@@ -179,18 +212,47 @@ static int flag = 0;
             // 3 风速view
             v3_WindS.nowWeatherInfo = info;
             
-            // 4 下拉刷新数据（如果请求结束收回标题）
-            [self excuteDelegateRefreshMethod];
+            // vScrollView可以上下滚动
+            flag = true;
+//            //  收回 下拉刷新数据view（如果请求结束收回标题）
+//            [self excuteDelegateRefreshMethod];
+            
+            // ---
+            _nowInfo = info;
         }else
         {
             v0_BriefV.nowWeatherInfo = nil;
             // 3 风速view
             v3_WindS.nowWeatherInfo = nil;
             NSLog(@"请求实时天气信息为空");
+            // 删除原来数据
+//            [NowWeatherInfo deletDataByCityName:self.city_num];
+//            [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
         }
     }else
     {
+        v0_BriefV.nowWeatherInfo = nil;
+        // 3 风速view
+        v3_WindS.nowWeatherInfo = nil;
         NSLog(@"获取实时天气信息失败，服务器出错!");
+        // 删除原来数据
+//        [NowWeatherInfo deletDataByCityName:self.city_num];
+//        
+//        [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
+    }
+    
+    //  收回 下拉刷新数据view（如果请求结束收回标题）
+    [self excuteDelegateRefreshMethod];
+    
+    // 上下是否滚动
+    if (flag ==false) {
+        self.scrollView.contentOffset = CGPointZero;
+        self.scrollView.contentSize = SIZE(0, self.view.height - 43);
+    }
+    else
+    {
+        self.scrollView.contentOffset = CGPointZero;
+        self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
     }
 }
 #pragma mark -实现代理方法 获取一周天气信息
@@ -221,22 +283,29 @@ static int flag = 0;
              if(datas.count >0)
              {
                v0_BriefV.futureWeekWeahterInfo = datas[0];
+                 _weatherInfo = datas[0];
              }
-            //  下拉刷新数据（如果请求结束收回标题）
-            [self excuteDelegateRefreshMethod];
+//            //  收回 下拉刷新数据view（如果请求结束收回标题）
+//            [self excuteDelegateRefreshMethod];
         }else
         {
             //
             v1_weekWeatherV.data =nil;
             v0_BriefV.futureWeekWeahterInfo = nil;
             // 提示 数据请求失败
-           
             NSLog(@"获取一周天气信息为空");
         }
     }else
     {
         NSLog(@"获取一周天气信息失败，服务器出错！");
+        v1_weekWeatherV.data =nil;
+        v0_BriefV.futureWeekWeahterInfo = nil;
     }
+    
+    //  收回 下拉刷新数据view（如果请求结束收回标题）
+    [self excuteDelegateRefreshMethod];
+
+    
 }
 #pragma mark -实现代理方法 获取生活指数信息
 -(void)getLifeAdviceData:(NSDictionary *)dic errorMessage:(NSError *)err
@@ -260,8 +329,8 @@ static int flag = 0;
         // 2 设置数据入 view
         v2_lifeAdviceV.lifeAInfos = life.advsArry;
         
-        // 3 下拉刷新数据 （如果请求结束收回标题）
-        [self excuteDelegateRefreshMethod];
+//        // 3 下拉刷新数据 （如果请求结束收回标题）
+//        [self excuteDelegateRefreshMethod];
         }else
         {
             v2_lifeAdviceV.lifeAInfos = nil;
@@ -270,16 +339,13 @@ static int flag = 0;
     }else
     {
         NSLog(@"获取生活建议信息失败，服务器出错!");
+         v2_lifeAdviceV.lifeAInfos = nil;
     }
+    //  收回 下拉刷新数据view（如果请求结束收回标题）
+    [self excuteDelegateRefreshMethod];
 
 }
 // -----------------------------------------------------------
-// 实现代理方法
--(void)lifeAdviceViewOnclick
-{
-#warning 点击生活建议推到那个controller（有待考虑）
-    
-}
 
 - (void)alert
 {

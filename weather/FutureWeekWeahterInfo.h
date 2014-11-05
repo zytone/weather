@@ -87,4 +87,6 @@
 +(NSArray*)searchLatestOneWeekWeatherByCityId:(NSString*)cityid  Date:(NSString*)date;
 //根据城市id 和count查出 count条天气数据
 +(NSArray*)searchLatestFutureWeatherByCityId:(NSString*)cityid  Count:(int)count;
+
++(void)deletDataByCityName:(NSString*)cityId;
 @end

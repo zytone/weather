@@ -239,6 +239,9 @@
         [picker dismissViewControllerAnimated:YES completion:^{}];
         
         
+        _headImg = [UIImage imageNamed:@"img.png"];
+        
+        
         
     }
     

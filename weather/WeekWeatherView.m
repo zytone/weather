@@ -47,9 +47,9 @@
         [self addSubview:chartLineTitle];
         
         // 画图的view
-        lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
-        lineChartView.backgroundColor = [UIColor clearColor];
-        [self addSubview:aTableView];
+        
+        
+       
         
         
         // 错误提示
@@ -65,10 +65,21 @@
 #pragma mark 设置表格数据
 - (void )setData:(NSArray *)data
 {
+    if(lineChartView !=nil)
+    {
+       
+        [lineChartView removeFromSuperview];
+    }
+    lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
     
+    lineChartView.backgroundColor = [UIColor clearColor];
+    [self addSubview:aTableView];
     _data = data;
     if(_data !=nil)
     {
+        // 显示标题
+        self.titleLabel.hidden = NO;
+        self.whiteLine.hidden = NO;
         // 显示tableView
         aTableView.hidden = NO;
         lineChartView.hidden = NO;
@@ -126,6 +137,10 @@
         lineChartView.hidden = YES;
         chartLineTitle.hidden = YES;
         errorLalel1.hidden = NO;
+        
+        // 隐藏标题
+        self.titleLabel.hidden = YES;
+        self.whiteLine.hidden = YES;
     }
 }
 

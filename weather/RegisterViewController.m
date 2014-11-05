@@ -30,14 +30,14 @@
     
     [super loadView];
     
-    // 针对ios7的适配
-    if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
-        self.edgesForExtendedLayout = UIRectEdgeNone;
-    }
+//    // 针对ios7的适配
+//    if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    }
 
-    self.navigationController.navigationBar.hidden = NO;
+    self.navigationController.navigationBarHidden = NO;
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
 //    self.navigationController.navigationBar.alpha = 0.5;
     
