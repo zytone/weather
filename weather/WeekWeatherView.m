@@ -75,7 +75,7 @@
     lineChartView.backgroundColor = [UIColor clearColor];
     [self addSubview:aTableView];
     _data = data;
-    if(_data !=nil)
+    if(_data !=nil&&_nowInfo!=nil)
     {
         // 显示标题
         self.titleLabel.hidden = NO;
