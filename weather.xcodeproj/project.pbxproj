@@ -183,6 +183,7 @@
 		564F6AE01A038E3400F80CE4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564F6ADF1A038E3400F80CE4 /* MapKit.framework */; };
 		564F6AE21A038E3F00F80CE4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 564F6AE11A038E3F00F80CE4 /* MediaPlayer.framework */; };
 		564F6AE51A03912300F80CE4 /* LCHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 564F6AE41A03912300F80CE4 /* LCHeadView.m */; };
+		56516DD31A0A0A6B000F5F01 /* SentMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 56516DD21A0A0A6B000F5F01 /* SentMail.m */; };
 		565882FB19F72F99007694EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 565882FA19F72F99007694EE /* Foundation.framework */; };
 		565882FD19F72F99007694EE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 565882FC19F72F99007694EE /* CoreGraphics.framework */; };
 		565882FF19F72F99007694EE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 565882FE19F72F99007694EE /* UIKit.framework */; };
@@ -468,6 +469,8 @@
 		564F6AE11A038E3F00F80CE4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		564F6AE31A03912300F80CE4 /* LCHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCHeadView.h; sourceTree = "<group>"; };
 		564F6AE41A03912300F80CE4 /* LCHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCHeadView.m; sourceTree = "<group>"; };
+		56516DD11A0A0A6B000F5F01 /* SentMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SentMail.h; sourceTree = "<group>"; };
+		56516DD21A0A0A6B000F5F01 /* SentMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SentMail.m; sourceTree = "<group>"; };
 		565882F719F72F99007694EE /* weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = weather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		565882FA19F72F99007694EE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		565882FC19F72F99007694EE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -746,6 +749,8 @@
 				5640A0451A02980600F7B3E9 /* NotificationOperate.m */,
 				564F69BE1A038C7500F80CE4 /* GetWeatherData.h */,
 				564F69BF1A038C7500F80CE4 /* GetWeatherData.m */,
+				56516DD11A0A0A6B000F5F01 /* SentMail.h */,
+				56516DD21A0A0A6B000F5F01 /* SentMail.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1449,6 +1454,7 @@
 			files = (
 				564F634E1A01DB9A0050D3FB /* SettingInfoTableViewCell.m in Sources */,
 				0F26EB8E19F8E6660041314D /* User.m in Sources */,
+				56516DD31A0A0A6B000F5F01 /* SentMail.m in Sources */,
 				568BA9EE1A077FA90091531A /* UIImage+BlurImage.m in Sources */,
 				7160FA711A07DE3500A433F0 /* AGViewDelegate.m in Sources */,
 				1FEA75A81A06284C0022043F /* LineChartView.m in Sources */,

@@ -26,13 +26,13 @@
     LifeAdviceView *v2_lifeAdviceV;  // 3 生活建议 view
     WindSpeedView *v3_WindS;         // 4 风速 view
     
-    FutureWeekWeahterInfo *_weatherInfo;
+    // 由于网络各个天气api的数据不够，都是当天的数据
+    FutureWeekWeahterInfo *_todayWeatherInfo;
     NowWeatherInfo *_nowInfo;
-    
-    //
-    FutureWeekWeahterInfo *_weatherInfo_forNet;
-    NowWeatherInfo *_nowInfo_forNet;
-    
+    // 生活建议数据
+    NSArray *_lifeAdvices;
+    // 一周的天气
+    NSArray *_futureWeekWeathreInfos;
     // ----------------
 }
 @property (nonatomic , weak) UIView *contentView;
@@ -72,7 +72,7 @@
 -(void)getDataByCityNum:(NSString *)city_num data:(void (^)(FutureWeekWeahterInfo *, NowWeatherInfo *))datas
 {
     
-    datas(_weatherInfo,_nowInfo);
+    datas(_todayWeatherInfo,_nowInfo);
 }
 
 // -------------------------------------------------
@@ -94,29 +94,25 @@
 #pragma mark - 设置数据(从数据库读取)
 -(void)setAllDataByDB:(NSString *)cityNo
 {
-    bool flag = false; // 标示是否为可以上下滚动
-    // 上下是否滚动
-//    self.scrollView.contentOffset = CGPointZero;
-//    self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
-
+//    bool isScroll = false; // 标示是否为可以上下滚动
+ 
     // --------  数据库取出 --------
     // 即时天气
-    NowWeatherInfo *nowInfo =[NowWeatherInfo searchLatestWeatherInfoByCityId:cityNo];
+     _nowInfo =[NowWeatherInfo searchLatestWeatherInfoByCityId:cityNo];
     
     // 一周天气（包括今天） 0是表示取出全部
-    NSArray *futurInfoArry =[FutureWeekWeahterInfo searchLatestFutureWeatherByCityId:cityNo Count:0];
+    _futureWeekWeathreInfos =[FutureWeekWeahterInfo searchLatestFutureWeatherByCityId:cityNo Count:0];
     
     // 生活指数
-    NSArray *lifeItemArry = [LifeAdviceInfoItem searchLifeAdviceInfoItemsByCityId:cityNo Date:nil];
+    _lifeAdvices = [LifeAdviceInfoItem searchLifeAdviceInfoItemsByCityId:cityNo Date:nil];
 
-    
     // 判断数据是否为空
     NSLog(@"数据库中取出cityNo：%@",cityNo);
-    if (futurInfoArry.count >0) {
-        v0_BriefV.futureWeekWeahterInfo = futurInfoArry[0]; // 今天的天气放入天气简要view（由于nowInfo数据不全）
-        v1_weekWeatherV.data = futurInfoArry;  // 数据放入一周天气view
+    if (_futureWeekWeathreInfos.count >0) {
+        v0_BriefV.futureWeekWeahterInfo = _futureWeekWeathreInfos[0]; // 今天的天气放入天气简要view（由于nowInfo数据不全）
+        v1_weekWeatherV.data = _futureWeekWeathreInfos;  // 数据放入一周天气view
         
-        _weatherInfo = futurInfoArry[0];
+        _todayWeatherInfo = _futureWeekWeathreInfos[0];
     }else
     {
         // 置空
@@ -124,13 +120,11 @@
         v0_BriefV.futureWeekWeahterInfo = nil;
         NSLog(@"数据库取出一周FutureWeekWeahterInfo为空！");
     }
-    if(nowInfo!=nil)
+    if(_nowInfo!=nil)
     {
-        v3_WindS.nowWeatherInfo = nowInfo;     // 数据放入风速view
-         v0_BriefV.nowWeatherInfo = nowInfo;    // 数据放入天气简要view
-        flag =true;
-        
-        _nowInfo = nowInfo;
+        v3_WindS.nowWeatherInfo = _nowInfo;     // 数据放入风速view
+         v0_BriefV.nowWeatherInfo = _nowInfo;    // 数据放入天气简要view
+//        isScroll =true;
     }else
     {
         // 置空
@@ -138,8 +132,8 @@
         v0_BriefV.nowWeatherInfo = nil;    // 数据放入天气简要view
         NSLog(@"数据库取出即时天气NowWeatherInfo为空");
     }
-    if (lifeItemArry.count >0) {
-        v2_lifeAdviceV.lifeAInfos = lifeItemArry; //  数据放入生活建议view
+    if (_lifeAdvices.count >0) {
+        v2_lifeAdviceV.lifeAInfos = _lifeAdvices; //  数据放入生活建议view
         
     }else
     {
@@ -149,21 +143,21 @@
     }
     
     // 上下是否滚动
-    if (flag ==false) {
-        self.scrollView.contentOffset = CGPointZero;
-        self.scrollView.contentSize = SIZE(0, self.view.height - 43);
-    }
-    else
-    {
-        self.scrollView.contentOffset = CGPointZero;
-        self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
-    }
+//    if (isScroll ==false) {
+//        self.scrollView.contentOffset = CGPointZero;
+//        self.scrollView.contentSize = SIZE(0, self.view.height - 43);
+//    }
+//    else
+//    {
+//        self.scrollView.contentOffset = CGPointZero;
+//        self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
+//    }
 }
 #pragma mark - 刷新数据(从网络请求)
 -(void)updateAllDataByNet:(NSString *)cityNo
 {
-    _weatherInfo_forNet = nil;
-    _nowInfo_forNet = nil;
+//    _weatherInfo_forNet = nil;
+//    _nowInfo_forNet = nil;
     NSLog(@"网络请求cityNO:%@",cityNo);
     //--------- 网络请求数据 ---------
     // 记录下城市id，以便补全网络上请求 生活指数数据的城市id属性
@@ -204,34 +198,21 @@ static int flag = 0;
 -(void)getNowWeatherData:(NSDictionary *)dic errorMessage:(NSError *)err
 {
     flag++;
-    bool flag =false;
-    NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
+//    bool isEnd =false;
+    
     if (err == nil) {
         if(dic[@"weatherinfo"]!=nil)
         {
-//            NowWeatherInfo *info = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
-            // 1 每次请求都保存如数据库中(新的数据覆盖旧数据)
-            [info insertNowWeatherInfo:info];
-            // 2 天气简要view
-             _nowInfo = info;
-            _nowInfo_forNet = info;
-//            v0_BriefV.nowWeatherInfo = info;
-            [self setFirstWeatherAndNowWeatherToView];
-            // 3 风速view
-            v3_WindS.nowWeatherInfo = info;
-            
-            // vScrollView可以上下滚动
-            flag = true;
-//            //  收回 下拉刷新数据view（如果请求结束收回标题）
-//            [self excuteDelegateRefreshMethod];
-            
-            // ---
-            
+           // 获取网络请求数据
+            _nowInfo = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
+           // 每次请求调用,进行各个view的数据设置
+           [self putDataIntoEveryViewAndDB];
+//            isEnd = true;
         }else
         {
-            v0_BriefV.nowWeatherInfo = nil;
+//            v0_BriefV.nowWeatherInfo = nil;
             // 3 风速view
-            v3_WindS.nowWeatherInfo = nil;
+//            v3_WindS.nowWeatherInfo = nil;
             NSLog(@"请求实时天气信息为空");
             // 删除原来数据
 //            [NowWeatherInfo deletDataByCityName:self.city_num];
@@ -239,29 +220,23 @@ static int flag = 0;
         }
     }else
     {
-        v0_BriefV.nowWeatherInfo = nil;
-        // 3 风速view
-        v3_WindS.nowWeatherInfo = nil;
+
         NSLog(@"获取实时天气信息失败，服务器出错!");
-        // 删除原来数据
-//        [NowWeatherInfo deletDataByCityName:self.city_num];
-//        
-//        [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
     }
     
     //  收回 下拉刷新数据view（如果请求结束收回标题）
     [self excuteDelegateRefreshMethod];
     
     // 上下是否滚动
-    if (flag ==false) {
-        self.scrollView.contentOffset = CGPointZero;
-        self.scrollView.contentSize = SIZE(0, self.view.height - 43);
-    }
-    else
-    {
-        self.scrollView.contentOffset = CGPointZero;
-        self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
-    }
+//    if (isEnd ==false) {
+//        self.scrollView.contentOffset = CGPointZero;
+//        self.scrollView.contentSize = SIZE(0, self.view.height - 43);
+//    }
+//    else
+//    {
+//        self.scrollView.contentOffset = CGPointZero;
+//        self.scrollView.contentSize = SIZE(0, CONTENTHEIGHT);
+//    }
 }
 #pragma mark -实现代理方法 获取一周天气信息
 -(void)getWeekWeatherData:(NSDictionary *)dic errorMessage:(NSError *)err
@@ -270,65 +245,34 @@ static int flag = 0;
     flag++;
     if(err==nil)
     {
-        
          // 判断数据是否为空
         if(dic[@"result"] != nil)
         {
-            // 保存入数据库中（新数据覆盖旧数据）
-            NSMutableArray *datas = [NSMutableArray array];
-            for(NSDictionary *dict in dic[@"result"])
+            // 1 字典转模型
+            NSMutableArray *tempArry = [NSMutableArray array];
+            for(NSDictionary *item in dic[@"result"])
             {
-                FutureWeekWeahterInfo *info = [FutureWeekWeahterInfo futureWeekWeatherInfo:dict];
-                [info insertFutureWeekWeahterInfo:info];
-                [datas addObject:info];
+                FutureWeekWeahterInfo *info = [FutureWeekWeahterInfo futureWeekWeatherInfo:item];
+                [tempArry addObject:info];
             }
+            // 2 获取数据
+            _futureWeekWeathreInfos = tempArry;
             
-            // 设置数据入view
-            v1_weekWeatherV.data = datas;
-        
-              // wBriefV 获取今天的天气
-              // 判断数组是否为空
-             if(datas.count >0)
-             {
-                 _weatherInfo = datas[0];
-                 
-                 _weatherInfo_forNet = datas[0];
-                 //v0_BriefV.futureWeekWeahterInfo = datas[0];
-                 [self setFirstWeatherAndNowWeatherToView];
-             }
-//            //  收回 下拉刷新数据view（如果请求结束收回标题）
-//            [self excuteDelegateRefreshMethod];
+            // 3 每次请求调用,进行各个view的数据设置,数据库
+            [self putDataIntoEveryViewAndDB];
         }else
         {
-            //
-            v1_weekWeatherV.data =nil;
-            v0_BriefV.futureWeekWeahterInfo = nil;
-            // 提示 数据请求失败
+           // 提示 数据请求失败
             NSLog(@"获取一周天气信息为空");
         }
     }else
     {
         NSLog(@"获取一周天气信息失败，服务器出错！");
-        v1_weekWeatherV.data =nil;
-        v0_BriefV.futureWeekWeahterInfo = nil;
     }
-    
-    //  收回 下拉刷新数据view（如果请求结束收回标题）
+    // 每次请求执行下面方法 当所有请求结束后收回下拉刷新数据view
     [self excuteDelegateRefreshMethod];
-
     
 }
-// 技巧方法
--(void)setFirstWeatherAndNowWeatherToView
-{
-    if(_nowInfo_forNet&&_weatherInfo_forNet)
-    {
-        v0_BriefV.nowWeatherInfo = _nowInfo_forNet;
-        v0_BriefV.futureWeekWeahterInfo = _weatherInfo_forNet;
-        NSLog(@"00000000000000000");
-    }
-}
-
 #pragma mark -实现代理方法 获取生活指数信息
 -(void)getLifeAdviceData:(NSDictionary *)dic errorMessage:(NSError *)err
 {
@@ -337,35 +281,109 @@ static int flag = 0;
     {
         if (dic[@"zs"]!=nil) {
         
-        // 1 保存入数据库中
+        // 1 加工数据中
           //   1.0 补充数据完整，为字典dic增加一个字典cityid
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithDictionary:dic[@"zs"]];
         [dict addEntriesFromDictionary:[NSDictionary dictionaryWithObject:_city_num forKey:@"cityid"]];
+            
           //   1.1 多个模型转换为数组
-        LifeAdviceInfo *life = [LifeAdviceInfo lifeAdviceInfoWithDict:dict];
+        LifeAdviceInfo *lifeAdvices = [LifeAdviceInfo lifeAdviceInfoWithDict:dict];
           //   1.2 保存入数据库（新数据覆盖旧数据）
-        for(LifeAdviceInfoItem *item in life.advsArry)
-        {
-            [item insertLifeAdviceInfoItem:item];
-        }
-        // 2 设置数据入 view
-        v2_lifeAdviceV.lifeAInfos = life.advsArry;
+            
+       // 2 获取数据
+        _lifeAdvices = lifeAdvices.advsArry;
+       
+      // 每次请求调用,进行各个view的数据设置,数据库
+        [self putDataIntoEveryViewAndDB];
         
 //        // 3 下拉刷新数据 （如果请求结束收回标题）
 //        [self excuteDelegateRefreshMethod];
         }else
         {
-            v2_lifeAdviceV.lifeAInfos = nil;
               NSLog(@"获取生活指数信息为空");
         }
     }else
     {
         NSLog(@"获取生活建议信息失败，服务器出错!");
-         v2_lifeAdviceV.lifeAInfos = nil;
     }
     //  收回 下拉刷新数据view（如果请求结束收回标题）
     [self excuteDelegateRefreshMethod];
 
+}
+
+#pragma mark 把网络请求的数据推入各个view，并保存如数据库
+-(void)putDataIntoEveryViewAndDB
+{
+    NSLog(@"网络数据cityNo：%@",_city_num);
+    // 所有数据不为空 才进行设置数据
+    
+    if(_nowInfo)
+    {
+        v0_BriefV.nowWeatherInfo = _nowInfo;
+        v3_WindS.nowWeatherInfo = _nowInfo;
+        // 插入数据库
+        [_nowInfo insertNowWeatherInfo:_nowInfo];
+    }
+    if(_todayWeatherInfo)
+    {
+        v0_BriefV.futureWeekWeahterInfo = _todayWeatherInfo;
+    }
+    if(_futureWeekWeathreInfos)
+    {
+        // 天气预报 view
+        v1_weekWeatherV.data = _futureWeekWeathreInfos;
+         // 插入数据库
+        // 一周天气信息
+        for(FutureWeekWeahterInfo *item in _futureWeekWeathreInfos)
+        {
+            [item insertFutureWeekWeahterInfo:item];
+        }
+    }
+    if(_lifeAdvices)
+    {
+        // 生活建议view
+        v2_lifeAdviceV.lifeAInfos = _lifeAdvices;
+         // 插入数据库
+        // 生活建议
+        for(LifeAdviceInfoItem *item in _lifeAdvices)
+        {
+            [item insertLifeAdviceInfoItem:item];
+        }
+    }
+//    if(_todayWeatherInfo&&_nowInfo&&_lifeAdvices&&_futureWeekWeathreInfos)
+//    {
+//        
+//        // 1 ------  塞数据
+//            // brief(天气简要)view
+//            v0_BriefV.futureWeekWeahterInfo = _todayWeatherInfo;
+//            v0_BriefV.nowWeatherInfo = _nowInfo;
+//            
+//            // 天气预报 view
+//            v1_weekWeatherV.data = _futureWeekWeathreInfos;
+//            
+//            // 生活建议view
+//            v2_lifeAdviceV.lifeAInfos = _lifeAdvices;
+//            // 数据放入风速view
+//            v3_WindS.nowWeatherInfo = _nowInfo;
+//        
+//        // 2------- 插入数据库中
+//            // 即时天气信息
+//            [_nowInfo insertNowWeatherInfo:_nowInfo];
+//            // 一周天气信息
+//            for(FutureWeekWeahterInfo *item in _futureWeekWeathreInfos)
+//            {
+//                [item insertFutureWeekWeahterInfo:item];
+//            }
+//            // 生活建议
+//            for(LifeAdviceInfoItem *item in _lifeAdvices)
+//            {
+//                [item insertLifeAdviceInfoItem:item];
+//            }
+//        
+//    }else
+//    {
+//        NSLog(@"请求数据不完全,没有成功插入数据库中！");
+//    }
 }
 // -----------------------------------------------------------
 
@@ -451,7 +469,7 @@ static int flag = 0;
     
     [self setAllDataByDB:city_num];
     
-//    [self updateAllDataByNet:city_num];
+    [self updateAllDataByNet:city_num];
 }
 
 #pragma mark - Head view delegate
