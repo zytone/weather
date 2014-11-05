@@ -48,10 +48,6 @@
         
         // 画图的view
         
-        
-       
-        
-        
         // 错误提示
         errorLalel1 = [[UILabel alloc]initWithFrame:RECT(25, 250, 300, 50)];
         [errorLalel1 setFont:[UIFont systemFontOfSize:13]];
@@ -65,6 +61,7 @@
 #pragma mark 设置表格数据
 - (void )setData:(NSArray *)data
 {
+    _data = data;
     if(lineChartView !=nil)
     {
        
@@ -74,7 +71,8 @@
     
     lineChartView.backgroundColor = [UIColor clearColor];
     [self addSubview:aTableView];
-    _data = data;
+
+    
     if(_data !=nil)
     {
         // 显示标题
