@@ -12,7 +12,9 @@
 #define ADVICESCOUNT 6
 
 @interface LifeAdviceView ()<UIAlertViewDelegate>
-
+{
+    UILabel *errorLalel1; // 数据请求失败错误提示
+}
 @end
 @implementation LifeAdviceView
 
@@ -47,7 +49,7 @@
 
             [btn setBackgroundImage:[UIImage imageNamed:@"buttonHighlight"] forState:UIControlStateHighlighted];
             [btn addTarget:self action:@selector(haveClick:) forControlEvents:UIControlEventTouchUpInside];
-            btn.tag = i;
+            btn.tag = i + 1500;
             btn.layer.cornerRadius = 20;
             btn.userInteractionEnabled = YES;
               btn.backgroundColor = [UIColor clearColor];
@@ -74,6 +76,13 @@
             [btn addSubview:hintLabel];
             
         }
+        // 错误提示
+        errorLalel1 = [[UILabel alloc]initWithFrame:RECT(25, 120, 300, 50)];
+        [errorLalel1 setFont:[UIFont systemFontOfSize:13]];
+        errorLalel1.text = @"由于网络故障或数据不存在，请求数据失败";
+        errorLalel1.textColor = [UIColor whiteColor];
+        [errorLalel1 setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:errorLalel1];
     }
     return self;
 }
@@ -81,7 +90,7 @@
 #pragma mark button点击事件
 -(void)haveClick:(UIButton *)btn
 {
-    LifeAdviceInfoItem *lifeItem = self.lifeAInfos[btn.tag];
+    LifeAdviceInfoItem *lifeItem = self.lifeAInfos[btn.tag - 1500];
 
     NSMutableString *name = [NSMutableString stringWithFormat:@"%@建议",lifeItem.name ];
     // 去掉"指数"
@@ -90,37 +99,53 @@
     UIAlertView *alter = [[UIAlertView alloc]initWithTitle:name message:lifeItem.des delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
     alter.alertViewStyle = UIAlertViewStyleDefault;
     [alter show];
-    
-    // 交给代理处理
-//    if([self.delegate respondsToSelector:@selector(lifeAdviceViewOnclick)])
-//    {
-//        [self.delegate lifeAdviceViewOnclick];
-//    }
+
  
 }
 #pragma mark 设置数据
 -(void)setLifeAInfos:(NSArray *)lifeAInfos
 {
-    _lifeAInfos = lifeAInfos;
-    
-    // 为了避免图片顺序混乱
-    NSArray *imageValue = @[@"ic_shirt",@"ic_ultraviolet_rays",@"ic_running",@"ic_fish2",@"ic_plane",@"ic_sun"];
-    NSArray *adviceLifeKey =@[@"穿衣指数",@"防晒指数",@"晨练指数",@"钓鱼指数",@"旅游指数",@"感冒指数"];
-    
-    NSDictionary *imageDit = [NSDictionary dictionaryWithObjects:imageValue forKeys:adviceLifeKey];
-    
-    for(int i = 0;i< ADVICESCOUNT;i++)
+    _lifeAInfos = nil;
+    if(_lifeAInfos !=nil)
     {
-        LifeAdviceInfoItem *lifeItem = lifeAInfos[i];
-        UILabel *nameLabel = (UILabel*)[self viewWithTag:i+6];
-        UILabel *hintLabel = (UILabel*)[self viewWithTag:i+12];
         
-        nameLabel.text =[NSString stringWithFormat:@"%@:",lifeItem.name];
-        hintLabel.text = lifeItem.hint;
-        // 图片
-        UIImageView *imageView = (UIImageView*)[self viewWithTag:i+24];
-        NSString *name =[imageDit valueForKey:lifeItem.name];
-        imageView.image = [UIImage imageNamed:name];
+        //
+        for(int i = 0; i <lifeAInfos.count;i++)
+        {
+            UIButton *btn = (UIButton *)[self viewWithTag:i +  1500];
+             btn.hidden = NO;
+//            [self viewWithTag:i+ 200].hidden = NO;
+        }
+        errorLalel1.hidden = YES;
+        
+        // 为了避免图片顺序混乱
+        NSArray *imageValue = @[@"ic_shirt",@"ic_ultraviolet_rays",@"ic_running",@"ic_fish2",@"ic_plane",@"ic_sun"];
+        NSArray *adviceLifeKey =@[@"穿衣指数",@"防晒指数",@"晨练指数",@"钓鱼指数",@"旅游指数",@"感冒指数"];
+        
+        NSDictionary *imageDit = [NSDictionary dictionaryWithObjects:imageValue forKeys:adviceLifeKey];
+        
+        for(int i = 0;i< ADVICESCOUNT;i++)
+        {
+            LifeAdviceInfoItem *lifeItem = lifeAInfos[i];
+            UILabel *nameLabel = (UILabel*)[self viewWithTag:i+6];
+            UILabel *hintLabel = (UILabel*)[self viewWithTag:i+12];
+            
+            nameLabel.text =[NSString stringWithFormat:@"%@:",lifeItem.name];
+            hintLabel.text = lifeItem.hint;
+            // 图片
+            UIImageView *imageView = (UIImageView*)[self viewWithTag:i+24];
+            NSString *name =[imageDit valueForKey:lifeItem.name];
+            imageView.image = [UIImage imageNamed:name];
+        }
+    }else
+    {
+        // 隐藏按钮
+        for(int i = 0; i <lifeAInfos.count;i++)
+        {
+            UIButton *btn = (UIButton *)[self viewWithTag:i +  1500];
+            btn.hidden = YES;
+        }
+        errorLalel1.hidden = NO;
     }
 }
 

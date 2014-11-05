@@ -14,6 +14,10 @@
 {
     UITableView  *aTableView; // 一周天气 tableView
     LineChartView  *lineChartView; // 折线图的view
+    UILabel *chartLineTitle;
+    
+    
+    UILabel *errorLalel1;  // 数据为空出错提示
 }
 @end
 @implementation WeekWeatherView
@@ -35,20 +39,26 @@
         aTableView.scrollEnabled = NO;      // 禁止滚动
         aTableView.dataSource = self;       // 数据源代理
         aTableView.backgroundColor = [UIColor clearColor];
-
-        UILabel *label = [[UILabel alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 200, 20)];
-        [label setFont:[UIFont systemFontOfSize:15]];
-        [label setTextColor:[UIColor whiteColor]];
-        label.text = @"一周每日温度趋势图：";
-        [self addSubview:label];
+        
+        // 图表小标题
+        chartLineTitle = [[UILabel alloc]initWithFrame:RECT(20, CGRectGetMaxY(aTableView.frame)+10, 200, 20)];
+        [chartLineTitle setFont:[UIFont systemFontOfSize:15]];
+        [chartLineTitle setTextColor:[UIColor whiteColor]];
+        [self addSubview:chartLineTitle];
+        
         // 画图的view
         lineChartView = [[LineChartView alloc]initWithFrame:RECT(0, CGRectGetMaxY(aTableView.frame)+10, 320, 150)];
-//        lineChartView.backgroundColor = [UIColor redColor];
-
-        
         lineChartView.backgroundColor = [UIColor clearColor];
-        
         [self addSubview:aTableView];
+        
+        
+        // 错误提示
+        errorLalel1 = [[UILabel alloc]initWithFrame:RECT(25, 250, 300, 50)];
+        [errorLalel1 setFont:[UIFont systemFontOfSize:13]];
+        errorLalel1.text = @"由于网络故障或数据不存在，请求数据失败";
+        errorLalel1.textColor = [UIColor whiteColor];
+        [errorLalel1 setBackgroundColor:[UIColor clearColor]];
+        [self addSubview:errorLalel1];
     }
     return self;
 }
@@ -57,48 +67,66 @@
 {
     
     _data = data;
-    // 刷新数据
-    [aTableView reloadData];
-    
-    // 折线图
-    
-    NSMutableArray *pointArr = [NSMutableArray array];
-    // 低点
-    NSMutableArray *lowPointArr = [NSMutableArray array];
-    //点信息
-    int hInterva = 40;
-    for(int i = 0 ; i< data.count;i++)
+    if(_data !=nil)
     {
-        FutureWeekWeahterInfo *info = data[i];
-        // 高点
-        float high =[info.temp_high floatValue];
-        [pointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), high)]];
+        // 显示tableView
+        aTableView.hidden = NO;
+        lineChartView.hidden = NO;
+         chartLineTitle.hidden = NO;
+        errorLalel1.hidden = YES;
+        // 画图的view
+        // 标题
+        chartLineTitle.text = [NSString stringWithFormat:@"未来%d天每日温度趋势图：",data.count];
+        // 折线图
+        NSMutableArray *pointArr = [NSMutableArray array];
         // 低点
-        float low = [info.temp_low floatValue];
-        [lowPointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), low)]];
-    }
-    [lineChartView setArray:pointArr];
-    [lineChartView setArrayLow:lowPointArr];
-  
-    //横轴
-    NSMutableArray *hArr = [NSMutableArray array];
-    for (int i = 0;i<data.count; i++) {
-        FutureWeekWeahterInfo *info = data[i];
-        if(i == 0)
+        NSMutableArray *lowPointArr = [NSMutableArray array];
+        //点信息
+        int hInterva = 40;
+        for(int i = 0 ; i< data.count;i++)
         {
-            [hArr addObject:@"今天"];
-            continue;
+            FutureWeekWeahterInfo *info = data[i];
+            // 高点
+            float high =[info.temp_high floatValue];
+            [pointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), high)]];
+            // 低点
+            float low = [info.temp_low floatValue];
+            [lowPointArr addObject:[NSValue valueWithCGPoint:CGPointMake(hInterva*(i+1), low)]];
         }
-        NSRange r = {0,2};
-        NSMutableString *oldWeekName =[NSMutableString stringWithString:info.week];
-        [oldWeekName replaceCharactersInRange:r withString:@"周"];
+        // 高点
+        [lineChartView setArray:pointArr];
+        // 低点
+        [lineChartView setArrayLow:lowPointArr];
+      
+        //横轴
+        NSMutableArray *hArr = [NSMutableArray array];
+        for (int i = 0;i<data.count; i++) {
+            FutureWeekWeahterInfo *info = data[i];
+            if(i == 0)
+            {
+                [hArr addObject:@"今天"];
+                continue;
+            }
+            NSRange r = {0,2};
+            NSMutableString *oldWeekName =[NSMutableString stringWithString:info.week];
+            [oldWeekName replaceCharactersInRange:r withString:@"周"];
+            
+            [hArr addObject:oldWeekName];
+        }
         
-        [hArr addObject:oldWeekName];
+        [lineChartView setHDesc:hArr];
+        // 加入view中
+        [self addSubview:lineChartView];
+        
+        // tableView刷新数据
+        [aTableView reloadData];
+    }else
+    {
+        aTableView.hidden = YES;
+        lineChartView.hidden = YES;
+        chartLineTitle.hidden = YES;
+        errorLalel1.hidden = NO;
     }
-    NSLog(@"hArr:%d",hArr.count);
-    [lineChartView setHDesc:hArr];
-    [self addSubview:lineChartView];
-   
 }
 
 #pragma mark 数据源
