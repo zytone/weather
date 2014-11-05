@@ -12,7 +12,7 @@
 
 @optional
 // 监听点击了第几个
-- (void) settingTableCellDidClickWithIndex: (NSInteger )index;
+- (void) settingTableCellDidClickWithIndex: (NSIndexPath *)indexPath;
 
 @end
 

@@ -39,7 +39,7 @@
 //应用回调页,在进行 Oauth2.0 登录认证时 所用。对于 Mobile 客户端应用来说,是不存在 Server 的,故此处 的应用回调页地址只要与新浪微博开放平台->我的应用->应用信息->高级应用->授权设置->应用回调页中的 url 地址保持一致就 可以了
 #define RedirectURL @"http://www.sina.com"
 #define urlForData @"https://api.weibo.com/2/users/show.json"
-@interface LoginViewController ()<TencentSessionDelegate>
+@interface LoginViewController ()<TencentSessionDelegate,UITextFieldDelegate>
 /**
  *  头像
  */
@@ -88,13 +88,13 @@
 
     
     // 设置View的背景 zyt
-    self.view.backgroundColor = [UIColor colorWithRed:244/254.0 green:244/254.0 blue:244/254.0 alpha:1];
+//    self.view.backgroundColor = [UIColor colorWithRed:244/254.0 green:244/254.0 blue:244/254.0 alpha:1];
     
     //  ------  页面切换
     
-    self.navigationController.navigationBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
     
-    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+//    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
     
 //    self.navigationController.delegate = self;
     
@@ -102,7 +102,7 @@
     //    self.navigationController.navigationBar.clipsToBounds = YES;
     //    [self.navigationController.navigationBar.layer setMasksToBounds:YES];
     
-    [self setNavBar];
+//    [self setNavBar];
     
     //  ------  页面切换 end -------------
     
@@ -120,20 +120,20 @@
     [self.view addSubview:container];
     
     // 1、头像
-    UIImage *headImage = [UIImage imageNamed:@"head.jpeg"];
-    CGFloat headW = headImage.size.width;
-    CGFloat headH = headImage.size.height;
+    UIImage *headImage = [UIImage imageNamed:@"right_drawer_head_unlogin_press"];
+    CGFloat headW = headImage.size.width - 70;
+    CGFloat headH = headImage.size.height - 70;
     CGFloat headX = (self.view.frame.size.width - headW)*0.5;
     CGFloat headY = 75;
     UIImageView *headView = [[UIImageView alloc] initWithFrame:CGRectMake(headX, headY, headW, headH)];
     headView.image = headImage;
     headView.layer.masksToBounds = YES;
-    headView.layer.cornerRadius = headImage.size.width*0.5;
+    headView.layer.cornerRadius = (headImage.size.width-70)*0.5;
     self.head = headView;
     [container addSubview:headView];
     
     //头像圆环层
-    UIImage *layerImg = [UIImage ImageWithColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.5] frame:CGRectMake(0, 0, headImage.size.width +15, headImage.size.width +15)];
+    UIImage *layerImg = [UIImage ImageWithColor:[UIColor colorWithRed:0.9 green:0.9 blue:0.9 alpha:0.5] frame:CGRectMake(0, 0, (headImage.size.width - 70) +15, (headImage.size.width - 70 )+15)];
     layerImg  = [layerImg blurredImageWithRadius:1000 iterations:1 tintColor:[UIColor whiteColor]];
     UIImageView *layerView = [[UIImageView alloc] initWithImage:layerImg];
     layerView.center = headView.center;
@@ -154,6 +154,8 @@
     userFiled.backgroundColor = [UIColor clearColor];
     userFiled.tag = 1;
     userFiled.placeholder = @"请输入你的邮箱";
+    userFiled.clearButtonMode = UITextFieldViewModeUnlessEditing;
+    userFiled.delegate = self;
     
     UIView *userView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, userH)];
     UIImageView *userImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_user_os7@2x"]];
@@ -179,6 +181,8 @@
     passwFiled.placeholder = @"请输入你的密码";
     passwFiled.secureTextEntry = YES;
     passwFiled.tag = 2;
+    passwFiled.clearButtonMode = UITextFieldViewModeUnlessEditing;
+    
     UIView *passwView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, userH)];
     UIImageView *passImageView =[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"login_key_os7@2x"]];
     [passwView addSubview:passImageView];
@@ -222,7 +226,6 @@
     tipLable.text = @"其他登陆：";
     [tipLable setFont:[UIFont systemFontOfSize:14]];
     [container addSubview:tipLable];
-    
     
     
     UIImage *WBImg = [UIImage imageNamed:@"wb"];
@@ -319,7 +322,14 @@
     self.userFiled.text = @"admin";
     self.passwordFiled.text = @"123";
     
-    
+    // 添加退出登录也的按钮
+    UIButton *quitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [quitBtn setImage:[UIImage imageNamed:@"banner-activity-close.png"] forState:UIControlStateNormal];
+    quitBtn.frame = CGRectMake(10, 20, 32, 32);
+    quitBtn.alpha = 0.5;
+    [quitBtn addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    quitBtn.backgroundColor = [UIColor whiteColor];
+    [container addSubview:quitBtn];
     
 }
 
@@ -377,11 +387,16 @@
         [userDefaults synchronize];
         
         NSDictionary *dict = [userDefaults objectForKey:key];
-        NSLog(@"这里是！~！~%@",dict);
+//        NSLog(@"这里是！~！~%@",dict);
+        
+//        NSNotificationCenter *notifC = [NSNotificationCenter defaultCenter];
+        // 发布一个通知，用于更新数据
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"userChange" object:nil];
+        
         
     });
     [self.view endEditing:YES];
-    NSLog(@"%@",dict);
+//    NSLog(@"%@",dict);
 }
 //忘记密码点击
 -(void)forgetBtnClick:(UIButton *)btn
@@ -724,10 +739,32 @@ int CallBack(void* para,int count ,char**value,char**key)
  */
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [super viewWillAppear:animated];
 }
 
+#pragma mark - 代理账号填写的文本框
+/**
+ *  当文本框失去焦点的时候，就到数据库中找对应的头像名
+ */
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    NSDictionary *dic = [self searchDataFromDbByString:textField.text];
+    
+    if (dic[@"ID"] == nil) {
+        NSLog(@"输入用户不存在");
+        
+        self.head.image = [UIImage imageNamed:@"right_drawer_head_unlogin_press"];
+        [self showTipMessage:@"用户不存在"];
+        
+        return;
+    }
+    
+    self.head.image = [UIImage imageNamed:dic[@"photo"]];
+    
+    
+    NSLog(@"查找的结果为：%@",dic);
+}
 
 @end
