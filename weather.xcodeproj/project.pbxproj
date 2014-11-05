@@ -185,8 +185,6 @@
 		564F6AE51A03912300F80CE4 /* LCHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 564F6AE41A03912300F80CE4 /* LCHeadView.m */; };
 		56516DD31A0A0A6B000F5F01 /* SentMail.m in Sources */ = {isa = PBXBuildFile; fileRef = 56516DD21A0A0A6B000F5F01 /* SentMail.m */; };
 		565419111A0A47710089E9CF /* ReSetPasswdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419101A0A47710089E9CF /* ReSetPasswdViewController.m */; };
-		5654191D1A0A5CC30089E9CF /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419141A0A5CC30089E9CF /* AboutUsViewController.m */; };
-		5654191E1A0A5CC30089E9CF /* DynamicBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419161A0A5CC30089E9CF /* DynamicBackgroundViewController.m */; };
 		5654191F1A0A5CC30089E9CF /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419181A0A5CC30089E9CF /* HelpViewController.m */; };
 		565419201A0A5CC30089E9CF /* VoiceBroadcastViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5654191A1A0A5CC30089E9CF /* VoiceBroadcastViewController.m */; };
 		565419211A0A5CC30089E9CF /* WeatherClockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5654191C1A0A5CC30089E9CF /* WeatherClockViewController.m */; };
@@ -250,6 +248,8 @@
 		71660E831A0A0D2800161AC5 /* city-button-edit-highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E7F1A0A0D2800161AC5 /* city-button-edit-highlight.png */; };
 		71660E841A0A0D2800161AC5 /* city-button-edit.png in Resources */ = {isa = PBXBuildFile; fileRef = 71660E801A0A0D2800161AC5 /* city-button-edit.png */; };
 		71660E861A0A0E6600161AC5 /* Btnframe.plist in Resources */ = {isa = PBXBuildFile; fileRef = 71660E851A0A0E6600161AC5 /* Btnframe.plist */; };
+		71660E871A0A72A800161AC5 /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419141A0A5CC30089E9CF /* AboutUsViewController.m */; };
+		71660E881A0A72CA00161AC5 /* DynamicBackgroundViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 565419161A0A5CC30089E9CF /* DynamicBackgroundViewController.m */; };
 		7189AF7D1A093ADE007955FF /* LCCItyTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7189AF7C1A093ADE007955FF /* LCCItyTableViewController.m */; };
 		71C7965E1A09E9EC0043D034 /* banner-activity-close.png in Resources */ = {isa = PBXBuildFile; fileRef = 71C7965D1A09E9EC0043D034 /* banner-activity-close.png */; };
 		71C796601A09EA020043D034 /* right_drawer_head_unlogin_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 71C7965F1A09EA020043D034 /* right_drawer_head_unlogin_press.png */; };
@@ -1556,6 +1556,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71660E881A0A72CA00161AC5 /* DynamicBackgroundViewController.m in Sources */,
+				71660E871A0A72A800161AC5 /* AboutUsViewController.m in Sources */,
 				564F634E1A01DB9A0050D3FB /* SettingInfoTableViewCell.m in Sources */,
 				0F26EB8E19F8E6660041314D /* User.m in Sources */,
 				56516DD31A0A0A6B000F5F01 /* SentMail.m in Sources */,
