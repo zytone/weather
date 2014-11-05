@@ -121,6 +121,8 @@
         v1_weekWeatherV.data = _futureWeekWeathreInfos;  // 数据放入一周天气view
         
         _todayWeatherInfo = _futureWeekWeathreInfos[0];
+        
+//         NSLog(@"111111111111111111");
     }else
     {
         // 置空
@@ -142,6 +144,7 @@
     }
     if (_lifeAdvices.count >0) {
         v2_lifeAdviceV.lifeAInfos = _lifeAdvices; //  数据放入生活建议view
+        NSLog(@"111111111111111111");
         
     }else
     {
