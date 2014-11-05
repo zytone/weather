@@ -204,6 +204,12 @@
 		568BA9EE1A077FA90091531A /* UIImage+BlurImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 568BA9ED1A077FA90091531A /* UIImage+BlurImage.m */; };
 		568BA9F21A077FF80091531A /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 568BA9F11A077FF80091531A /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		56A025411A022BA7004730EB /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56A025401A022BA7004730EB /* QuartzCore.framework */; };
+		56DE1CBE1A09C44C00F29C55 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56DE1CBD1A09C44C00F29C55 /* CFNetwork.framework */; };
+		56DE1CCA1A09C4C700F29C55 /* Base64Transcoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DE1CC11A09C4C700F29C55 /* Base64Transcoder.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		56DE1CCB1A09C4C700F29C55 /* HSK_CFUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DE1CC31A09C4C700F29C55 /* HSK_CFUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		56DE1CCC1A09C4C700F29C55 /* NSData+Base64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DE1CC51A09C4C700F29C55 /* NSData+Base64Additions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		56DE1CCD1A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DE1CC71A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		56DE1CCE1A09C4C700F29C55 /* SKPSMTPMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 56DE1CC91A09C4C700F29C55 /* SKPSMTPMessage.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		7127CFA01A08CDC80057A2F8 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7127CF851A08CDC80057A2F8 /* QZoneConnection.framework */; };
 		7127CFA11A08CDC80057A2F8 /* SinaWeiboConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7127CF861A08CDC80057A2F8 /* SinaWeiboConnection.framework */; };
 		7127CFA21A08CDC80057A2F8 /* WeChatConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7127CF871A08CDC80057A2F8 /* WeChatConnection.framework */; };
@@ -493,6 +499,17 @@
 		568BA9F01A077FF80091531A /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		568BA9F11A077FF80091531A /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		56A025401A022BA7004730EB /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		56DE1CBD1A09C44C00F29C55 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		56DE1CC01A09C4C700F29C55 /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
+		56DE1CC11A09C4C700F29C55 /* Base64Transcoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64Transcoder.m; sourceTree = "<group>"; };
+		56DE1CC21A09C4C700F29C55 /* HSK_CFUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HSK_CFUtilities.h; sourceTree = "<group>"; };
+		56DE1CC31A09C4C700F29C55 /* HSK_CFUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HSK_CFUtilities.m; sourceTree = "<group>"; };
+		56DE1CC41A09C4C700F29C55 /* NSData+Base64Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64Additions.h"; sourceTree = "<group>"; };
+		56DE1CC51A09C4C700F29C55 /* NSData+Base64Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64Additions.m"; sourceTree = "<group>"; };
+		56DE1CC61A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSStream+SKPSMTPExtensions.h"; sourceTree = "<group>"; };
+		56DE1CC71A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSStream+SKPSMTPExtensions.m"; sourceTree = "<group>"; };
+		56DE1CC81A09C4C700F29C55 /* SKPSMTPMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPSMTPMessage.h; sourceTree = "<group>"; };
+		56DE1CC91A09C4C700F29C55 /* SKPSMTPMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPSMTPMessage.m; sourceTree = "<group>"; };
 		7127CF851A08CDC80057A2F8 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
 		7127CF861A08CDC80057A2F8 /* SinaWeiboConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SinaWeiboConnection.framework; sourceTree = "<group>"; };
 		7127CF871A08CDC80057A2F8 /* WeChatConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WeChatConnection.framework; sourceTree = "<group>"; };
@@ -534,6 +551,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56DE1CBE1A09C44C00F29C55 /* CFNetwork.framework in Frameworks */,
 				7160FA731A07E0A100A433F0 /* MessageUI.framework in Frameworks */,
 				7127CFAE1A08CDC80057A2F8 /* ShareSDKFlatShareViewUI.framework in Frameworks */,
 				0F220DFD19FDCE3100B026EA /* CoreTelephony.framework in Frameworks */,
@@ -598,8 +616,6 @@
 		0F1736A119F9D67700AB6662 /* image */ = {
 			isa = PBXGroup;
 			children = (
-				56B164451A093D9A0022A398 /* right_drawer_head_unlogin_press.png */,
-				56B164431A0938210022A398 /* banner-activity-close.png */,
 				5644CC3E1A00D2480086297E /* 112.jpg */,
 				0F0FC3EB19FF87FF00B77CA1 /* search.png */,
 				0F0FC3E519FF79F100B77CA1 /* background.jpg */,
@@ -715,6 +731,7 @@
 		564F69C71A038CE100F80CE4 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				56DE1CBF1A09C4C700F29C55 /* smtp */,
 				564F69C91A038D4100F80CE4 /* LRWDBHelper */,
 				564F69CC1A038D4100F80CE4 /* NSObject+PropertyListing */,
 				564F69CF1A038D4100F80CE4 /* ToolHelper.h */,
@@ -891,6 +908,7 @@
 		565882F919F72F99007694EE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				56DE1CBD1A09C44C00F29C55 /* CFNetwork.framework */,
 				7160FA721A07E0A100A433F0 /* MessageUI.framework */,
 				7160FA6D1A07DDC500A433F0 /* libsqlite3.dylib */,
 				7160FA6B1A07DDA900A433F0 /* libz.1.2.5.dylib */,
@@ -1085,6 +1103,23 @@
 				568BA9F11A077FF80091531A /* JSONKit.m */,
 			);
 			path = JSONKit;
+			sourceTree = "<group>";
+		};
+		56DE1CBF1A09C4C700F29C55 /* smtp */ = {
+			isa = PBXGroup;
+			children = (
+				56DE1CC01A09C4C700F29C55 /* Base64Transcoder.h */,
+				56DE1CC11A09C4C700F29C55 /* Base64Transcoder.m */,
+				56DE1CC21A09C4C700F29C55 /* HSK_CFUtilities.h */,
+				56DE1CC31A09C4C700F29C55 /* HSK_CFUtilities.m */,
+				56DE1CC41A09C4C700F29C55 /* NSData+Base64Additions.h */,
+				56DE1CC51A09C4C700F29C55 /* NSData+Base64Additions.m */,
+				56DE1CC61A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.h */,
+				56DE1CC71A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.m */,
+				56DE1CC81A09C4C700F29C55 /* SKPSMTPMessage.h */,
+				56DE1CC91A09C4C700F29C55 /* SKPSMTPMessage.m */,
+			);
+			path = smtp;
 			sourceTree = "<group>";
 		};
 		7127CF831A08CDC80057A2F8 /* ShareSDK */ = {
@@ -1316,7 +1351,6 @@
 				1F9E3ADA1A06638B002AF955 /* ww21.png in Resources */,
 				1F9E3AD31A06638B002AF955 /* ww15.png in Resources */,
 				56364DBD1A079A0900B353C3 /* head.jpeg in Resources */,
-				56B164461A093D9A0022A398 /* right_drawer_head_unlogin_press.png in Resources */,
 				564F6A681A038DAA00F80CE4 /* share_2_normal.png in Resources */,
 				564F6ACE1A038DAA00F80CE4 /* clear.mp4 in Resources */,
 				564F6A6E1A038DAA00F80CE4 /* main_share.png in Resources */,
@@ -1361,7 +1395,6 @@
 				0F0FC3EC19FF87FF00B77CA1 /* search.png in Resources */,
 				564F6A7C1A038DAA00F80CE4 /* share_wxgroup_normal.png in Resources */,
 				564F6AC61A038DAA00F80CE4 /* ic_fish2.png in Resources */,
-				56B164441A0938210022A398 /* banner-activity-close.png in Resources */,
 				564F6AC71A038DAA00F80CE4 /* ic_plane.png in Resources */,
 				56364DBA1A07977300B353C3 /* QQ@2x.png in Resources */,
 				7127CFA41A08CDC80057A2F8 /* ShareSDKLocalizable.strings in Resources */,
@@ -1417,8 +1450,10 @@
 				564F69D21A038D4100F80CE4 /* NSObject+PropertyListing.m in Sources */,
 				564F69D31A038D4100F80CE4 /* ToolHelper.m in Sources */,
 				564F69C41A038C7500F80CE4 /* GetWeatherData.m in Sources */,
+				56DE1CCD1A09C4C700F29C55 /* NSStream+SKPSMTPExtensions.m in Sources */,
 				5676CC8E1A00DE580035EA19 /* RootNavigationController.m in Sources */,
 				564F69D61A038D6D00F80CE4 /* UIView+LRWLazy.m in Sources */,
+				56DE1CCA1A09C4C700F29C55 /* Base64Transcoder.m in Sources */,
 				564F69B81A038C4700F80CE4 /* WeatherBriefView.m in Sources */,
 				564F69BD1A038C4700F80CE4 /* WindSpeedView.m in Sources */,
 				56364DC71A07AEA700B353C3 /* UpdatePasswordViewController.m in Sources */,
@@ -1427,6 +1462,7 @@
 				5658833619F730AE007694EE /* RegisterViewController.m in Sources */,
 				564F699F1A038BD900F80CE4 /* LCPlayerController.m in Sources */,
 				71CBC52F1A0728A200F79165 /* MBProgressHUD+MJ.m in Sources */,
+				56DE1CCB1A09C4C700F29C55 /* HSK_CFUtilities.m in Sources */,
 				564F69A31A038BD900F80CE4 /* LCWeatherDetailsController.m in Sources */,
 				564F69A41A038BD900F80CE4 /* LifeAdviceDetailsController.m in Sources */,
 				564F69B51A038C4700F80CE4 /* DetailSuperView.m in Sources */,
@@ -1455,11 +1491,13 @@
 				564F63461A01DB830050D3FB /* SettingHeadTableViewCell.m in Sources */,
 				5658830719F72F99007694EE /* main.m in Sources */,
 				564F63501A01DB9A0050D3FB /* SettingInfoViewController.m in Sources */,
+				56DE1CCC1A09C4C700F29C55 /* NSData+Base64Additions.m in Sources */,
 				5658832F19F7304D007694EE /* RootViewController.m in Sources */,
 				5658833C19F7312C007694EE /* AlertsViewController.m in Sources */,
 				564F6AE51A03912300F80CE4 /* LCHeadView.m in Sources */,
 				5658833919F730F4007694EE /* FindPasswdViewController.m in Sources */,
 				564F69BC1A038C4700F80CE4 /* WeekWeatherView.m in Sources */,
+				56DE1CCE1A09C4C700F29C55 /* SKPSMTPMessage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
