@@ -33,6 +33,14 @@
     NSArray *_lifeAdvices;
     // 一周的天气
     NSArray *_futureWeekWeathreInfos;
+    
+    // 由于网络各个天气api的数据不够，都是当天的数据
+    FutureWeekWeahterInfo *_todayWeatherInfo_ForNet;
+    NowWeatherInfo *_nowInfo_ForNet;
+    // 生活建议数据
+    NSArray *_lifeAdvices_ForNet;
+    // 一周的天气
+    NSArray *_futureWeekWeathreInfos_ForNet;
     // ----------------
 }
 @property (nonatomic , weak) UIView *contentView;
@@ -205,6 +213,7 @@ static int flag = 0;
         {
            // 获取网络请求数据
             _nowInfo = [NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
+            _nowInfo_ForNet =[NowWeatherInfo nowWeatherInfoWithDict:dic[@"weatherinfo"]];
            // 每次请求调用,进行各个view的数据设置
            [self putDataIntoEveryViewAndDB];
 //            isEnd = true;
@@ -257,6 +266,7 @@ static int flag = 0;
             }
             // 2 获取数据
             _futureWeekWeathreInfos = tempArry;
+            _futureWeekWeathreInfos_ForNet = tempArry;
             
             // 3 每次请求调用,进行各个view的数据设置,数据库
             [self putDataIntoEveryViewAndDB];
@@ -292,6 +302,7 @@ static int flag = 0;
             
        // 2 获取数据
         _lifeAdvices = lifeAdvices.advsArry;
+            _lifeAdvices_ForNet = lifeAdvices.advsArry;
        
       // 每次请求调用,进行各个view的数据设置,数据库
         [self putDataIntoEveryViewAndDB];
@@ -317,35 +328,35 @@ static int flag = 0;
     NSLog(@"网络数据cityNo：%@",_city_num);
     // 所有数据不为空 才进行设置数据
     
-    if(_nowInfo)
+    if(_nowInfo_ForNet)
     {
-        v0_BriefV.nowWeatherInfo = _nowInfo;
-        v3_WindS.nowWeatherInfo = _nowInfo;
+        v0_BriefV.nowWeatherInfo = _nowInfo_ForNet;
+        v3_WindS.nowWeatherInfo = _nowInfo_ForNet;
         // 插入数据库
-        [_nowInfo insertNowWeatherInfo:_nowInfo];
+        [_nowInfo insertNowWeatherInfo:_nowInfo_ForNet];
     }
-    if(_todayWeatherInfo)
+    if(_todayWeatherInfo_ForNet)
     {
-        v0_BriefV.futureWeekWeahterInfo = _todayWeatherInfo;
+        v0_BriefV.futureWeekWeahterInfo = _todayWeatherInfo_ForNet;
     }
-    if(_futureWeekWeathreInfos)
+    if(_futureWeekWeathreInfos_ForNet)
     {
         // 天气预报 view
-        v1_weekWeatherV.data = _futureWeekWeathreInfos;
+        v1_weekWeatherV.data = _futureWeekWeathreInfos_ForNet;
          // 插入数据库
         // 一周天气信息
-        for(FutureWeekWeahterInfo *item in _futureWeekWeathreInfos)
+        for(FutureWeekWeahterInfo *item in _futureWeekWeathreInfos_ForNet)
         {
             [item insertFutureWeekWeahterInfo:item];
         }
     }
-    if(_lifeAdvices)
+    if(_lifeAdvices_ForNet)
     {
         // 生活建议view
-        v2_lifeAdviceV.lifeAInfos = _lifeAdvices;
+        v2_lifeAdviceV.lifeAInfos = _lifeAdvices_ForNet;
          // 插入数据库
         // 生活建议
-        for(LifeAdviceInfoItem *item in _lifeAdvices)
+        for(LifeAdviceInfoItem *item in _lifeAdvices_ForNet)
         {
             [item insertLifeAdviceInfoItem:item];
         }
