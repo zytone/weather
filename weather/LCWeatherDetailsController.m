@@ -226,8 +226,8 @@ static int flag = 0;
             v3_WindS.nowWeatherInfo = nil;
             NSLog(@"请求实时天气信息为空");
             // 删除原来数据
-            [NowWeatherInfo deletDataByCityName:self.city_num];
-            [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
+//            [NowWeatherInfo deletDataByCityName:self.city_num];
+//            [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
         }
     }else
     {
@@ -236,9 +236,9 @@ static int flag = 0;
         v3_WindS.nowWeatherInfo = nil;
         NSLog(@"获取实时天气信息失败，服务器出错!");
         // 删除原来数据
-        [NowWeatherInfo deletDataByCityName:self.city_num];
-        
-        [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
+//        [NowWeatherInfo deletDataByCityName:self.city_num];
+//        
+//        [FutureWeekWeahterInfo deletDataByCityName:self.city_num];
     }
     
     //  收回 下拉刷新数据view（如果请求结束收回标题）
