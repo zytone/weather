@@ -20,6 +20,7 @@
 #import "AppDelegate.h"
 #import "AGViewDelegate.h"
 #import "LCCItyTableViewController.h"
+#import "LCUserCity.h"
 /**
  *  确定纵向滑动到哪里暂停或者播放视频
  */
@@ -49,12 +50,13 @@
  */
 #define CONTENTOFFSET POINT(5, 0)
 
-@interface LCMainWeatherController () <UIScrollViewDelegate,LCWeatherDetailsControllerDelegate,LCLocationControllerDelegate,LCScrollControllerDelegate,LCCItyTableViewControllerDelegate>
+@interface LCMainWeatherController () <UIScrollViewDelegate,LCWeatherDetailsControllerDelegate,LCLocationControllerDelegate,LCScrollControllerDelegate>
+/**
+ 用户登录
+ */
+@property (nonatomic, assign) BOOL isLogin;
+@property (nonatomic, copy) NSString *userID;
 @property (nonatomic, strong) AppDelegate *appDelegate;
-//{
-//     AppDelegate * _appDelegate;
-//}
-
 /**
  *  城市数组,排列顺序就是现实顺序
  */
@@ -99,6 +101,7 @@
  *  设置scrollView,添加设置内容
  */
 @property (nonatomic, strong) LCScrollController<LCCItyTableViewControllerDelegate> *scrollController;
+@property (nonatomic, strong) LCCItyTableViewController *cityTableController;
 /**
  *  控制分享功能
  */
@@ -171,6 +174,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    NSMutableString *userID = [NSMutableString new];
+    _userID = userID;
     
     /**  分享设置  **/
     _appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -180,16 +185,6 @@
     
     
     /*  初始城市数组  */
-#warning 这里初始化读取城市信息
-    if (self.cityArray.count <= 0) {
-        //①从数据库中读取，游客信息
-        for (int i = 0; i < 9 ; i++) {
-            LCCityName *cityName = [LCCityName city];
-            cityName.city_num = [NSString stringWithFormat:@"%d",101020500 + i * 100];
-            cityName.name = [LCCityName getNameBynum:cityName.city_num];
-            [self.cityArray addObject:cityName];
-        }
-    }
     
     //②添加当前位置城市
     LCLocationController *locationControoler = [[LCLocationController alloc]init];
@@ -330,7 +325,6 @@ static bool canTurn = YES;
 {
     //数据处理
     [self removeFaultData];
-    
     NSMutableArray *array = [NSMutableArray array];
     for (LCCityName *cityName in self.cityArray) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -338,7 +332,21 @@ static bool canTurn = YES;
         [dic setObject:cityName.city_num forKey:@"city_num"];
         [array addObject:dic];
     }
-    [array writeToFile:[self cityArraySavePath] atomically:YES];
+    if (_isLogin) {//已经登录
+        NSMutableArray *userCityNameArray = [NSMutableArray array];
+        for (LCCityName *cityName in _cityArray) {
+            LCUserCity *userCity = [LCUserCity new];
+            userCity.userID = _userID;
+            userCity.cityNum = cityName.city_num;
+            userCity.cityName = cityName.name;
+            [userCityNameArray addObject:userCity];
+        }
+        [LCUserCity saveOrUpdateCityArrayByUserID:_userID cityArray:userCityNameArray];
+    }
+    else//没有登录
+    {
+        [array writeToFile:[self cityArraySavePath] atomically:YES];
+    }
 }
 
 /**
@@ -375,12 +383,34 @@ static bool canTurn = YES;
 -(NSMutableArray *)cityArray
 {
     if (_cityArray == nil) {
-        NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:[self cityArraySavePath]];
         _cityArray = [NSMutableArray array];
         
-        for (NSDictionary *dic in array) {
-            LCCityName *cityName = [LCCityName cityWithDic:dic];
-            [_cityArray addObject:cityName];
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        NSDictionary *dic = [def valueForKeyPath:@"userInfo"];
+        if (dic != nil)//上次有用户登录
+        {
+             /**  自动登录以后  **/
+            _isLogin = YES;
+            //1.冲数据库读取队列
+            NSString *userID = [dic valueForKeyPath:@"ID"];
+            _userID = userID;
+            NSArray *userCityArray = [LCUserCity cityArrayByUserID:userID];
+            for (LCUserCity *userCity in userCityArray) {
+                LCCityName *userCityName = [LCCityName new];
+                userCityName.name = userCity.cityName;
+                userCityName.city_num = userCity.cityNum;
+                [_cityArray addObject:userCityName];
+            }
+        }
+        else//没有用户登录
+        {
+            /**  没有登录的情况下  **/
+            _isLogin = NO;
+            NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:[self cityArraySavePath]];
+            for (NSDictionary *dic in array) {
+                LCCityName *cityName = [LCCityName cityWithDic:dic];
+                [_cityArray addObject:cityName];
+            }
         }
     }
     return _cityArray;
@@ -415,6 +445,7 @@ static BOOL ScrollControllanimating = NO;//控制设置返回动画播放
         else
         {
             _appearCity.topTitle = @"";
+            _appearCity.city_num = @"-110111111";
         }
         _playerController.movietType = _appearCity.getBackGroudVedioName;
         [self savePlist];
@@ -512,10 +543,10 @@ static bool HorizontalScrollViewBeginScroll = NO;
     {
         scrollController = [[LCScrollController alloc]initWithTypes:LCScrollTypeRight];
         LCCItyTableViewController *cityTableController = [LCCItyTableViewController new];
+        [self addChildViewController:cityTableController];
         cityTableController.cityArray = _cityArray;
         cityTableController.delegate = (id<LCCItyTableViewControllerDelegate>)scrollController;
         scrollController.tableView = [cityTableController.view.subviews firstObject];
-        [self addChildViewController:cityTableController];
     }
     _horizontalScrollView.scrollEnabled = NO;
     //暂停视频
@@ -529,7 +560,9 @@ static bool HorizontalScrollViewBeginScroll = NO;
     UIImage *image = [self imageFromView:self.view];
     scrollController.contentImage = image;
     scrollController.delegate = self;
-    self.scrollController = scrollController;
+    self.scrollController.tableView = nil;
+    self.scrollController = nil;
+    self.scrollController = (LCScrollController<LCCItyTableViewControllerDelegate> *)scrollController;
 
     [self.view addSubview:scrollController.view];
 }

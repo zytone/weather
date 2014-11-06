@@ -122,6 +122,35 @@
     return result;
 }
 
++(FutureWeekWeahterInfo *)searchTodayWeatherByCityName:(NSString *)cityName
+{
+    
+    FutureWeekWeahterInfo *info = [FutureWeekWeahterInfo new];
+    info.citynm = cityName;
+    NSMutableArray *result = [NSMutableArray array];
+    
+    
+    for (NSDictionary *dic in [LRWDBHelper findDataFromTable:@"week_weather" byExample:info]) {
+            FutureWeekWeahterInfo *f = [FutureWeekWeahterInfo new];
+            [f setValuesForKeysWithDictionary:dic];
+            [result addObject:f];
+        }
+        
+        // 排序
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"days" ascending:YES];//其中，price为数组中的对象的属性，这个针对数组中存放对象比较更简洁方便
+        NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:&sortDescriptor count:1];
+        [result sortUsingDescriptors:sortDescriptors];
+     if(result.count>0)
+     {
+      return result[0];
+     }
+      else
+      {
+        return nil;
+      }
+}
+
+
 +(NSArray *)searchLatestOneWeekWeatherByCityId:(NSString *)cityid Date:(NSString *)date
 {
     NSMutableArray *result = [NSMutableArray array];

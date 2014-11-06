@@ -313,6 +313,7 @@
 		71CBC52F1A0728A200F79165 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52B1A0728A200F79165 /* MBProgressHUD+MJ.m */; };
 		71CBC5301A0728A200F79165 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */; };
 		71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CBC52E1A0728A200F79165 /* MBProgressHUD.m */; };
+		71CC56321A0B227200EBCA2A /* LCUserCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 71CC56311A0B227200EBCA2A /* LCUserCity.m */; };
 		71E046D21A08771400C7E03E /* fenxiangdaohanglan.png in Resources */ = {isa = PBXBuildFile; fileRef = 71E046D11A08771400C7E03E /* fenxiangdaohanglan.png */; };
 /* End PBXBuildFile section */
 
@@ -709,6 +710,8 @@
 		71CBC52C1A0728A200F79165 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		71CBC52D1A0728A200F79165 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		71CBC52E1A0728A200F79165 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		71CC56301A0B227200EBCA2A /* LCUserCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LCUserCity.h; sourceTree = "<group>"; };
+		71CC56311A0B227200EBCA2A /* LCUserCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LCUserCity.m; sourceTree = "<group>"; };
 		71E046D11A08771400C7E03E /* fenxiangdaohanglan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fenxiangdaohanglan.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1295,6 +1298,8 @@
 				564F69881A038BB000F80CE4 /* NowWeatherInfo.m */,
 				0F26EB8C19F8E6660041314D /* User.h */,
 				0F26EB8D19F8E6660041314D /* User.m */,
+				71CC56301A0B227200EBCA2A /* LCUserCity.h */,
+				71CC56311A0B227200EBCA2A /* LCUserCity.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1831,6 +1836,7 @@
 				71CBC5311A0728A200F79165 /* MBProgressHUD.m in Sources */,
 				564F69B71A038C4700F80CE4 /* LifeAdviceView.m in Sources */,
 				565419111A0A47710089E9CF /* ReSetPasswdViewController.m in Sources */,
+				71CC56321A0B227200EBCA2A /* LCUserCity.m in Sources */,
 				564F698D1A038BB000F80CE4 /* NowWeatherInfo.m in Sources */,
 				0F1D833F19FF24F4005208BF /* AddCityViewController.m in Sources */,
 				565419211A0A5CC30089E9CF /* WeatherClockViewController.m in Sources */,

@@ -10,9 +10,12 @@
 #import "LCCityName.h"
 #import "LCCityCell.h"
 #import "AddCityViewController.h"
-
+#import "LCWeatherDetailsController.h"
+#import "NowWeatherInfo.h"
+#import "FutureWeekWeahterInfo.h"
 @interface LCCItyTableViewController ()<UITableViewDelegate,UITableViewDataSource,AddCityViewControllerDelegate>
 @property (nonatomic , weak) UIView *headView;
+@property (nonatomic , weak) UIButton *leftBtn;
 @end
 
 @implementation LCCItyTableViewController
@@ -46,6 +49,7 @@
     
     UIFont *font = [UIFont systemFontOfSize:13];
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    _leftBtn = leftBtn;
     leftBtn.frame = CGRectMake(30, 15, 30, 30);
     [leftBtn addTarget:self action:@selector(edit:) forControlEvents:UIControlEventTouchUpInside];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"person-titlebar-edit"] forState:UIControlStateNormal];
@@ -95,9 +99,9 @@
 }
 
 #pragma mark - My button action
+ static BOOL firstClick = YES;
 - (void)edit:(UIButton *)sender
 {
-    static BOOL firstClick = YES;
     [_tableView setEditing:!_tableView.isEditing animated:YES];
     
     if (firstClick)
@@ -131,7 +135,6 @@
     newCity.name = city;
     newCity.city_num = [LCCityName getNumByName:city];
     
-    
     /**  城市队列处理  **/
     LCCityName *repeatCity = nil;
     for (LCCityName *oldCity in self.cityArray) {
@@ -156,7 +159,13 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     LCCityCell *cell = [LCCityCell cityCellWithTableView:tableView];
-    cell.titleLable.text = [_cityArray[indexPath.row] name];
+    LCWeatherDetailsController *weatherController = [LCWeatherDetailsController new];
+    weatherController.city_num = [_cityArray[indexPath.row] city_num];
+    [weatherController getDataByCityNum:[_cityArray[indexPath.row] name] data:^(FutureWeekWeahterInfo *weekInfo, NowWeatherInfo *nowInfo) {
+        cell.titleLable.text = [_cityArray[indexPath.row] name];
+        cell.detailLable.text = weekInfo.temperature;
+        cell.image.image = [UIImage imageNamed:weekInfo.weather_icon];
+        }];
     return cell;
 }
 
@@ -216,6 +225,7 @@
 -(void)dealloc
 {
     [self removeObserver:self forKeyPath:@"view.frame"];
+    firstClick = YES;
     NSLog(@"被销毁");
 }
 

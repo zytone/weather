@@ -88,5 +88,7 @@
 //根据城市id 和count查出 count条天气数据
 +(NSArray*)searchLatestFutureWeatherByCityId:(NSString*)cityid  Count:(int)count;
 
++(FutureWeekWeahterInfo *)searchTodayWeatherByCityName:(NSString *)cityName;
+
 +(void)deletDataByCityName:(NSString*)cityId;
 @end

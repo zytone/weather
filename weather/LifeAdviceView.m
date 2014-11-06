@@ -139,7 +139,7 @@
     }else
     {
         // 隐藏各个生活建议按钮
-        for(int i = 0; i <lifeAInfos.count;i++)
+        for(int i = 0; i <ADVICESCOUNT;i++)
         {
             UIButton *btn = (UIButton *)[self viewWithTag:i +  1500];
             btn.hidden = YES;

@@ -369,12 +369,13 @@
 #pragma mark --UIAlertView 代理--
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSLog(@"%d",buttonIndex);
     if (buttonIndex == 1) {
         [self tapAction];
         //判断代理是否实现了代理方法
         if ([self.delegate respondsToSelector:@selector(AddCityViewController:ReloadCityData:)]) {
             NSIndexPath *indexpath = [self.searchResult indexPathForSelectedRow];
-            [self.delegate AddCityViewController:self ReloadCityData:self.firstTierCitys[indexpath.row]];
+            [self.delegate AddCityViewController:self ReloadCityData:self.firstTierCitysName[indexpath.row]];
         }
         return;
     }

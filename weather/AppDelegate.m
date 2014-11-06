@@ -230,10 +230,10 @@
 {
     [ShareSDK registerApp:@"40c7d96e3a0f"];
     
-    //当使用新浪微博客户端分享的时候需要按照下面的方法来初始化新浪的平台
-    [ShareSDK  connectSinaWeiboWithAppKey:@"568898243"
-                                appSecret:@"38a4f8204cc784f81f9f0daaf31e02e3"
-                              redirectUri:@"http://www.sharesdk.cn"
+    //当使用新浪微博客户端分享的时候需要按照下面的方法来初始化新浪的平台568898243   38a4f8204cc784f81f9f0daaf31e02e3 @"http://www.sharesdk.cn"
+    [ShareSDK  connectSinaWeiboWithAppKey:AppKey
+                                appSecret:APPSecret
+                              redirectUri:RedirectURL
                               weiboSDKCls:[WeiboSDK class]];
     /**
      连接QQ空间应用以使用相关功能，此应用需要引用QZoneConnection.framework

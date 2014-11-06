@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "LCHeadView.h"
+#import "FutureWeekWeahterInfo.h"
+
+
 /**
  *  刷新距离
  */
