@@ -96,4 +96,8 @@
         [self.delegate locationController:self result:dic];
     }
 }
+-(void)dealloc
+{
+    MyLog(@"%@销毁了",self);
+}
 @end

@@ -10,4 +10,7 @@
 
 @interface AlertsViewController : UIViewController
 
+
+@property(nonatomic,retain)NSMutableString *curLocationweatherInfo;
+-(void)getCurrLocationWeatherInfo;
 @end
