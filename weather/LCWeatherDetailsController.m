@@ -15,7 +15,7 @@
 #import "WeekWeatherView.h"
 #import "GetWeatherData.h"
 #import "GetWeatherData.h"
-#import "FutureWeekWeahterInfo.h"
+
 #import "LifeAdviceDetailsController.h"
 
 @interface LCWeatherDetailsController () <UIScrollViewDelegate,LCHeadViewDelegate,GetWeatherDataDelegate,LifeAdviceViewDelegate,WeatherBriefViewDelegate>

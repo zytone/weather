@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "weather/LCMainWeatherController.m"
-            timestampString = "436869868.312521"
+            timestampString = "436951539.524772"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "583"
-            endingLineNumber = "583"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "-weatherDetailsController:scrollViewDidEndDragging:"
             landmarkType = "5">
          </BreakpointContent>
@@ -48,6 +48,22 @@
             startingLineNumber = "169"
             endingLineNumber = "169"
             landmarkName = "-onResults:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "weather/LifeAdviceView.m"
+            timestampString = "436951658.839816"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
+            landmarkName = "-setLifeAInfos:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
