@@ -9,6 +9,11 @@
 #import "AlertsViewController.h"
 #import "NotificationTableCellTableViewCell.h"
 #import "NotificationOperate.h"
+#import "LCLocationController.h"
+#import "LCWeatherDetailsController.h"
+#import "MBProgressHUD/MBProgressHUD+MJ.h"
+#import "NowWeatherInfo.h"
+#import "FutureWeekWeahterInfo.h"
 
 #define VIEW_WIDTH self.view.frame.size.width
 #define VIEW_HEIGHT self.view.frame.size.height
@@ -21,7 +26,7 @@
 #define TIME @"notificationTime"
 #define STATUS @"switchStatus"
 
-@interface AlertsViewController ()<UITableViewDataSource,NotificationTableCellTableViewCellDelegate,UITableViewDelegate>
+@interface AlertsViewController ()<UITableViewDataSource,NotificationTableCellTableViewCellDelegate,UITableViewDelegate,LCLocationControllerDelegate>
 {
     UIDatePicker *dates;
     UIView *dateView;
@@ -179,7 +184,7 @@
     
     [self.view sendSubviewToBack:dateTableView];
     
-    
+    [self getCurrLocationWeatherInfo];
 }
 
 /**
@@ -236,8 +241,53 @@
 
 }
 
+#pragma mark - 获取所定位城市的天气情况
+-(void)getCurrLocationWeatherInfo
+{
+    LCLocationController *loca = [LCLocationController new];
+    // 获取位置信息
+    [loca update];
+    [self addChildViewController:loca];
+    [MBProgressHUD hideHUD];
+    loca.delegate =self;
+}
 
+-(void)locationController:(LCLocationController *)locationController result:(NSDictionary *)result
+{
+    NSMutableString *cityName1 =result[@"city"];
+    
+    
+    NSArray *arry =[cityName1 componentsSeparatedByString:@"."];
+    
+    NSString *cityName = [arry lastObject];
 
+    if(cityName)
+    {
+        NowWeatherInfo *nowInfo = [NowWeatherInfo searchLatestWeatherInfoByCityName:cityName];
+        FutureWeekWeahterInfo *todayInfo = [FutureWeekWeahterInfo searchTodayWeatherByCityName:cityName];
+        
+        NSMutableString *weatherInfo = [NSMutableString string];
+        if(nowInfo)
+        {
+            [weatherInfo appendFormat:@"%@,",nowInfo.city];
+            [weatherInfo appendFormat:@"体感 %@℃,",nowInfo.temp];
+        }
+        if(todayInfo)
+        {
+            [weatherInfo appendFormat:@"%@,",todayInfo.days];
+            [weatherInfo appendFormat:@"%@,",todayInfo.weather];
+            [weatherInfo appendFormat:@"%@.",todayInfo.temperature];
+        }
+        if(!weatherInfo)
+        {
+            [weatherInfo appendString:@"天气信息不可用"];
+        }
+        self.curLocationweatherInfo = weatherInfo;
+    }
+    
+#warning 输出天气信息在这里
+    NSLog(@" 输出天气信息在这里 %@",self.curLocationweatherInfo);
+}
 
 /**
  *  设置tableView的cell

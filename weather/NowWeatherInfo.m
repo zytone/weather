@@ -68,6 +68,19 @@
         return nil;
     }
 }
-
++(NowWeatherInfo *) searchLatestWeatherInfoByCityName:(NSString*)cityName
+{
+    NowWeatherInfo *nowWeatherInfo = [NowWeatherInfo new];
+    nowWeatherInfo.city = cityName;
+    NSArray *array = [LRWDBHelper findDataFromTable:@"now_weather" byExample:nowWeatherInfo];
+    if (array.count > 0) {
+        [nowWeatherInfo setValuesForKeysWithDictionary:[array lastObject]];
+        return nowWeatherInfo;
+    }
+    else
+    {
+        return nil;
+    }
+}
 
 @end
