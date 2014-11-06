@@ -374,6 +374,7 @@
         NSString *key = @"userInfo";
         NSString *userKey = @"userName";
         NSString *photoKey = @"photoName";
+        NSString *ID = @"ID";
         
         // 获取输入的文本
         NSString *name = self.userFiled.text;
@@ -391,7 +392,9 @@
         
         NSString *photo = dicUser[@"photo"];
         
-        NSDictionary *dic = @{userKey: name, photoKey : photo};
+        NSNumber *IDValue = [NSNumber numberWithInt:(int)dicUser[@"ID"]];
+        
+        NSDictionary *dic = @{userKey: name, photoKey : photo, ID : IDValue};
         
         // 设置数据
         [userDefaults setObject:dic forKey:key];

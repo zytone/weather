@@ -123,7 +123,7 @@
         self.WS.text = nowWeatherInfo.WS;
 
         // 发布时间 label
-        NSMutableString *time = [NSMutableString stringWithString:@"今日 "];
+        NSMutableString *time = [NSMutableString stringWithString:@""];
         [time appendString:nowWeatherInfo.time];
         [time appendString:@" 发布"];
         self.time.text = time;
@@ -221,7 +221,7 @@ extern NSString *flagCityID = nil;  // 标识是否播放当前的城市天气�
     }
     
     // 播放天气信息准备
-    NSMutableString *info = [NSMutableString stringWithString:@"，，，，，您好,小天气为您播报，今天"];
+    NSMutableString *info = [NSMutableString stringWithString:@"，，，，，您好,茶语天气为您播报，今天"];
     
     NSString *time =self.nowWeatherInfo.time;
     NSArray *timeArry = [time componentsSeparatedByString:@":"];

@@ -33,7 +33,7 @@
     self.navigationController.navigationBarHidden = NO;
     
     
-    UIColor *bgc = [[UIColor alloc] initWithRed:242.0/255 green:242.0/255 blue:242.0/255 alpha:1];
+    UIColor *bgc = [[UIColor alloc] initWithRed:225.0/255 green:225.0/255 blue:225.0/255 alpha:1];
     
     self.view.backgroundColor = bgc;
     
@@ -51,7 +51,7 @@
     
 #pragma mark -头像
     
-    UIImage  *head = [UIImage imageNamed:@"icon2.png"];
+    UIImage  *head = [UIImage imageNamed:@"icon_114.png"];
     
     UIImageView *headView = [[UIImageView alloc]initWithImage:head];
     

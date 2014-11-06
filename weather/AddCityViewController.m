@@ -9,8 +9,9 @@
 #import "AddCityViewController.h"
 #import "LRWDBHelper.h"
 #import <sqlite3.h>
+#import "UIImage+BlurImage.h"
 
-@interface AddCityViewController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UITextFieldDelegate>
+@interface AddCityViewController ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,UIAlertViewDelegate,UITextFieldDelegate,UINavigationControllerDelegate>
 {
     //上一个字符串
     NSString *_last;
@@ -46,6 +47,30 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([UIDevice currentDevice].systemVersion.intValue >= 7) {
+        self.edgesForExtendedLayout = UIRectEdgeNone;
+        
+    }
+    self.automaticallyAdjustsScrollViewInsets = NO;
+//    self.navigationController.navigationBar.hidden = YES;
+    
+//    UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1, 1)];
+//    
+//    imgView.image = [UIImage ImageWithColor:[UIColor clearColor] frame:CGRectMake(0, 0, 1, 1)];
+//    
+//    
+//    self.navigationController.navigationBar.alpha = 0.2;
+//    
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage ImageWithColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0] frame:CGRectMake(0, 0, 1, 1)] forBarMetrics:UIBarMetricsDefault];
+//    
+//    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+    
+//    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.000 green:0.000 blue:0.000 alpha:0.1000];
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor clearColor];
+    
+    self.navigationController.navigationBarHidden = NO;
     
     // 1、背景图片
     UIImageView *bgImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"background.jpg"]];
@@ -408,4 +433,28 @@ int callback(void *para, int count, char ** value, char ** key)
 {
     return YES;
 }
+
+
+#pragma nav的代理
+- (void) navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    // 如果进入的是当前视图控制器
+//    if (viewController == self)
+    if (YES)
+    {
+        // 背景设置为黑色
+        self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.000 green:0.000 blue:0.000 alpha:1.000];
+        // 透明度设置为0.3
+        self.navigationController.navigationBar.alpha = 0.300;
+        // 设置为半透明
+        self.navigationController.navigationBar.translucent = YES;
+    } else {
+        // 进入其他视图控制器
+        self.navigationController.navigationBar.alpha = 1;
+        // 背景颜色设置为系统默认颜色
+        self.navigationController.navigationBar.tintColor = nil;
+        self.navigationController.navigationBar.translucent = NO;
+    }
+}
+
 @end

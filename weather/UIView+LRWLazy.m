@@ -11,6 +11,29 @@
 
 @implementation UIView (LRWLazy)
 #pragma mark UIView - frame(x,y,width,height,size)
+
+-(CGFloat)centerX
+{
+    return self.center.x;
+}
+-(void)setCenterX:(CGFloat)centerX
+{
+    CGPoint point = self.center;
+    point.x = centerX;
+    self.center = point;
+}
+
+-(CGFloat)centerY
+{
+    return self.center.y;
+}
+-(void)setCenterY:(CGFloat)centerY
+{
+    CGPoint point = self.center;
+    point.y = centerY;
+    self.center = point;
+}
+
 -(CGFloat)x
 {
     return self.frame.origin.x;

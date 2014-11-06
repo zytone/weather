@@ -47,6 +47,18 @@ typedef NS_ENUM(NSInteger, LRWImageViewAnimationOptions) {
 @interface UIView (LRWLazy)
 
 /**
+ *  获得center的x
+ */
+-(CGFloat)centerX;
+-(void)setCenterX:(CGFloat)centerX;
+
+/**
+ *  获得center的y
+ */
+-(CGFloat)centerY;
+-(void)setCenterY:(CGFloat)centerY;
+
+/**
  *  获得frame的x
  */
 -(CGFloat)x;

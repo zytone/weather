@@ -23,6 +23,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WXApi.h"
 #import "AddCityViewController.h"
+#import "ShowTipsViewController.h"
 
 #import "LCScrollController.h"
 #import "settingInfo/SettingInfoViewController.h"
@@ -135,13 +136,42 @@
 //    SettingInfoViewController *setting = [SettingInfoViewController new];
 //    
     
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    LCMainWeatherController *main = [LCMainWeatherController new];
+    // 记录登录次数
+    NSNumber *isOpenC = [userDefaults valueForKeyPath:@"opentCount"];
     
-    RootNavigationController *rootNav = [[RootNavigationController alloc] initWithRootViewController:main];
-    
-    self.window.rootViewController = rootNav;
-    
+    if (isOpenC != nil) {
+        
+        LCMainWeatherController *main = [LCMainWeatherController new];
+        
+        RootNavigationController *rootNav = [[RootNavigationController alloc] initWithRootViewController:main];
+        
+        self.window.rootViewController = rootNav;
+
+    }
+    else
+    {
+        
+        // 保存数据
+        NSNumber *isOpen = [NSNumber numberWithBool:YES];
+        
+        [userDefaults setObject:isOpen forKey:@"opentCount"];
+        
+        // 更新数据，本地的
+        [userDefaults synchronize];
+        
+        // 打开引导页
+        ShowTipsViewController *showTips = [ShowTipsViewController new];
+        
+        
+        RootNavigationController *rootNav = [[RootNavigationController alloc] initWithRootViewController:showTips];
+        
+        
+        self.window.rootViewController = rootNav;
+
+    }
+        
 //    self.window.rootViewController = [AddCityViewController new];
 
 //    self.window.rootViewController = [LoginViewController new];
